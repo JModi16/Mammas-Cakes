@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% block meta %}
+    <!-- Default Meta descriptions -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Jitesh Modi">
+    <meta name="description" content="{% block description %}Canons Cakes - fresh and quality cakes for several occasions!{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}cakes, birthday, wedding{% endblock %}">
+    {% endblock %}
+    
+    <title>{% block title %}Canons Cakes{% endblock %}</title>
+    
+    {% block extra_css %}
+    <!-- Additional CSS can be added here -->
+    {% endblock %}
+</head>
+
+<body>
+    {% block header %}
+    <header>
+        <!-- Common header content -->
+    </header>
+    {% endblock %}
+
+    <main>
+        {% block content %}
+        <!-- Page-specific content goes here -->
+        {% endblock %}
+    </main>
+
+    {% block footer %}
+    <footer>
+        <!-- Common footer content -->
+    </footer>
+    {% endblock %}
+
+    {% block extra_js %}
+    <!-- Additional JavaScript can be added here -->
+    {% endblock %}
+</body>
+
+</html>
