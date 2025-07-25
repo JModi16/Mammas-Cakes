@@ -14,3 +14,41 @@ h1, h2, h3 {
 .purple-bg {
     background-color: #fde5ee !important;
 }
+
+/* ------------------- Search bar */
+.search-box {
+    height: 42px;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.50) inset;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.search-box input {
+    border: none;
+    background: none;
+    padding: 5px;
+    padding-left: 10px;
+    flex-grow: 1;
+}
+
+.search-box input:focus,
+.search-box input:focus-visible {
+    box-shadow: 0px 0px 0px 2px #fde5ee inset;
+    border: none !important;
+    outline: none !important;
+}
+
+.search-box button {
+    background-color: #fde5ee;
+    border-radius: 0;
+    width: 42px;
+    border: solid 1px #000;
+}
+
+.search-box button:hover,
+.search-box button:active,
+.search-box button:focus {
+    background: #e9c2cf;
+    color: #fff;
+}
