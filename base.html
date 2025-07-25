@@ -33,6 +33,14 @@
     <main>
         {% block content %}
         <!-- Page-specific content goes here -->
+          <!-- Logo  -->
+        <div class="row bg-white pt-lg-2 d-none d-lg-flex my-2">
+            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-start">
+                <a href="{% url 'home' %}" class="nav-link main-logo">
+                    <h1 class="logo-font text-black my-0">Mammas Cakes</h1>
+                </a>
+            </div>
+
          <!-- Search Box -->
             <div class="col-12 col-lg-4 my-auto">
                 <form method="GET" action="{% url 'products' %}">
