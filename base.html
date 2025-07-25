@@ -33,6 +33,19 @@
     <main>
         {% block content %}
         <!-- Page-specific content goes here -->
+         <!-- Search Box -->
+            <div class="col-12 col-lg-4 my-auto">
+                <form method="GET" action="{% url 'products' %}">
+                    <div class="search-box">
+                        <input type="text" name="q" placeholder="Search our products" aria-label="Search our products">
+                        <button type="submit">
+                            <i class="fas fa-search"></i>
+                            <span class="sr-only">Submit your search</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
         {% endblock %}
     </main>
 
