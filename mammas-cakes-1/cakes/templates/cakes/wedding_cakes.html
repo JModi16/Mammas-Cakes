@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% block meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wedding Cakes - Mammas Cakes</title>
+    {% endblock %}
+    
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock %}
+</head>
+
+<body>
+    {% block header %}
+    {% include 'cakes/base.html' %}
+    {% endblock %}
+
+    <main>
+        {% block content %}
+        <h1 class="text-center">Wedding Cakes</h1>
+        <div class="container">
+            <div class="row">
+                {% for cake in wedding_cakes %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="{% static 'images/wedding_cakes/'|add:cake.image %}" class="card-img-top" alt="{{ cake.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ cake.name }}</h5>
+                            <p class="card-text">{{ cake.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endblock %}
+    </main>
+
+    {% block footer %}
+    <footer>
+        <p class="text-center">© 2023 Mammas Cakes. All rights reserved.</p>
+    </footer>
+    {% endblock %}
+</body>
+
+</html>

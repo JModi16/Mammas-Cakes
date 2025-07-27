@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% block meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>All Cakes & Treats - Mammas Cakes</title>
+    {% endblock %}
+    
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock %}
+</head>
+
+<body>
+    {% block header %}
+    {% include 'cakes/base.html' %}
+    {% endblock %}
+
+    <main>
+        {% block content %}
+        <h1 class="text-center">All Cakes & Treats</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Birthday Cakes</h2>
+                    <img src="{% static 'images/birthday_cakes/birthdaycake1webp.webp' %}" alt="Birthday Cake 1" class="img-fluid">
+                    <img src="{% static 'images/birthday_cakes/birthdaycake2.webp' %}" alt="Birthday Cake 2" class="img-fluid">
+                    <img src="{% static 'images/birthday_cakes/birthdaycake3.webp' %}" alt="Birthday Cake 3" class="img-fluid">
+                </div>
+                <div class="col-md-4">
+                    <h2>Wedding Cakes</h2>
+                    <img src="{% static 'images/wedding_cakes/wedding cake.webp' %}" alt="Wedding Cake" class="img-fluid">
+                </div>
+                <div class="col-md-4">
+                    <h2>Treats</h2>
+                    <img src="{% static 'images/treats/heart-cake.png' %}" alt="Treat" class="img-fluid">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Vegan Cakes</h2>
+                    <img src="{% static 'images/vegan_cakes/vegan_cake_example.webp' %}" alt="Vegan Cake" class="img-fluid">
+                </div>
+                <div class="col-md-4">
+                    <h2>All Cakes & Treats</h2>
+                    <img src="{% static 'images/all_cakes_treats/all_cakes_example.webp' %}" alt="All Cakes & Treats" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </main>
+
+    {% block footer %}
+    <footer>
+        <p class="text-center">© 2023 Mammas Cakes. All rights reserved.</p>
+    </footer>
+    {% endblock %}
+</body>
+
+</html>

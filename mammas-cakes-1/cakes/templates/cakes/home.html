@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mammas Cakes - Home</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    {% include 'cakes/base.html' %}
+
+    <main class="container">
+        <h1 class="text-center">Welcome to Mammas Cakes</h1>
+        <p class="text-center">Explore our delicious cake categories!</p>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Birthday Cakes</h2>
+                <a href="{% url 'birthday_cakes' %}">
+                    <img src="{% static 'images/birthday_cakes/birthdaycake1webp.webp' %}" alt="Birthday Cake" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-md-4">
+                <h2>Wedding Cakes</h2>
+                <a href="{% url 'wedding_cake' %}">
+                    <img src="{% static 'images/wedding_cakes/wedding cake.webp' %}" alt="Wedding Cake" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-md-4">
+                <h2>Treats</h2>
+                <a href="{% url 'treats' %}">
+                    <img src="{% static 'images/treats/heart-cake.png' %}" alt="Treats" class="img-fluid">
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Vegan Cakes</h2>
+                <a href="{% url 'vegan_cakes' %}">
+                    <img src="{% static 'images/vegan_cakes/BlackForestCake.webp' %}" alt="Vegan Cake" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-md-4">
+                <h2>All Cakes & Treats</h2>
+                <a href="{% url 'all_cakes_treats' %}">
+                    <img src="{% static 'images/all_cakes_treats/birthdaycake2.webp' %}" alt="All Cakes & Treats" class="img-fluid">
+                </a>
+            </div>
+        </div>
+    </main>
+
+    {% block footer %}
+    <footer class="text-center">
+        <p>&copy; 2023 Mammas Cakes. All rights reserved.</p>
+    </footer>
+    {% endblock %}
+</body>
+
+</html>

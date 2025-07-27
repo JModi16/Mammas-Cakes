@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vegan Cakes - Mammas Cakes</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    {% include 'cakes/base.html' %}
+
+    <main class="container">
+        <h1 class="text-center">Vegan Cakes</h1>
+        <div class="row">
+            {% for cake in vegan_cakes %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="{% static 'images/vegan_cakes/'|add:cake.image %}" class="card-img-top" alt="{{ cake.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ cake.name }}</h5>
+                        <p class="card-text">{{ cake.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>
+        {% include 'cakes/footer.html' %}
+    </footer>
+</body>
+
+</html>
