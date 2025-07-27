@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
+def home(request):
+    return render(request, 'cakes/home.html')
+
 def birthday_cakes(request):
     return render(request, 'cakes/birthday_cakes.html')
 
@@ -14,3 +17,7 @@ def vegan_cakes(request):
 
 def all_cakes_treats(request):
     return render(request, 'cakes/all_cakes_treats.html')
+
+def products(request):
+    query = request.GET.get('q', '')
+    return render(request, 'cakes/products.html', {'query': query})
