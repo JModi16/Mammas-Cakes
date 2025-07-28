@@ -22,7 +22,7 @@
                 {% for cake in birthday_cakes %}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{% static 'images/birthday_cakes/'|add:cake.image %}" class="card-img-top" alt="{{ cake.name }}">
+                        <img src="{% static 'images/birthday_cakes/'%}" class="card-img-top" alt="{{ cake.name }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ cake.name }}</h5>
                             <p class="card-text">{{ cake.description }}</p>
