@@ -20,20 +20,75 @@
 
     <main>
         {% block content %}
-        <h1 class="text-center">Wedding Cakes</h1>
-        <div class="container">
+        <div class="container my-5">
             <div class="row">
-                {% for cake in wedding_cakes %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="{% static 'images/wedding_cakes/'|add:cake.image %}" class="card-img-top" alt="{{ cake.name }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ cake.name }}</h5>
-                            <p class="card-text">{{ cake.description }}</p>
+                <div class="col-12">
+                    <h1 class="text-center mb-4">Wedding Cakes</h1>
+                    <p class="text-center lead mb-5">Elegant and beautiful cakes for your special day</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Wedding Cake 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/documents/weddingcake.webp" class="card-img-top" alt="Elegant Wedding Cake" style="height: 250px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Classic Tiered Wedding Cake</h5>
+                            <p class="card-text flex-grow-1">Elegant 3-tier wedding cake with white fondant and delicate decorations</p>
+                            <p class="card-text"><strong>£89.99</strong></p>
+                            <button class="btn btn-primary mt-auto">Order Now</button>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
+
+                <!-- Wedding Cake 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/documents/wedding2.webp" class="card-img-top" alt="Floral Wedding Cake" style="height: 250px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Floral Wedding Cake</h5>
+                            <p class="card-text flex-grow-1">Beautiful wedding cake adorned with fresh flowers and elegant piping</p>
+                            <p class="card-text"><strong>£99.99</strong></p>
+                            <button class="btn btn-primary mt-auto">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wedding Cake 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/documents/wedding3.webp" class="card-img-top" alt="Rustic Wedding Cake" style="height: 250px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Rustic Wedding Cake</h5>
+                            <p class="card-text flex-grow-1">Semi-naked cake style with fresh berries and natural decorations</p>
+                            <p class="card-text"><strong>£79.99</strong></p>
+                            <button class="btn btn-primary mt-auto">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wedding Cake 4 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="/documents/wedding4.webp" class="card-img-top" alt="Modern Wedding Cake" style="height: 250px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Modern Wedding Cake</h5>
+                            <p class="card-text flex-grow-1">Contemporary design with geometric patterns and metallic accents</p>
+                            <p class="card-text"><strong>£109.99</strong></p>
+                            <button class="btn btn-primary mt-auto">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            <!-- Call to Action Section -->
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <div class="bg-light p-4 rounded">
+                        <h3>Planning your special day?</h3>
+                        <p>We create bespoke wedding cakes tailored to your vision and taste!</p>
+                        <a href="{% url 'contact' %}" class="btn btn-success btn-lg">Contact Us for Custom Design</a>
+                    </div>
+                </div>
             </div>
         </div>
         {% endblock %}
