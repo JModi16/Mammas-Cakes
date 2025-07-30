@@ -1,13 +1,13 @@
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('vegan-cakes/', views.vegan_cakes, name='vegan_cakes'),
-    path('birthday-cakes/', views.birthday_cakes, name='birthday_cakes'),
-    path('wedding-cakes/', views.wedding_cakes, name='wedding_cake'),
-    path('treats/', views.treats, name='treats'),
-    path('all-cakes-treats/', views.all_cakes_treats, name='all_cakes_treats'),
-    path('products/', views.products, name='products'),
-    # Add other URLs
+    path('admin/', admin.site.urls),
+    path('', include('cakes.urls')),  # This includes the app URLs
 ]
+
+# Serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
