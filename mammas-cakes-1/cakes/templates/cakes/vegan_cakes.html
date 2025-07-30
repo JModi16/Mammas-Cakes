@@ -1,26 +1,18 @@
-<!doctype html>
-<html lang="en">
+{% load static %}
+{% extends 'cakes/base.html' %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Vegan Cakes - Mammas Cakes{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% load static %}
-</head>
+{% block title %}Vegan Cakes - Mammas Cakes{% endblock %}
+{% block description %}Delicious vegan cakes made with plant-based ingredients - dairy-free and egg-free options{% endblock %}
+{% block keywords %}vegan cakes, plant-based cakes, dairy-free cakes, egg-free cakes{% endblock %}
 
-<body>
-    {% include 'cakes/base.html' %}
-
-    <main class="container">
-        {% block content %}
-        <div class="container my-5">
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="text-center mb-4">Vegan Cakes</h1>
-                    <p class="text-center lead mb-5">Delicious plant-based cakes that everyone will love</p>
-                </div>
-            </div>
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">Vegan Cakes</h1>
+            <p class="text-center lead mb-5">Delicious plant-based cakes that everyone will love</p>
+        </div>
+    </div>
 
             <div class="row g-4">
                 <!-- Vegan Cake 1 -->
@@ -65,6 +57,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
 
                 <!-- Call to Action Section -->
@@ -78,13 +71,4 @@
                     </div>
                 </div>
             </div>
-        </div>
         {% endblock %}
-    </main>
-
-    <footer>
-        {% include 'cakes/footer.html' %}
-    </footer>
-</body>
-
-</html>
