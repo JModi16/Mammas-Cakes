@@ -25,16 +25,10 @@
                     <p class="card-text flex-grow-1">Classic Vanilla Cupcakes made using the finest ingredients</p>
                     <p class="card-text"><strong>£12.99</strong></p>
                     
-                    <!-- Size and Quantity Selector -->
+                    <!-- Quantity Selector Only -->
                     <div class="mb-3">
                         <label class="form-label fw-bold">SIZE: 12 MINI (1 DOZEN)</label>
-                        <div class="btn-group d-block mb-2" role="group">
-                            <input type="radio" class="btn-check" name="size1" id="size12-1" value="12" checked>
-                            <label class="btn btn-outline-dark" for="size12-1">12 Mini (1 dozen)</label>
-                
-                        </div>
-                        
-                        <div class="d-flex align-items-center justify-content-center">
+                        <div class="d-flex align-items-center justify-content-center mt-2">
                             <button class="btn btn-outline-secondary btn-sm" type="button" onclick="decreaseQuantity('qty1')">-</button>
                             <input type="number" class="form-control mx-2 text-center" id="qty1" value="1" min="1" max="10" style="width: 60px;">
                             <button class="btn btn-outline-secondary btn-sm" type="button" onclick="increaseQuantity('qty1')">+</button>
@@ -56,16 +50,10 @@
                     <p class="card-text flex-grow-1">Rich chocolate cupcakes with creamy chocolate frosting</p>
                     <p class="card-text"><strong>£14.99</strong></p>
                     
-                    <!-- Size and Quantity Selector -->
+                    <!-- Quantity Selector Only -->
                     <div class="mb-3">
                         <label class="form-label fw-bold">SIZE: 12 MINI (1 DOZEN)</label>
-                        <div class="btn-group d-block mb-2" role="group">
-                            <input type="radio" class="btn-check" name="size2" id="size12-2" value="12" checked>
-                            <label class="btn btn-outline-dark" for="size12-2">12 Mini (1 dozen)</label>
-
-                            </div>
-                        
-                        <div class="d-flex align-items-center justify-content-center">
+                        <div class="d-flex align-items-center justify-content-center mt-2">
                             <button class="btn btn-outline-secondary btn-sm" type="button" onclick="decreaseQuantity('qty2')">-</button>
                             <input type="number" class="form-control mx-2 text-center" id="qty2" value="1" min="1" max="10" style="width: 60px;">
                             <button class="btn btn-outline-secondary btn-sm" type="button" onclick="increaseQuantity('qty2')">+</button>
@@ -87,17 +75,10 @@
                     <p class="card-text flex-grow-1">Classic Red Velvet Cupcakes made using the finest ingredients, Moist Red Velvet sponge and Cream Cheese icing</p>
                     <p class="card-text"><strong>£14.99</strong></p>
                     
-                    <!-- Size and Quantity Selector -->
+                    <!-- Quantity Selector Only -->
                     <div class="mb-3">
                         <label class="form-label fw-bold">SIZE: 12 MINI (1 DOZEN)</label>
-                        <div class="btn-group d-block mb-2" role="group">
-                            <input type="radio" class="btn-check" name="size3" id="size12-3" value="12" checked>
-                            <label class="btn btn-outline-dark" for="size12-3">12 Mini (1 dozen)</label>
-                            
-                            
-                        </div>
-                        
-                        <div class="d-flex align-items-center justify-content-center">
+                        <div class="d-flex align-items-center justify-content-center mt-2">
                             <button class="btn btn-outline-secondary btn-sm" type="button" onclick="decreaseQuantity('qty3')">-</button>
                             <input type="number" class="form-control mx-2 text-center" id="qty3" value="1" min="1" max="10" style="width: 60px;">
                             <button class="btn btn-outline-secondary btn-sm" type="button" onclick="increaseQuantity('qty3')">+</button>
@@ -108,39 +89,32 @@
                 </div>
             </div>
         </div>
+
+        <!-- Cup Cake 4 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="/documents/vegancupcakes.webp" class="card-img-top" alt="Vegan Cupcakes"
+                    style="height: 250px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Vegan Cupcakes</h5>
+                    <p class="card-text flex-grow-1">Plant based cupcakes using organic plant based ingredients and icing.</p>
+                    <p class="card-text"><strong>£16.99</strong></p>
+
+                    <!-- Quantity Selector Only -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">SIZE: 12 MINI (1 DOZEN)</label>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <button class="btn btn-outline-secondary btn-sm" type="button" onclick="decreaseQuantity('qty4')">-</button>
+                            <input type="number" class="form-control mx-2 text-center" id="qty4" value="1" min="1" max="10" style="width: 60px;">
+                            <button class="btn btn-outline-secondary btn-sm" type="button" onclick="increaseQuantity('qty4')">+</button>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary mt-auto">Order Now</button>
+                </div>
+            </div>
+        </div>
     </div>
-
-      <!-- Cup Cake 4 -->
-      <div class="col-md-4 mb-4">
-          <div class="card h-100 shadow-sm">
-              <img src="/documents/vegancupcakes.webp" class="card-img-top" alt="Red Velvet Cupcakes"
-                  style="height: 250px; object-fit: cover;">
-              <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">VeganCupcakes</h5>
-                  <p class="card-text flex-grow-1">Plant based cupcakes using organic plant based ingredients and icing.</p>
-                  <p class="card-text"><strong>£16.99</strong></p>
-
-                  <!-- Size and Quantity Selector -->
-                  <div class="mb-3">
-                      <label class="form-label fw-bold">SIZE: 12 MINI (1 DOZEN)</label>
-                      <div class="btn-group d-block mb-2" role="group">
-                          <input type="radio" class="btn-check" name="size3" id="size12-3" value="12" checked>
-                          <label class="btn btn-outline-dark" for="size12-3">12 Mini (1 dozen)</label>
-
-                         
-                      </div>
-
-                      <div class="d-flex align-items-center justify-content-center">
-                          <button class="btn btn-outline-secondary btn-sm" type="button" onclick="decreaseQuantity('qty3')">-</button>
-                          <input type="number" class="form-control mx-2 text-center" id="qty4" value="1" min="1" max="10" style="width: 60px;">
-                          <button class="btn btn-outline-secondary btn-sm" type="button" onclick="increaseQuantity('qty3')">+</button>
-                      </div>
-                  </div>
-
-                  <button class="btn btn-primary mt-auto">Order Now</button>
-              </div>
-          </div>
-      </div>
 
     <!-- Call to Action Section -->
     <div class="row mt-5">
@@ -154,21 +128,6 @@
     </div>
 </div>
 
-<script>
-function increaseQuantity(id) {
-    const input = document.getElementById(id);
-    const currentValue = parseInt(input.value);
-    if (currentValue < 10) {
-        input.value = currentValue + 1;
-    }
-}
-
-function decreaseQuantity(id) {
-    const input = document.getElementById(id);
-    const currentValue = parseInt(input.value);
-    if (currentValue > 1) {
-        input.value = currentValue - 1;
-    }
-}
-</script>
+<!-- Link to external JavaScript file -->
+<script src="{% static 'js/cupcakes.js' %}"></script>
 {% endblock %}
