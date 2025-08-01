@@ -11,6 +11,7 @@ import dj_database_url  # Add this import
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -127,3 +128,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'documents')  # Points to your images folder
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Authentication settings
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Email backend for development (optional)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
