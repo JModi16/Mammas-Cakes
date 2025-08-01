@@ -60,11 +60,36 @@
                             <a class="nav-link" href="{% url 'vegan_cakes' %}">Vegan Cakes</a>
                         </li>
                     </ul>
+                    
                     <!-- Search Box -->
-                    <form class="d-flex" method="GET" action="{% url 'products' %}">
+                    <form class="d-flex me-3" method="GET" action="{% url 'products' %}">
                         <input class="form-control me-2" type="search" name="q" placeholder="Search our products" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
+                    
+                    <!-- Authentication Links -->
+                    <ul class="navbar-nav">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Welcome, {{ user.username }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'profile' %}">My Account</a></li>
+                                    <li><a class="dropdown-item" href="#">Order History</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout' %}">Sign Out</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                            </li>
+                        {% endif %}
+                    </ul>
                 </div>
             </div>
         </nav>
