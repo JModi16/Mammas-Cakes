@@ -31,9 +31,9 @@
     <!-- Header with navigation -->
     <header>
         <!-- Banner -->
-        <div class="container">
+        <div class="container-fluid">
             <div class="row text-center banner-anim pink-bg text-black">
-                <div class="anim">
+                <div class="col-12">
                     <p class="logo-font my-2 ms-0">Order by 4PM for next day delivery</p>
                 </div>
             </div>
@@ -68,10 +68,13 @@
                     <form class="d-flex me-3" method="GET" action="{% url 'products' %}">
                         <input class="form-control me-2" type="search" name="q" placeholder="Search our products" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
+                        <i class="fas fa-search"></i>
+                        </button>
                     </form>
                     
                     <!-- Authentication Links -->
                     <ul class="navbar-nav">
+                        
                         {% if user.is_authenticated %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
