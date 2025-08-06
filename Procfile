@@ -1,0 +1,1 @@
+web: gunicorn mammas_cakes.wsgi:application
