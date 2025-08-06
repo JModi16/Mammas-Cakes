@@ -29,11 +29,11 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
-                            <input type="text" class="form-control" name="username" required>
+                            {{ form.username }}
                         </div>
                         <div class="mb-3">
                             <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" required>
+                            {{ form.password }}
                         </div>
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary btn-lg">Sign In</button>
