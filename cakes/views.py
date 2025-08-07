@@ -1,11 +1,8 @@
-
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import SignUpForm
-
-from django.shortcuts import render
 
 def home(request):
     return render(request, 'cakes/home.html')
@@ -13,7 +10,7 @@ def home(request):
 def vegan_cakes(request):
     return render(request, 'cakes/vegan_cakes.html')
 
-def birthday_cakes(request):
+def birthday_cakes(request):  # ← ADD THIS FUNCTION
     return render(request, 'cakes/birthday_cakes.html')
 
 def wedding_cakes(request):
