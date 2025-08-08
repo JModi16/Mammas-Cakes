@@ -5,104 +5,11 @@
 {% block description %}Premium bakery offering fresh birthday cakes, wedding cakes, treats and vegan options{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<div class="container-fluid bg-light py-5">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-12">
-                <h1 class="display-4 logo-font mb-4">Welcome to Mammas Cakes</h1>
-                <p class="lead mb-4">Premium bakery offering fresh birthday cakes, wedding cakes, treats and vegan options</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Cake Categories Section -->
-<section id="Cakes" class="py-5">
-    <div class="container">
-        <div class="row text-center mb-5">
-            <div class="col-12">
-                <h2 class="logo-font">What Type of Cakes Are You Looking For?</h2>
-                <p class="lead">Mammas Cakes offers tasty cakes with fresh ingredients</p>
-            </div>
-        </div>
-        
-        <div class="row g-4">
-            <!-- Birthday Cakes -->
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 shadow-sm text-center">
-                    <div class="card-body">
-                        <h3 class="card-title h4 mb-3">Birthday Cakes <i class="fa-solid fa-birthday-cake text-primary"></i></h3>
-                        <img src="/documents/birthdaycake2.webp" alt="Birthday Cake" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
-                        <p class="card-text">Celebrate special moments with our custom birthday cakes made with love and fresh ingredients.</p>
-                        <a href="{% url 'birthday_cakes' %}" class="btn btn-primary">View Collection</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Wedding Cakes -->
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 shadow-sm text-center">
-                    <div class="card-body">
-                        <h3 class="card-title h4 mb-3">Wedding Cakes <i class="fa-solid fa-heart text-danger"></i></h3>
-                        <img src="/documents/wedding2.webp" alt="Wedding Cake" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
-                        <p class="card-text">Elegant wedding cakes designed to make your special day unforgettable and delicious.</p>
-                        <a href="{% url 'wedding_cake' %}" class="btn btn-primary">View Collection</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Treats -->
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 shadow-sm text-center">
-                    <div class="card-body">
-                        <h3 class="card-title h4 mb-3">Treats <i class="fa-solid fa-cookie-bite text-warning"></i></h3>
-                        <img src="/documents/redvelvetcupcakes.webp" alt="Sweet Treats" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
-                        <p class="card-text">Delightful treats and pastries perfect for any occasion or as a sweet surprise.</p>
-                        <a href="{% url 'treats' %}" class="btn btn-primary">View Collection</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Vegan Cakes -->
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 shadow-sm text-center">
-                    <div class="card-body">
-                        <h3 class="card-title h4 mb-3">Vegan Cakes <i class="fa-solid fa-leaf text-success"></i></h3>
-                        <img src="/documents/vegancaramel.webp" alt="Vegan Cake" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
-                        <p class="card-text">Delicious plant-based cakes that don't compromise on taste or quality.</p>
-                        <a href="{% url 'vegan_cakes' %}" class="btn btn-primary">View Collection</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Call to Action Section -->
-<div class="container-fluid purple-bg text-black py-5 mt-5">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-12">
-                <h2 class="logo-font mb-4">Why Choose Mammas Cakes?</h2>
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <i class="fas fa-birthday-cake fa-3x mb-3"></i>
-                        <h4>Custom Designs</h4>
-                        <p>Personalized cakes tailored to your special occasion</p>
-                    </div>
-                    <div class="col-md-4">
-                        <i class="fas fa-leaf fa-3x mb-3"></i>
-                        <h4>Fresh Ingredients</h4>
-                        <p>Only the finest, freshest ingredients in every cake</p>
-                    </div>
-                    <div class="col-md-4">
-                        <i class="fas fa-truck fa-3x mb-3"></i>
-                        <h4>Fast Delivery</h4>
-                        <p>Order by 4PM for next day delivery</p>
-                    </div>
-                </div>
-            </div>
+<div class="container my-5">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1 class="display-4 logo-font mb-4">Welcome to Mammas Cakes</h1>
+            <p class="lead mb-4">Premium bakery offering fresh birthday cakes, wedding cakes, treats and vegan options</p>
         </div>
     </div>
 </div>
