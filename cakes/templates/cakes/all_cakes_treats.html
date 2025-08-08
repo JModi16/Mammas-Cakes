@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    {% load static %}
     {% block meta %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,32 +21,131 @@
 
     <main>
         {% block content %}
-        <h1 class="text-center">All Cakes & Treats</h1>
-        <div class="container">
+        <div class="container my-5">
             <div class="row">
-                <div class="col-md-4">
-                    <h2>Birthday Cakes</h2>
-                    <img src="{% static 'images/birthday_cakes/birthdaycake1webp.webp' %}" alt="Birthday Cake 1" class="img-fluid">
-                    <img src="{% static 'images/birthday_cakes/birthdaycake2.webp' %}" alt="Birthday Cake 2" class="img-fluid">
-                    <img src="{% static 'images/birthday_cakes/birthdaycake3.webp' %}" alt="Birthday Cake 3" class="img-fluid">
-                </div>
-                <div class="col-md-4">
-                    <h2>Wedding Cakes</h2>
-                    <img src="{% static 'images/wedding_cakes/wedding cake.webp' %}" alt="Wedding Cake" class="img-fluid">
-                </div>
-                <div class="col-md-4">
-                    <h2>Treats</h2>
-                    <img src="{% static 'images/treats/heart-cake.png' %}" alt="Treat" class="img-fluid">
+                <div class="col-12 text-center mb-5">
+                    <h1 class="logo-font">All Cakes & Treats</h1>
+                    <p class="lead">Browse our complete collection</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <h2>Vegan Cakes</h2>
-                    <img src="{% static 'images/vegan_cakes/vegan_cake_example.webp' %}" alt="Vegan Cake" class="img-fluid">
+            
+            <div class="row g-4">
+                <!-- Birthday Cakes Section -->
+                <div class="col-12 mb-4">
+                    <h2 class="h3 mb-3">Birthday Cakes</h2>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="/documents/birthdaycake1webp.webp" alt="Birthday Cake 1" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Colorful Birthday Cake</h5>
+                                    <p class="card-text">Perfect for celebrations</p>
+                                    <span class="h6 text-primary">£25.99</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="/documents/birthdaycake2.webp" alt="Birthday Cake 2" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Elegant Birthday Cake</h5>
+                                    <p class="card-text">Sophisticated design</p>
+                                    <span class="h6 text-primary">£35.99</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="/documents/birthdaycake3.webp" alt="Birthday Cake 3" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Custom Birthday Cake</h5>
+                                    <p class="card-text">Personalized design</p>
+                                    <span class="h6 text-primary">£45.99</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <h2>All Cakes & Treats</h2>
-                    <img src="{% static 'images/all_cakes_treats/all_cakes_example.webp' %}" alt="All Cakes & Treats" class="img-fluid">
+
+                <!-- Wedding Cakes Section -->
+                <div class="col-12 mb-4">
+                    <h2 class="h3 mb-3">Wedding Cakes</h2>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <img src="/documents/weddingcake.webp" alt="Wedding Cake" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Classic Wedding Cake</h5>
+                                    <p class="card-text">Elegant tiered design</p>
+                                    <span class="h6 text-primary">£125.99</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <img src="/documents/weddingcake2.webp" alt="Wedding Cake 2" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Modern Wedding Cake</h5>
+                                    <p class="card-text">Contemporary style</p>
+                                    <span class="h6 text-primary">£150.99</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Treats Section -->
+                <div class="col-12 mb-4">
+                    <h2 class="h3 mb-3">Sweet Treats</h2>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="/documents/heart-cake.png" alt="Heart Cake" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Heart Cake</h5>
+                                    <p class="card-text">Perfect for romance</p>
+                                    <span class="h6 text-primary">£19.99</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="/documents/treats.webp" alt="Mixed Treats" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Mixed Treats Box</h5>
+                                    <p class="card-text">Variety of delights</p>
+                                    <span class="h6 text-primary">£15.99</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vegan Cakes Section -->
+                <div class="col-12 mb-4">
+                    <h2 class="h3 mb-3">Vegan Cakes</h2>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="/documents/vegancake.webp" alt="Vegan Cake" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Vegan Chocolate Cake</h5>
+                                    <p class="card-text">Plant-based delight</p>
+                                    <span class="h6 text-primary">£29.99</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <img src="/documents/BlackForestCake.webp" alt="Vegan Black Forest" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Vegan Black Forest</h5>
+                                    <p class="card-text">Rich and indulgent</p>
+                                    <span class="h6 text-primary">£32.99</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
