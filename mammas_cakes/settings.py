@@ -159,11 +159,40 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Security settings for production
 if 'DATABASE_URL' in os.environ:  # Only in production
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SECURE_SSL_REDIRECT = True
+    # SECURE_SSL_REDIRECT = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
 
 else:
     # Development settings - NO SSL redirect
     SECURE_SSL_REDIRECT = False
+    # SECURE_PROXY_SSL_HEADER = None
+
+# Add this at the very bottom of your settings.py file:
+
+# Force development mode settings
+DEBUG = True
+SECURE_SSL_REDIRECT = False
+SECURE_PROXY_SSL_HEADER = None
+
+# Override any production SSL settings for development
+import os
+if not os.environ.get('DATABASE_URL'):  # Only in development
+    # Disable all SSL-related settings
+    SECURE_SSL_REDIRECT = False
     SECURE_PROXY_SSL_HEADER = None
+    # SECURE_HSTS_SECONDS = 0
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+    SECURE_HSTS_PRELOAD = False
+    SECURE_BROWSER_XSS_FILTER = False
+    SECURE_CONTENT_TYPE_NOSNIFF = False
+    # SESSION_COOKIE_SECURE = False
+    # CSRF_COOKIE_SECURE = False
+
+    # Add this at the very end of settings.py:
+# Development mode - force HTTP
+import sys
+if 'runserver' in sys.argv:
+    SECURE_SSL_REDIRECT = False
+    SECURE_PROXY_SSL_HEADER = None
+    print("Development mode: SSL redirect disabled")
