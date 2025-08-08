@@ -4,27 +4,61 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Product Details - Mammas Cakes</title>
+    <title>Search Results - Mammas Cakes</title>
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    {% load static %}
+    {% extends 'cakes/base.html' %}
 </head>
 
 <body>
     {% block header %}
     <header>
-        <h1 class="text-center">Product Details</h1>
+        <h1 class="text-center">Search Results</h1>
     </header>
     {% endblock %}
 
-    <main class="container">
+    <main class="container my-5">
         <div class="row">
-            <div class="col-md-6">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
-            </div>
-            <div class="col-md-6">
-                <h2>{{ product.name }}</h2>
-                <p>{{ product.description }}</p>
-                <p><strong>Price:</strong> {{ product.price }}</p>
-                <button class="btn btn-primary">Add to Cart</button>
+            <div class="col-12">
+                {% if query %}
+                <p class="lead">Results for: "<strong>{{ query }}</strong>"</p>
+
+                <!-- Search results would go here -->
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> Search functionality coming soon! Currently showing all available
+                    products.
+                </div>
+
+                <!-- Show all products for now -->
+                <div class="row g-4 mt-3">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <img src="/documents/birthdaycake2.webp" alt="Birthday Cake" class="card-img-top"
+                                style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">Birthday Cakes</h5>
+                                <p class="card-text">Custom birthday celebrations</p>
+                                <a href="{% url 'birthday_cakes' %}" class="btn btn-primary">View Collection</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <img src="/documents/weddingcake2.webp" alt="Wedding Cake" class="card-img-top"
+                                style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">Wedding Cakes</h5>
+                                <p class="card-text">Elegant wedding designs</p>
+                                <a href="{% url 'wedding_cake' %}" class="btn btn-primary">View Collection</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% else %}
+                <p class="lead">Please enter a search term to find specific products.</p>
+                <a href="{% url 'home' %}" class="btn btn-primary">Browse All Categories</a>
+                {% endif %}
             </div>
         </div>
     </main>
