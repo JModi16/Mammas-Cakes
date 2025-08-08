@@ -23,7 +23,7 @@
                     <p><strong>Last Name:</strong> {{ user.last_name|default:"Not provided" }}</p>
                     <p><strong>Member Since:</strong> {{ user.date_joined|date:"F Y" }}</p>
                     <hr>
-                    <a href="{% url 'password_change' %}" class="btn btn-outline-primary btn-sm">Change Password</a>
+                    <p class="text-muted small">Password management available in account settings</p>
                 </div>
             </div>
         </div>
