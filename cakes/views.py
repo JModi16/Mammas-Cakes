@@ -7,14 +7,14 @@ from .forms import SignUpForm
 def home(request):
     return render(request, 'cakes/home.html')
 
-def vegan_cakes(request):
-    return render(request, 'cakes/vegan_cakes.html')
-
-def birthday_cakes(request):  # ← ADD THIS FUNCTION
+def birthday_cakes(request):
     return render(request, 'cakes/birthday_cakes.html')
 
 def wedding_cakes(request):
     return render(request, 'cakes/wedding_cakes.html')
+
+def vegan_cakes(request):
+    return render(request, 'cakes/vegan_cakes.html')
 
 def treats(request):
     return render(request, 'cakes/treats.html')

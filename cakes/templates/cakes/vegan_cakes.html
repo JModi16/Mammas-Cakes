@@ -2,73 +2,31 @@
 {% extends 'cakes/base.html' %}
 
 {% block title %}Vegan Cakes - Mammas Cakes{% endblock %}
-{% block description %}Delicious vegan cakes made with plant-based ingredients - dairy-free and egg-free options{% endblock %}
-{% block keywords %}vegan cakes, plant-based cakes, dairy-free cakes, egg-free cakes{% endblock %}
+{% block description %}Delicious plant-based cakes with no compromise on taste{% endblock %}
 
 {% block content %}
 <div class="container my-5">
     <div class="row">
-        <div class="col-12">
-            <h1 class="text-center mb-4">Vegan Cakes</h1>
-            <p class="text-center lead mb-5">Delicious plant-based cakes that everyone will love</p>
+        <div class="col-12 text-center mb-5">
+            <h1 class="logo-font">Vegan Cakes</h1>
+            <p class="lead">Delicious plant-based cakes with no compromise on taste</p>
         </div>
     </div>
-
-            <div class="row g-4">
-                <!-- Vegan Cake 1 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        <img src="/documents/veganblueberry.webp" class="card-img-top" alt="Vegan BlueBerry Cake"
-                            style="height: 250px; object-fit: cover;">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Vegan Blueberry Cake</h5>
-                            <p class="card-text flex-grow-1">Fresh blueberry cake with dairy-free cream</p>
-                            <p class="card-text"><strong>£25.99</strong></p>
-                            <button class="btn btn-primary mt-auto">Order Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vegan Cake 2 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        <img src="/documents/vegancaramel.webp" class="card-img-top" alt="Vegan Caramel Cake"
-                            style="height: 250px; object-fit: cover;">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Vegan Caramel Cake</h5>
-                            <p class="card-text flex-grow-1">Sweet Vegan Caramel cake, plant based ingredients</p>
-                            <p class="card-text"><strong>£22.99</strong></p>
-                            <button class="btn btn-primary mt-auto">Order Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vegan Cake 3 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                         <img src="/documents/veganbiscuit.webp" class="card-img-top" alt="Vegan Caramel Cake"
-                            style="height: 250px; object-fit: cover;">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Vegan Vanilla Cake</h5>
-                            <p class="card-text flex-grow-1">Light and fluffy vanilla sponge with dairy-free buttercream
-                            </p>
-                            <p class="card-text"><strong>£20.99</strong></p>
-                            <button class="btn btn-primary mt-auto">Order Now</button>
-                        </div>
+    
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+                <img src="/documents/BlackForestCake.webp" alt="Vegan Black Forest cake" class="card-img-top" style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h3 class="card-title h5">Vegan Black Forest</h3>
+                    <p class="card-text">Rich chocolate cake with cherry filling - completely plant-based</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h5 text-primary mb-0">£29.99</span>
+                        <button class="btn btn-primary">Order Now</button>
                     </div>
                 </div>
             </div>
-
-
-                <!-- Call to Action Section -->
-                <div class="row mt-5">
-                    <div class="col-12 text-center">
-                        <div class="bg-light p-4 rounded">
-                            <h3>Can't find what you're looking for?</h3>
-                            <p>We can create custom vegan cakes for any occasion!</p>
-                            <a href="{% url 'contact' %}" class="btn btn-success btn-lg">Contact Us</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
