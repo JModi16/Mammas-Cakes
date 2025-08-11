@@ -1,5 +1,6 @@
-{% load static %}
 {% extends 'cakes/base.html' %}
+{% load static %}
+
 
 {% block title %}Vegan Cakes - Mammas Cakes{% endblock %}
 {% block description %}Delicious plant-based cakes with no compromise on taste{% endblock %}
@@ -13,18 +14,61 @@
         </div>
     </div>
     
-    <div class="row g-4">
+<div class="row g-4">
+        <!-- vegan Cake 1 -->
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">
-                <img src="/documents/BlackForestCake.webp" alt="Vegan Black Forest cake" class="card-img-top" style="height: 250px; object-fit: cover;">
+                <img src="{% static 'images/veganblueberry.webp' %}" alt="Blueberry cake" class="card-img-top" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
-                    <h3 class="card-title h5">Vegan Black Forest</h3>
-                    <p class="card-text">Rich chocolate cake with cherry filling - completely plant-based</p>
+                    <h3 class="card-title h5">Vegan Blueberry Cake</h3>
+                    <p class="card-text">Delicious vegan cake made with fresh blueberries and almond flour</p>
                     <div class="d-flex justify-content-between align-items-center">
-                        <span class="h5 text-primary mb-0">£29.99</span>
+                        <span class="h5 text-primary mb-0">£25.99</span>
                         <button class="btn btn-primary">Order Now</button>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- vegan Cake 2 -->
+         <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{% static 'images/vegancaramel.webp' %}" alt="Vegan caramel cake" class="card-img-top" style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h3 class="card-title h5">Vegan Caramel Cake</h3>
+                    <p class="card-text">Rich and moist vegan cake with a luscious caramel drizzle</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h5 text-primary mb-0">£23.99</span>
+                        <button class="btn btn-primary">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- vegan Cake 3 -->
+            <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{% static 'images/veganbiscuit.webp' %}" alt="Vegan biscuit cake" class="card-img-top" style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h3 class="card-title h5">Vegan Biscuit Cake</h3>
+                    <p class="card-text">Delicious vegan cake made with crushed biscuits and a rich chocolate filling</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h5 text-primary mb-0">£22.99</span>
+                        <button class="btn btn-primary">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+           <!-- Call to Action Section -->
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <div class="bg-light p-4 rounded">
+                <h3>Vegan Cakes for Every Occasion</h3>
+                <p>Whether it's a birthday, wedding, or any special event, our vegan cakes are perfect for all celebrations!</p>
+                <a href="#" class="btn btn-success btn-lg">Contact Us for Custom Design</a>
             </div>
         </div>
     </div>
