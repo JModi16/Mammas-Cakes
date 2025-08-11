@@ -1,0 +1,71 @@
+{% extends 'cakes/base.html' %}
+{% load static %}
+
+{% block title %}Search Results - Mammas Cakes{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">Search Results</h1>
+            
+            {% if query %}
+            <p class="lead">Results for: "<strong>{{ query }}</strong>"</p>
+
+            <!-- Search results would go here -->
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> Search functionality coming soon! Currently showing all available products.
+            </div>
+
+            <!-- Show all products for now -->
+            <div class="row g-4 mt-3">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="{% static 'images/birthdaycake2.webp' %}" alt="Birthday Cake" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Birthday Cakes</h5>
+                            <p class="card-text">Custom birthday celebrations</p>
+                            <a href="{% url 'birthday_cakes' %}" class="btn btn-primary">View Collection</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="{% static 'images/weddingcake2.webp' %}" alt="Wedding Cake" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Wedding Cakes</h5>
+                            <p class="card-text">Elegant wedding designs</p>
+                            <a href="{% url 'wedding_cake' %}" class="btn btn-primary">View Collection</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="{% static 'images/treats.webp' %}" alt="Treats" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Treats & Desserts</h5>
+                            <p class="card-text">Delicious sweet treats</p>
+                            <a href="{% url 'treats' %}" class="btn btn-primary">View Collection</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100">
+                        <img src="{% static 'images/vegan.webp' %}" alt="Vegan Cakes" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Vegan Cakes</h5>
+                            <p class="card-text">Plant-based deliciousness</p>
+                            <a href="{% url 'vegan_cakes' %}" class="btn btn-primary">View Collection</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% else %}
+            <p class="lead">Please enter a search term to find specific products.</p>
+            <a href="{% url 'home' %}" class="btn btn-primary">Browse All Categories</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
