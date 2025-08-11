@@ -11,15 +11,31 @@
             <h1 class="logo-font">Birthday Cakes</h1>
             <p class="lead">Celebrate special moments with our custom birthday cakes</p>
         </div>
-    </div>
-    
-    <div class="row g-4">
+
+     <div class="row g-4">
+        <!-- Birthday Cake 1 -->
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">
-                <img src="/documents/birthdaycake1webp.webp" alt="Colorful birthday cake" class="card-img-top" style="height: 250px; object-fit: cover;">
+                <img src="{% static 'images/birthdaycake1.webp' %}" alt="Colorful birthday cake" class="card-img-top" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <h3 class="card-title h5">Colorful Birthday Cake</h3>
                     <p class="card-text">Perfect for kids and adults who love vibrant celebrations</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h5 text-primary mb-0">£21.99</span>
+                        <button class="btn btn-primary">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+         < <div class="row g-4">
+
+        <!-- Birthday Cake 2 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{% static 'images/birthdaycake2.webp' %}" alt="Elegant birthday cake" class="card-img-top" style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h3 class="card-title h5">Elegant Birthday Cake</h3>
+                    <p class="card-text">Sophisticated design for a classy birthday celebration</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="h5 text-primary mb-0">£25.99</span>
                         <button class="btn btn-primary">Order Now</button>
@@ -27,24 +43,11 @@
                 </div>
             </div>
         </div>
-        
+
+         <!-- Birthday Cake 3 -->
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">
-                <img src="/documents/birthdaycake2.webp" alt="Elegant birthday cake" class="card-img-top" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                    <h3 class="card-title h5">Elegant Birthday Cake</h3>
-                    <p class="card-text">Sophisticated design perfect for milestone birthdays</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="h5 text-primary mb-0">£35.99</span>
-                        <button class="btn btn-primary">Order Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm">
-                <img src="/documents/birthdaycake1webp.webp" alt="Custom birthday cake" class="card-img-top" style="height: 250px; object-fit: cover;">
+                <img src="{% static 'images/birthdaycake3.webp' %}" alt="Custom birthday cake" class="card-img-top" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <h3 class="card-title h5">Custom Birthday Cake</h3>
                     <p class="card-text">Personalized design with your special message</p>
@@ -57,25 +60,13 @@
         </div>
     </div>
     
+    <!-- Call to Action Section -->
     <div class="row mt-5">
         <div class="col-12 text-center">
-            <h3>Why Choose Our Birthday Cakes?</h3>
-            <div class="row g-4 mt-3">
-                <div class="col-md-4">
-                    <i class="fas fa-birthday-cake fa-3x text-primary mb-3"></i>
-                    <h5>Fresh Ingredients</h5>
-                    <p>Made daily with the finest ingredients</p>
-                </div>
-                <div class="col-md-4">
-                    <i class="fas fa-palette fa-3x text-primary mb-3"></i>
-                    <h5>Custom Designs</h5>
-                    <p>Personalized to match your celebration</p>
-                </div>
-                <div class="col-md-4">
-                    <i class="fas fa-truck fa-3x text-primary mb-3"></i>
-                    <h5>Fast Delivery</h5>
-                    <p>Order by 4PM for next day delivery</p>
-                </div>
+            <div class="bg-light p-4 rounded">
+                <h2 class="h4">Looking for a Custom Birthday Cake?</h2>
+                <p>Contact us for custom designs and special requests. We are here to make your birthday celebration unforgettable!</p>
+                <a href="#" class="btn btn-success btn-lg">Contact Us for Custom Design</a>
             </div>
         </div>
     </div>
