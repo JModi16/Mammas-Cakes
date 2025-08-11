@@ -11,15 +11,20 @@
 </head>
 
 <body>
+    {% block title %}Search Results - Mammas Cakes{% endblock %}
+
     {% block header %}
     <header>
         <h1 class="text-center">Search Results</h1>
     </header>
     {% endblock %}
 
+    {% block content %}
     <main class="container my-5">
         <div class="row">
             <div class="col-12">
+                <h1 class="text-center mb-4">Search Results</h1>
+
                 {% if query %}
                 <p class="lead">Results for: "<strong>{{ query }}</strong>"</p>
 
@@ -33,7 +38,7 @@
                 <div class="row g-4 mt-3">
                     <div class="col-md-6 col-lg-3">
                         <div class="card h-100">
-                            <img src="/documents/birthdaycake2.webp" alt="Birthday Cake" class="card-img-top"
+                            <img src="{% static 'images/birthdaycake2.webp' %}" alt="Birthday Cake" class="card-img-top"
                                 style="height: 200px; object-fit: cover;">
                             <div class="card-body">
                                 <h5 class="card-title">Birthday Cakes</h5>
@@ -44,12 +49,34 @@
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <div class="card h-100">
-                            <img src="/documents/weddingcake2.webp" alt="Wedding Cake" class="card-img-top"
+                            <img src="{% static 'images/weddingcake2.webp' %}" alt="Wedding Cake" class="card-img-top"
                                 style="height: 200px; object-fit: cover;">
                             <div class="card-body">
                                 <h5 class="card-title">Wedding Cakes</h5>
                                 <p class="card-text">Elegant wedding designs</p>
                                 <a href="{% url 'wedding_cake' %}" class="btn btn-primary">View Collection</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <img src="{% static 'images/treats.webp' %}" alt="Treats" class="card-img-top"
+                                style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">Treats & Desserts</h5>
+                                <p class="card-text">Delicious sweet treats</p>
+                                <a href="{% url 'treats' %}" class="btn btn-primary">View Collection</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <img src="{% static 'images/vegan.webp' %}" alt="Vegan Cakes" class="card-img-top"
+                                style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">Vegan Cakes</h5>
+                                <p class="card-text">Plant-based deliciousness</p>
+                                <a href="{% url 'vegan_cakes' %}" class="btn btn-primary">View Collection</a>
                             </div>
                         </div>
                     </div>
@@ -62,6 +89,7 @@
             </div>
         </div>
     </main>
+    {% endblock %}
 
     {% block footer %}
     <footer class="text-center">
