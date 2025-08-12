@@ -18,7 +18,7 @@ from .forms import CustomUserCreationForm
 
 logger = logging.getLogger(__name__)
 
-# Existing views
+# Existing page views
 def home(request):
     return render(request, 'cakes/home.html')
 
@@ -41,6 +41,7 @@ def products(request):
 
 # Authentication views
 def register_view(request):
+    """User registration view"""
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
@@ -53,11 +54,13 @@ def register_view(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}! You can now log in.')
             return redirect('login')
+        else:
+            messages.error(request, 'Please correct the errors below.')
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
 
-# Order processing
+# Order processing views
 @login_required
 @require_http_methods(["POST"])
 @csrf_exempt
