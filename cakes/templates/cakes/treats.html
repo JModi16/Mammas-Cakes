@@ -23,7 +23,13 @@
                     <p class="card-text">Delicious red velvet cupcakes with cream cheese frosting</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="h5 text-primary mb-0">£18.99</span>
-                        <button class="btn btn-primary">Order Now</button>
+                        <button class="btn btn-primary add-to-cart" 
+                                data-id="red-velvet-cupcakes"
+                                data-name="Red Velvet Cupcakes"
+                                data-price="18.99"
+                                data-image="{% static 'images/redvelvetcupcakes.webp' %}">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
                     </div>
                 </div>
             </div>
@@ -40,13 +46,17 @@
                     <p class="card-text">Delicious red velvet cupcakes with cream cheese frosting</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="h5 text-primary mb-0">£16.99</span>
-                        <button class="btn btn-primary">Order Now</button>
+                        <button class="btn btn-primary add-to-cart" 
+                                data-id="vanilla-cupcakes"
+                                data-name="Vanilla Cupcakes"
+                                data-price="16.99"
+                                data-image="{% static 'images/vanillacupcakes.webp' %}">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-   
-  
 
    <!-- Treat 3 -->
         <div class="col-md-6 col-lg-4">
@@ -57,12 +67,17 @@
                     <p class="card-text">Delicious vegan cupcakes made with plant-based ingredients</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="h5 text-primary mb-0">£19.99</span>
-                        <button class="btn btn-primary">Order Now</button>
+                        <button class="btn btn-primary add-to-cart" 
+                                data-id="vegan-cupcakes"
+                                data-name="Vegan Cupcakes"
+                                data-price="19.99"
+                                data-image="{% static 'images/vegancupcakes.webp' %}">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-  
 
     <!-- Call to Action Section -->
     <div class="row mt-5">
