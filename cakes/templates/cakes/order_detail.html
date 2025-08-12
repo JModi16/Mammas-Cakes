@@ -112,4 +112,49 @@
         </div>
     </div>
 </div>
+
+<!-- Order Confirmation Email Template -->
+{% block email_confirmation %}
+MAMMA'S CAKES - ORDER CONFIRMATION
+
+Thank you for your order, {{ order.customer_name }}!
+
+Order Details:
+- Order Number: {{ order.order_number }}
+- Order Date: {{ order.created_at|date:"F d, Y at g:i A" }}
+- Order Type: {{ order.get_order_type_display }}
+
+{% if order.order_type == 'collection' %}
+Collection Details:
+- Date: {{ order.collection_date|date:"F d, Y" }}
+- Time: {{ order.collection_time }}
+- Address: Mamma's Cakes Bakery, 123 Baker Street, London, W1U 6TU
+{% else %}
+Delivery Details:
+- Date: {{ order.delivery_date|date:"F d, Y" }}
+- Time: {{ order.delivery_time|default:"Any time" }}
+- Address: {{ order.delivery_address }}, {{ order.delivery_city }}, {{ order.delivery_postcode }}
+{% endif %}
+
+Your Cakes:
+{% for item in items %}
+- {{ item.cake_name }} x {{ item.quantity }} = £{{ item.total_price }}
+{% endfor %}
+
+Order Summary:
+Subtotal: £{{ order.subtotal }}
+{% if order.delivery_fee > 0 %}Delivery Fee: £{{ order.delivery_fee }}{% endif %}
+TOTAL: £{{ order.total }}
+
+{% if order.special_instructions %}
+Special Instructions: {{ order.special_instructions }}
+{% endif %}
+
+Contact Us:
+Email: info@mammascakes.com
+Phone: 020 7123 4567
+Address: 123 Baker Street, London, W1U 6TU
+
+Thank you for choosing Mamma's Cakes!
+{% endblock %}
 {% endblock %}
