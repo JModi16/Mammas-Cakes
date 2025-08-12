@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - {{ order.order_number }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #6f42c1; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; background-color: #f8f9fa; }
+        .order-details { background-color: white; padding: 15px; border-radius: 5px; margin: 15px 0; }
+        .item { border-bottom: 1px solid #eee; padding: 10px 0; }
+        .total { font-weight: bold; font-size: 1.2em; color: #6f42c1; }
+        .footer { background-color: #343a40; color: white; padding: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍰 Mamma's Cakes</h1>
+            <h2>Order Confirmation</h2>
+        </div>
+        
+        <div class="content">
+            <h3>Thank you for your order, {{ order.customer_name }}!</h3>
+            <p>We've received your order and will begin preparing your delicious cakes.</p>
+            
+            <div class="order-details">
+                <h4>📋 Order Details</h4>
+                <p><strong>Order Number:</strong> {{ order.order_number }}</p>
+                <p><strong>Order Date:</strong> {{ order.created_at|date:"F d, Y at g:i A" }}</p>
+                <p><strong>Order Type:</strong> {{ order.get_order_type_display }}</p>
+                
+                {% if order.order_type == 'collection' %}
+                    <p><strong>Collection Date:</strong> {{ order.collection_date|date:"F d, Y" }}</p>
+                    <p><strong>Collection Time:</strong> {{ order.collection_time }}</p>
+                    <p><strong>Collection Address:</strong><br>
+                    Mamma's Cakes Bakery<br>
+                    123 Baker Street<br>
+                    London, W1U 6TU</p>
+                {% else %}
+                    <p><strong>Delivery Date:</strong> {{ order.delivery_date|date:"F d, Y" }}</p>
+                    <p><strong>Delivery Time:</strong> {{ order.delivery_time|default:"Any time" }}</p>
+                    <p><strong>Delivery Address:</strong><br>
+                    {{ order.delivery_address }}<br>
+                    {{ order.delivery_city }}, {{ order.delivery_postcode }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="order-details">
+                <h4>🍰 Your Cakes</h4>
+                {% for item in items %}
+                    <div class="item">
+                        <strong>{{ item.cake_name }}</strong><br>
+                        Quantity: {{ item.quantity }} × £{{ item.unit_price }} = £{{ item.total_price }}
+                    </div>
+                {% endfor %}
+                
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #6f42c1;">
+                    <p>Subtotal: £{{ order.subtotal }}</p>
+                    {% if order.delivery_fee > 0 %}
+                        <p>Delivery Fee: £{{ order.delivery_fee }}</p>
+                    {% endif %}
+                    <p class="total">Total: £{{ order.total }}</p>
+                </div>
+            </div>
+            
+            {% if order.special_instructions %}
+                <div class="order-details">
+                    <h4>📝 Special Instructions</h4>
+                    <p>{{ order.special_instructions }}</p>
+                </div>
+            {% endif %}
+            
+            <div class="order-details">
+                <h4>📞 Contact Information</h4>
+                <p>If you have any questions about your order, please contact us:</p>
+                <p><strong>Email:</strong> info@mammascakes.com</p>
+                <p><strong>Phone:</strong> 020 7123 4567</p>
+                <p><strong>Address:</strong> 123 Baker Street, London, W1U 6TU</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Thank you for choosing Mamma's Cakes!</p>
+            <p>We can't wait for you to enjoy your delicious treats! 🍰</p>
+        </div>
+    </div>
+</body>
+</html>
