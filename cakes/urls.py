@@ -17,4 +17,9 @@ urlpatterns = [
     path('accounts/register/', views.register_view, name='register'),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+
+     # Order management URLs
+    path('process-order/', views.process_order, name='process_order'),
+    path('orders/', views.order_history, name='order_history'),
+    path('orders/<str:order_number>/', views.order_detail, name='order_detail'),
 ]
