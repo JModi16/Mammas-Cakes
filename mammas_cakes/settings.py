@@ -142,14 +142,14 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-# Email settings for password reset (development)
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# Email settings - Use environment variables
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'k5rac70j@students.codeinstitute.net'  # Replace with your email
-EMAIL_HOST_PASSWORD = 'Clement25!'  # Replace with app password
-DEFAULT_FROM_EMAIL = 'Mamma\'s Cakes <k5rac70j@students.codeinstitute.net>'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = f"Mamma's Cakes <{os.environ.get('EMAIL_HOST_USER', '')}>"
 
 # For development/testing, you can also use:
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
