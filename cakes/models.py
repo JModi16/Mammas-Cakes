@@ -1,28 +1,30 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import RegexValidator
 import uuid
 
 class Customer(models.Model):
     """Extended user profile for additional customer information"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone_number = models.CharField(
-        max_length=15,
-        validators=[RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Enter a valid phone number.")]
-    )
+    phone_number = models.CharField(max_length=20, blank=True)
+    address = models.TextField(blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    postcode = models.CharField(max_length=10, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
-        return f"{self.user.get_full_name()} - {self.user.email}"
+        return f"{self.user.username} - {self.user.email}"
+
+    class Meta:
+        db_table = 'cakes_customer'
 
 class Order(models.Model):
-    ORDER_STATUS_CHOICES = [
+    STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('confirmed', 'Confirmed'),
         ('preparing', 'Preparing'),
-        ('ready', 'Ready for Collection'),
-        ('dispatched', 'Dispatched'),
-        ('delivered', 'Delivered'),
+        ('ready', 'Ready for Collection/Delivery'),
+        ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),
     ]
     
@@ -30,86 +32,57 @@ class Order(models.Model):
         ('collection', 'Collection'),
         ('delivery', 'Delivery'),
     ]
+
+    order_number = models.CharField(max_length=20, unique=True, default=uuid.uuid4)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    order_type = models.CharField(max_length=20, choices=ORDER_TYPE_CHOICES)
     
-    # Order identification
-    order_number = models.CharField(max_length=20, unique=True, editable=False)
-    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
-    
-    # Order details
-    order_type = models.CharField(max_length=10, choices=ORDER_TYPE_CHOICES)
-    status = models.CharField(max_length=15, choices=ORDER_STATUS_CHOICES, default='pending')
-    
-    # Customer information
+    # Customer details
     customer_name = models.CharField(max_length=100)
     customer_email = models.EmailField()
-    customer_phone = models.CharField(max_length=15)
+    customer_phone = models.CharField(max_length=20)
     
     # Collection details
     collection_date = models.DateField(null=True, blank=True)
-    collection_time = models.CharField(max_length=20, null=True, blank=True)
+    collection_time = models.CharField(max_length=20, blank=True)
     
     # Delivery details
-    delivery_address = models.TextField(null=True, blank=True)
-    delivery_city = models.CharField(max_length=50, null=True, blank=True)
-    delivery_postcode = models.CharField(max_length=10, null=True, blank=True)
+    delivery_address = models.TextField(blank=True)
+    delivery_city = models.CharField(max_length=100, blank=True)
+    delivery_postcode = models.CharField(max_length=10, blank=True)
     delivery_date = models.DateField(null=True, blank=True)
-    delivery_time = models.CharField(max_length=20, null=True, blank=True)
+    delivery_time = models.CharField(max_length=20, blank=True)
     
-    # Additional information
+    # Order details
     special_instructions = models.TextField(blank=True)
-    
-    # Pricing
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
-    delivery_fee = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    delivery_fee = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     total = models.DecimalField(max_digits=10, decimal_places=2)
     
-    # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
-    def save(self, *args, **kwargs):
-        if not self.order_number:
-            self.order_number = self.generate_order_number()
-        super().save(*args, **kwargs)
-    
-    def generate_order_number(self):
-        return f"MC{uuid.uuid4().hex[:8].upper()}"
-    
+
     def __str__(self):
-        return f"Order {self.order_number} - {self.customer.get_full_name()}"
-    
+        return f"Order {self.order_number} - {self.customer.username}"
+
     class Meta:
         ordering = ['-created_at']
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
-    cake_id = models.CharField(max_length=50)  # matches data-id from HTML
-    cake_name = models.CharField(max_length=100)
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    cake_id = models.CharField(max_length=50)
+    cake_name = models.CharField(max_length=200)
     cake_image = models.URLField()
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2)
+    unit_price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.PositiveIntegerField()
-    total_price = models.DecimalField(max_digits=10, decimal_places=2)
-    
-    def save(self, *args, **kwargs):
-        self.total_price = self.unit_price * self.quantity
-        super().save(*args, **kwargs)
-    
-    def __str__(self):
-        return f"{self.cake_name} x {self.quantity}"
 
-class Cake(models.Model):
-    CATEGORY_CHOICES = [
-        ('birthday', 'Birthday Cakes'),
-        ('wedding', 'Wedding Cakes'),
-        ('treat', 'Treats'),
-        ('vegan', 'Vegan Cakes'),
-        ('all', 'All Cakes & Treats'),
-    ]
-
-    name = models.CharField(max_length=100)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
-    image = models.ImageField(upload_to='cakes/')
-    description = models.TextField(blank=True)
+    @property
+    def total_price(self):
+        return self.unit_price * self.quantity
 
     def __str__(self):
-        return self.name
+        return f"{self.quantity}x {self.cake_name}"
+
+    class Meta:
+        db_table = 'cakes_orderitem'
