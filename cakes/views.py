@@ -163,3 +163,162 @@ def send_order_confirmation_email(order):
         
     except Exception as e:
         logger.error(f"Failed to send confirmation email for order {order.order_number}: {str(e)}")
+
+# Cart Management Views
+def get_cart(request):
+    """Get cart from session"""
+    cart = request.session.get('cart', {})
+    return cart
+
+def get_cart_total(cart):
+    """Calculate cart total"""
+    total = 0
+    for item in cart.values():
+        total += Decimal(str(item['price'])) * item['quantity']
+    return total
+
+def get_cart_count(cart):
+    """Get total items in cart"""
+    return sum(item['quantity'] for item in cart.values())
+
+def view_cart(request):
+    """View shopping cart"""
+    cart = get_cart(request)
+    cart_items = []
+    
+    for cake_id, item in cart.items():
+        cart_items.append({
+            'cake_id': cake_id,
+            'name': item['name'],
+            'price': Decimal(str(item['price'])),
+            'quantity': item['quantity'],
+            'image': item['image'],
+            'total': Decimal(str(item['price'])) * item['quantity']
+        })
+    
+    context = {
+        'cart_items': cart_items,
+        'cart_total': get_cart_total(cart),
+        'cart_count': get_cart_count(cart),
+    }
+    return render(request, 'cakes/cart.html', context)
+
+@require_http_methods(["POST"])
+def add_to_cart(request):
+    """Add item to cart"""
+    try:
+        data = json.loads(request.body)
+        cake_id = data.get('cake_id')
+        cake_name = data.get('cake_name')
+        cake_price = data.get('cake_price')
+        cake_image = data.get('cake_image')
+        quantity = int(data.get('quantity', 1))
+        
+        # Get cart from session
+        cart = get_cart(request)
+        
+        # Add or update item in cart
+        if cake_id in cart:
+            cart[cake_id]['quantity'] += quantity
+        else:
+            cart[cake_id] = {
+                'name': cake_name,
+                'price': float(cake_price),
+                'quantity': quantity,
+                'image': cake_image
+            }
+        
+        # Save cart to session
+        request.session['cart'] = cart
+        request.session.modified = True
+        
+        return JsonResponse({
+            'success': True,
+            'message': f'{cake_name} added to cart!',
+            'cart_count': get_cart_count(cart),
+            'cart_total': float(get_cart_total(cart))
+        })
+        
+    except Exception as e:
+        logger.error(f"Error adding to cart: {e}")
+        return JsonResponse({
+            'success': False,
+            'message': 'Error adding item to cart'
+        })
+
+@require_http_methods(["POST"])
+def update_cart(request):
+    """Update cart item quantity"""
+    try:
+        data = json.loads(request.body)
+        cake_id = data.get('cake_id')
+        quantity = int(data.get('quantity', 1))
+        
+        cart = get_cart(request)
+        
+        if cake_id in cart:
+            if quantity > 0:
+                cart[cake_id]['quantity'] = quantity
+            else:
+                del cart[cake_id]
+            
+            request.session['cart'] = cart
+            request.session.modified = True
+            
+            return JsonResponse({
+                'success': True,
+                'cart_count': get_cart_count(cart),
+                'cart_total': float(get_cart_total(cart))
+            })
+        
+        return JsonResponse({
+            'success': False,
+            'message': 'Item not found in cart'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error updating cart: {e}")
+        return JsonResponse({
+            'success': False,
+            'message': 'Error updating cart'
+        })
+
+@require_http_methods(["POST"])
+def remove_from_cart(request):
+    """Remove item from cart"""
+    try:
+        data = json.loads(request.body)
+        cake_id = data.get('cake_id')
+        
+        cart = get_cart(request)
+        
+        if cake_id in cart:
+            del cart[cake_id]
+            request.session['cart'] = cart
+            request.session.modified = True
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Item removed from cart',
+                'cart_count': get_cart_count(cart),
+                'cart_total': float(get_cart_total(cart))
+            })
+        
+        return JsonResponse({
+            'success': False,
+            'message': 'Item not found in cart'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error removing from cart: {e}")
+        return JsonResponse({
+            'success': False,
+            'message': 'Error removing item'
+        })
+
+def clear_cart(request):
+    """Clear entire cart"""
+    request.session['cart'] = {}
+    request.session.modified = True
+    messages.success(request, 'Cart cleared successfully!')
+    return redirect('view_cart')
