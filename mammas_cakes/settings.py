@@ -172,11 +172,10 @@ except ImportError:
     print("ℹ️  No local_settings.py found - using production settings")
 
 # Add this at the very bottom (after all other settings):
-
 # FORCE DEVELOPMENT MODE - Override everything
 import sys
 if 'runserver' in sys.argv:
     SECURE_SSL_REDIRECT = False
     SECURE_PROXY_SSL_HEADER = None
-    DEBUG = True
+    DEBUG = False
     print("🔧 DEVELOPMENT MODE: SSL forced OFF")
