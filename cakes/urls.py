@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('vegan-cakes/', views.vegan_cakes, name='vegan_cakes'),
     path('birthday-cakes/', views.birthday_cakes, name='birthday_cakes'),
-    path('wedding-cakes/', views.wedding_cake, name='wedding_cakes'),  # Changed: wedding_cakes → wedding_cake
+    path('wedding-cakes/', views.wedding_cake, name='wedding_cakes'), 
     path('treats/', views.treats, name='treats'),
     path('products/', views.products, name='products'),
 
