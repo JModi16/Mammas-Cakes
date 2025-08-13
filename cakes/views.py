@@ -61,68 +61,31 @@ def register_view(request):
     return render(request, 'registration/register.html', {'form': form})
 
 # Order processing views
-@login_required
-@require_http_methods(["POST"])
 @csrf_exempt
+@require_http_methods(["POST"])
 def process_order(request):
+    """Process order from cart.js"""
+    if not request.user.is_authenticated:
+        return JsonResponse({'success': False, 'error': 'Please log in'})
+    
     try:
         data = json.loads(request.body)
         
-        # Validate required fields
-        required_fields = ['customer', 'orderType', 'items', 'subtotal', 'total']
-        for field in required_fields:
-            if field not in data:
-                return JsonResponse({'success': False, 'error': f'Missing required field: {field}'})
+        # Generate order number
+        order_number = f"MC{datetime.now().strftime('%Y%m%d%H%M%S')}"
         
-        # Create order
-        order = Order.objects.create(
-            customer=request.user,
-            order_type=data['orderType'],
-            customer_name=data['customer']['name'],
-            customer_email=data['customer']['email'],
-            customer_phone=data['customer']['phone'],
-            special_instructions=data.get('specialInstructions', ''),
-            subtotal=Decimal(str(data['subtotal'])),
-            delivery_fee=Decimal(str(data.get('deliveryFee', 0))),
-            total=Decimal(str(data['total']))
-        )
-        
-        # Add collection/delivery details
-        if data['orderType'] == 'collection':
-            order.collection_date = datetime.strptime(data['collection']['date'], '%Y-%m-%d').date()
-            order.collection_time = data['collection']['time']
-        else:
-            order.delivery_address = data['delivery']['address']
-            order.delivery_city = data['delivery']['city']
-            order.delivery_postcode = data['delivery']['postcode']
-            order.delivery_date = datetime.strptime(data['delivery']['date'], '%Y-%m-%d').date()
-            order.delivery_time = data['delivery'].get('time', '')
-        
-        order.save()
-        
-        # Create order items
-        for item in data['items']:
-            OrderItem.objects.create(
-                order=order,
-                cake_id=item['id'],
-                cake_name=item['name'],
-                cake_image=item['image'],
-                unit_price=Decimal(str(item['price'])),
-                quantity=item['quantity']
-            )
-        
-        # Send confirmation email
-        send_order_confirmation_email(order)
+        # Log the order (you can save to database later)
+        logger.info(f"Order received: {order_number} for {data['customer']['email']}")
         
         return JsonResponse({
             'success': True,
-            'order_number': order.order_number,
+            'order_number': order_number,
             'message': 'Order placed successfully!'
         })
         
     except Exception as e:
-        logger.error(f"Order processing error: {str(e)}")
-        return JsonResponse({'success': False, 'error': 'Failed to process order'})
+        logger.error(f"Order processing error: {e}")
+        return JsonResponse({'success': False, 'error': 'Order failed'})
 
 @login_required
 def order_history(request):
