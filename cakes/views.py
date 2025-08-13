@@ -25,8 +25,7 @@ def home(request):
 def birthday_cakes(request):
     return render(request, 'cakes/birthday_cakes.html')
 
-def wedding_cake(request):  # Fixed: Complete function definition
-    return render(request, 'cakes/wedding_cakes.html')
+
 
 def vegan_cakes(request):
     return render(request, 'cakes/vegan_cakes.html')
