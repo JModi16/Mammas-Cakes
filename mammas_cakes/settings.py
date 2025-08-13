@@ -73,12 +73,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mammas_cakes.wsgi.application'
 
 # Database - SECURE VERSION
-if 'DATABASE_URL' in os.environ:
+# Database configuration
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
+    # PostgreSQL configuration
+    import dj_database_url
     DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+        'default': dj_database_url.parse(DATABASE_URL)
     }
 else:
-    raise ValueError("DATABASE_URL environment variable is required!")
+    # SQLite configuration (fallback)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
