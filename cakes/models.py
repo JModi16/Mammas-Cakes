@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-import uuid
 
 class Cake(models.Model):
     """Cake products model"""
@@ -67,6 +66,9 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.order_number} - {self.customer.username}"
+    
+    class Meta:
+        ordering = ['-created_at']
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
