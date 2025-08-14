@@ -289,3 +289,17 @@ def clear_cart(request):
     request.session.modified = True
     messages.success(request, 'Cart cleared successfully!')
     return redirect('view_cart')
+
+# Add these temporary placeholder functions to views.py
+
+@login_required
+def order_history(request):
+    """Temporary placeholder - models not created yet"""
+    messages.info(request, 'Order history feature coming soon!')
+    return redirect('home')
+
+@login_required  
+def order_detail(request, order_number):
+    """Temporary placeholder - models not created yet"""
+    messages.info(request, 'Order details feature coming soon!')
+    return redirect('home')
