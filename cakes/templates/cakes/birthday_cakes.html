@@ -85,10 +85,12 @@
 </div>
 
 <script>
+const userIsAuthenticated = '{{ user.is_authenticated|yesno:"true,false" }}';
+
 // Order Now functionality
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('order-now-btn')) {
-        {% if user.is_authenticated %}
+        if (userIsAuthenticated) {
             const button = e.target;
             const cakeData = {
                 id: button.dataset.id,
@@ -115,10 +117,10 @@ document.addEventListener('click', function(e) {
                 placeOrder(cakeData);
                 modal.hide();
             };
-        {% else %}
+        } else {
             alert('Please log in to place an order.');
             window.location.href = '{% url "login" %}';
-        {% endif %}
+        }
     }
 });
 
