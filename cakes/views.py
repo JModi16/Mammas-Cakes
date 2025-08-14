@@ -14,8 +14,7 @@ import logging
 from decimal import Decimal
 from datetime import datetime
 
-# Comment out these imports until you create the models
-# from .models import Order, OrderItem, Customer
+from .models import Cake, Customer, Order, OrderItem
 from .forms import CustomUserCreationForm
 
 logger = logging.getLogger(__name__)
@@ -25,16 +24,24 @@ def home(request):
     return render(request, 'cakes/home.html')
 
 def birthday_cakes(request):
-    return render(request, 'cakes/birthday_cakes.html')
+    """Display birthday cakes from database"""
+    cakes = Cake.objects.filter(category='birthday', is_available=True)
+    return render(request, 'cakes/birthday_cakes.html', {'cakes': cakes})
 
 def wedding_cakes(request):
-    return render(request, 'cakes/wedding_cakes.html')
+    """Display wedding cakes from database"""
+    cakes = Cake.objects.filter(category='wedding', is_available=True)
+    return render(request, 'cakes/wedding_cakes.html', {'cakes': cakes})
 
 def vegan_cakes(request):
-    return render(request, 'cakes/vegan_cakes.html')
+    """Display vegan cakes from database"""
+    cakes = Cake.objects.filter(category='vegan', is_available=True)
+    return render(request, 'cakes/vegan_cakes.html', {'cakes': cakes})
 
 def treats(request):
-    return render(request, 'cakes/treats.html')
+    """Display treats from database"""
+    cakes = Cake.objects.filter(category='treats', is_available=True)
+    return render(request, 'cakes/treats.html', {'cakes': cakes})
 
 def products(request):
     query = request.GET.get('q', '')
