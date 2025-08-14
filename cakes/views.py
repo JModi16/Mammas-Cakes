@@ -48,11 +48,11 @@ def register_view(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Create customer profile
-            Customer.objects.create(
-                user=user,
-                phone_number=form.cleaned_data.get('phone_number', '')
-            )
+            # Comment out until Customer model is created
+            # Customer.objects.create(
+            #     user=user,
+            #     phone_number=form.cleaned_data.get('phone_number', '')
+            # )
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}! You can now log in.')
             return redirect('login')
