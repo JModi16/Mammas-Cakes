@@ -44,9 +44,9 @@ def treats(request):
     return render(request, 'cakes/treats.html', {'cakes': cakes})
 
 def products(request):
-    query = request.GET.get('q', '')
-    context = {'query': query}
-    return render(request, 'cakes/products.html', context)
+    """Display all products"""
+    cakes = Cake.objects.filter(is_available=True)
+    return render(request, 'cakes/products.html', {'cakes': cakes})
 
 # Authentication views
 def register_view(request):
@@ -96,207 +96,6 @@ def process_order(request):
         logger.error(f"Order processing error: {e}")
         return JsonResponse({'success': False, 'error': 'Order failed'})
 
-# Comment out these functions until models are created:
-
-# @login_required
-# def order_history(request):
-#     orders = Order.objects.filter(customer=request.user).prefetch_related('items')
-#     return render(request, 'cakes/order_history.html', {'orders': orders})
-
-# @login_required
-# def order_detail(request, order_number):
-#     order = get_object_or_404(Order, order_number=order_number, customer=request.user)
-#     return render(request, 'cakes/order_detail.html', {'order': order})
-
-def send_order_confirmation_email(order):
-    """Send order confirmation email to customer"""
-    try:
-        subject = f'Order Confirmation - {order.order_number}'
-        
-        # Render email template
-        html_message = render_to_string('emails/order_confirmation.html', {
-            'order': order,
-            'items': order.items.all()
-        })
-        
-        plain_message = render_to_string('emails/order_confirmation.txt', {
-            'order': order,
-            'items': order.items.all()
-        })
-        
-        send_mail(
-            subject=subject,
-            message=plain_message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[order.customer_email],
-            html_message=html_message,
-            fail_silently=False,
-        )
-        
-        logger.info(f"Order confirmation email sent for order {order.order_number}")
-        
-    except Exception as e:
-        logger.error(f"Failed to send confirmation email for order {order.order_number}: {str(e)}")
-
-# Cart Management Views
-# def get_cart(request):
-#     """Get cart from session"""
-#     cart = request.session.get('cart', {})
-#     return cart
-
-# def get_cart_total(cart):
-#     """Calculate cart total"""
-#     total = 0
-#     for item in cart.values():
-#         total += Decimal(str(item['price'])) * item['quantity']
-#     return total
-
-# def get_cart_count(cart):
-#     """Get total items in cart"""
-#     return sum(item['quantity'] for item in cart.values())
-
-# def view_cart(request):
-#     """View shopping cart"""
-#     cart = get_cart(request)
-#     cart_items = []
-    
-#     for cake_id, item in cart.items():
-#         cart_items.append({
-#             'cake_id': cake_id,
-#             'name': item['name'],
-#             'price': Decimal(str(item['price'])),
-#             'quantity': item['quantity'],
-#             'image': item['image'],
-#             'total': Decimal(str(item['price'])) * item['quantity']
-#         })
-    
-#     context = {
-#         'cart_items': cart_items,
-#         'cart_total': get_cart_total(cart),
-#         'cart_count': get_cart_count(cart),
-#     }
-#     return render(request, 'cakes/cart.html', context)
-
-# @require_http_methods(["POST"])
-# def add_to_cart(request):
-#     """Add item to cart"""
-#     try:
-#         data = json.loads(request.body)
-#         cake_id = data.get('cake_id')
-#         cake_name = data.get('cake_name')
-#         cake_price = data.get('cake_price')
-#         cake_image = data.get('cake_image')
-#         quantity = int(data.get('quantity', 1))
-        
-#         # Get cart from session
-#         cart = get_cart(request)
-        
-#         # Add or update item in cart
-#         if cake_id in cart:
-#             cart[cake_id]['quantity'] += quantity
-#         else:
-#             cart[cake_id] = {
-#                 'name': cake_name,
-#                 'price': float(cake_price),
-#                 'quantity': quantity,
-#                 'image': cake_image
-#             }
-        
-#         # Save cart to session
-#         request.session['cart'] = cart
-#         request.session.modified = True
-        
-#         return JsonResponse({
-#             'success': True,
-#             'message': f'{cake_name} added to cart!',
-#             'cart_count': get_cart_count(cart),
-#             'cart_total': float(get_cart_total(cart))
-#         })
-        
-#     except Exception as e:
-#         logger.error(f"Error adding to cart: {e}")
-#         return JsonResponse({
-#             'success': False,
-#             'message': 'Error adding item to cart'
-#         })
-
-# @require_http_methods(["POST"])
-# def update_cart(request):
-#     """Update cart item quantity"""
-#     try:
-#         data = json.loads(request.body)
-#         cake_id = data.get('cake_id')
-#         quantity = int(data.get('quantity', 1))
-        
-#         cart = get_cart(request)
-        
-#         if cake_id in cart:
-#             if quantity > 0:
-#                 cart[cake_id]['quantity'] = quantity
-#             else:
-#                 del cart[cake_id]
-            
-#             request.session['cart'] = cart
-#             request.session.modified = True
-            
-#             return JsonResponse({
-#                 'success': True,
-#                 'cart_count': get_cart_count(cart),
-#                 'cart_total': float(get_cart_total(cart))
-#             })
-        
-#         return JsonResponse({
-#             'success': False,
-#             'message': 'Item not found in cart'
-#         })
-        
-#     except Exception as e:
-#         logger.error(f"Error updating cart: {e}")
-#         return JsonResponse({
-#             'success': False,
-#             'message': 'Error updating cart'
-#         })
-
-# @require_http_methods(["POST"])
-# def remove_from_cart(request):
-#     """Remove item from cart"""
-#     try:
-#         data = json.loads(request.body)
-#         cake_id = data.get('cake_id')
-        
-#         cart = get_cart(request)
-        
-#         if cake_id in cart:
-#             del cart[cake_id]
-#             request.session['cart'] = cart
-#             request.session.modified = True
-            
-#             return JsonResponse({
-#                 'success': True,
-#                 'message': 'Item removed from cart',
-#                 'cart_count': get_cart_count(cart),
-#                 'cart_total': float(get_cart_total(cart))
-#             })
-        
-#         return JsonResponse({
-#             'success': False,
-#             'message': 'Item not found in cart'
-#         })
-        
-#     except Exception as e:
-#         logger.error(f"Error removing from cart: {e}")
-#         return JsonResponse({
-#             'success': False,
-#             'message': 'Error removing item'
-#         })
-
-# def clear_cart(request):
-#     """Clear entire cart"""
-#     request.session['cart'] = {}
-#     request.session.modified = True
-#     messages.success(request, 'Cart cleared successfully!')
-#     return redirect('view_cart')
-
 @login_required
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -313,7 +112,7 @@ def place_order(request):
             order_number=order_number,
             customer=request.user,
             customer_email=request.user.email,
-            total_amount=Decimal(str(data['price'])),
+            total=Decimal(str(data['price'])),
             status='pending',
             order_type='single_item'
         )
@@ -327,8 +126,11 @@ def place_order(request):
             total_price=Decimal(str(data['price']))
         )
         
-        # Send confirmation email
-        send_order_confirmation_email(order)
+        # Send confirmation email (optional)
+        try:
+            send_order_confirmation_email(order)
+        except Exception as e:
+            logger.warning(f"Failed to send confirmation email: {e}")
         
         logger.info(f"Order placed: {order_number} for {request.user.email}")
         
@@ -347,7 +149,54 @@ def place_order(request):
         })
 
 @login_required
+def order_history(request):
+    """Display user's order history"""
+    orders = Order.objects.filter(customer=request.user).prefetch_related('items').order_by('-created_at')
+    return render(request, 'cakes/order_history.html', {'orders': orders})
+
+@login_required
+def order_detail(request, order_number):
+    """Display detailed view of a specific order"""
+    order = get_object_or_404(Order, order_number=order_number, customer=request.user)
+    return render(request, 'cakes/order_detail.html', {'order': order})
+
+@login_required
 def order_confirmation(request, order_number):
     """Display order confirmation page"""
     order = get_object_or_404(Order, order_number=order_number, customer=request.user)
     return render(request, 'cakes/order_confirmation.html', {'order': order})
+
+def send_order_confirmation_email(order):
+    """Send order confirmation email to customer"""
+    try:
+        subject = f'Order Confirmation - {order.order_number}'
+        html_message = render_to_string('cakes/email/order_confirmation.html', {
+            'order': order,
+            'customer_name': order.customer.first_name or order.customer.username,
+        })
+        plain_message = f"""
+        Dear {order.customer.first_name or order.customer.username},
+        
+        Thank you for your order!
+        
+        Order Number: {order.order_number}
+        Total: £{order.total}
+        
+        We'll prepare your delicious cake with love and care.
+        
+        Best regards,
+        Mammas Cakes Team
+        """
+        
+        send_mail(
+            subject,
+            plain_message,
+            settings.DEFAULT_FROM_EMAIL,
+            [order.customer_email],
+            html_message=html_message,
+            fail_silently=False,
+        )
+        logger.info(f"Confirmation email sent for order {order.order_number}")
+    except Exception as e:
+        logger.error(f"Failed to send confirmation email for order {order.order_number}: {e}")
+        raise
