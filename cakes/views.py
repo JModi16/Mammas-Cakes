@@ -13,7 +13,9 @@ import json
 import logging
 from decimal import Decimal
 from datetime import datetime
-from .models import Order, OrderItem, Customer
+
+# Comment out these imports until you create the models
+# from .models import Order, OrderItem, Customer
 from .forms import CustomUserCreationForm
 
 logger = logging.getLogger(__name__)
