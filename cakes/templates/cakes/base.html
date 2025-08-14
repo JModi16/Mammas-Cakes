@@ -55,7 +55,7 @@
                             <a class="nav-link" href="{% url 'birthday_cakes' %}">Birthday Cakes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'wedding_cake' %}">Wedding Cakes</a>
+                            <a class="nav-link" href="{% url 'wedding_cakes' %}">Wedding Cakes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'treats' %}">Treats</a>
@@ -92,7 +92,7 @@
                                     <i class="fas fa-user"></i> {{ user.get_full_name|default:user.username }}
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{% url 'order_history' %}">
+                                    <li><a class="dropdown-item" href="#" onclick="alert('Order history coming soon!')">
                                         <i class="fas fa-history"></i> Order History
                                     </a></li>
                                     <li><hr class="dropdown-divider"></li>

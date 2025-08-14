@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key-for-development')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = True  # Change this line
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split(',')
+ALLOWED_HOSTS = ['*']  # Change this line for testing
 
 # Application definition
 
@@ -180,11 +180,10 @@ try:
 except ImportError:
     print("ℹ️  No local_settings.py found - using production settings")
 
-# Add this at the very bottom (after all other settings):
-# FORCE DEVELOPMENT MODE - Override everything
-import sys
-if 'runserver' in sys.argv:
-    SECURE_SSL_REDIRECT = False
-    SECURE_PROXY_SSL_HEADER = None
-    DEBUG = False
-    print("🔧 DEVELOPMENT MODE: SSL forced OFF")
+# Comment out the bottom override section:
+# import sys
+# if 'runserver' in sys.argv:
+#     SECURE_SSL_REDIRECT = False
+#     SECURE_PROXY_SSL_HEADER = None
+#     DEBUG = False  # This was forcing DEBUG off!
+#     print("🔧 DEVELOPMENT MODE: SSL forced OFF")
