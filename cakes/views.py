@@ -89,45 +89,47 @@ def process_order(request):
         logger.error(f"Order processing error: {e}")
         return JsonResponse({'success': False, 'error': 'Order failed'})
 
-@login_required
-def order_history(request):
-    orders = Order.objects.filter(customer=request.user).prefetch_related('items')
-    return render(request, 'cakes/order_history.html', {'orders': orders})
+# Comment out these functions until models are created:
 
-@login_required
-def order_detail(request, order_number):
-    order = get_object_or_404(Order, order_number=order_number, customer=request.user)
-    return render(request, 'cakes/order_detail.html', {'order': order})
+# @login_required
+# def order_history(request):
+#     orders = Order.objects.filter(customer=request.user).prefetch_related('items')
+#     return render(request, 'cakes/order_history.html', {'orders': orders})
 
-def send_order_confirmation_email(order):
-    """Send order confirmation email to customer"""
-    try:
-        subject = f'Order Confirmation - {order.order_number}'
+# @login_required
+# def order_detail(request, order_number):
+#     order = get_object_or_404(Order, order_number=order_number, customer=request.user)
+#     return render(request, 'cakes/order_detail.html', {'order': order})
+
+# def send_order_confirmation_email(order):
+#     """Send order confirmation email to customer"""
+#     try:
+#         subject = f'Order Confirmation - {order.order_number}'
         
-        # Render email template
-        html_message = render_to_string('emails/order_confirmation.html', {
-            'order': order,
-            'items': order.items.all()
-        })
+#         # Render email template
+#         html_message = render_to_string('emails/order_confirmation.html', {
+#             'order': order,
+#             'items': order.items.all()
+#         })
         
-        plain_message = render_to_string('emails/order_confirmation.txt', {
-            'order': order,
-            'items': order.items.all()
-        })
+#         plain_message = render_to_string('emails/order_confirmation.txt', {
+#             'order': order,
+#             'items': order.items.all()
+#         })
         
-        send_mail(
-            subject=subject,
-            message=plain_message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[order.customer_email],
-            html_message=html_message,
-            fail_silently=False,
-        )
+#         send_mail(
+#             subject=subject,
+#             message=plain_message,
+#             from_email=settings.DEFAULT_FROM_EMAIL,
+#             recipient_list=[order.customer_email],
+#             html_message=html_message,
+#             fail_silently=False,
+#         )
         
-        logger.info(f"Order confirmation email sent for order {order.order_number}")
+#         logger.info(f"Order confirmation email sent for order {order.order_number}")
         
-    except Exception as e:
-        logger.error(f"Failed to send confirmation email for order {order.order_number}: {str(e)}")
+#     except Exception as e:
+#         logger.error(f"Failed to send confirmation email for order {order.order_number}: {str(e)}")
 
 # Cart Management Views
 def get_cart(request):
