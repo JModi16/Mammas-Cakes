@@ -78,10 +78,10 @@
                     {% if user.is_authenticated %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user"></i> {{ user.get_full_name|default:user.username }}
+                                <i class="fas fa-user"></i> {{ user.get_full_name|default:user.username }}
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#" onclick="alert('Order history coming soon!')">
+                                    <li><a class="dropdown-item" href="{% url 'order_history' %}">
                                         <i class="fas fa-history"></i> Order History
                                     </a></li>
                                     <li><hr class="dropdown-divider"></li>
