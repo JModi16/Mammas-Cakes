@@ -39,7 +39,9 @@
                                     data-id="{{ cake.id }}"
                                     data-name="{{ cake.name }}"
                                     data-price="{{ cake.price }}"
-                                    data-image="{% if cake.image %}{{ cake.image.url }}{% else %}{% static 'images/weddingcake.webp' %}{% endif %}">
+                                    data-image="{% if cake.image %}{{ cake.image.url }}{% else %}{% static 'images/default.jpg' %}{% endif %}"
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#orderDetailsModal">
                                 <i class="fas fa-shopping-bag"></i> Order Now
                             </button>
                         {% else %}
