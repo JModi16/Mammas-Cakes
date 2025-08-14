@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('vegan-cakes/', views.vegan_cakes, name='vegan_cakes'),
     path('birthday-cakes/', views.birthday_cakes, name='birthday_cakes'),
-    path('wedding-cakes/', views.wedding_cakes, name='wedding_cakes'),  # Changed: Match your view function name
+    path('wedding-cakes/', views.wedding_cakes, name='wedding_cakes'),
     path('treats/', views.treats, name='treats'),
     path('products/', views.products, name='products'),
 
@@ -25,6 +25,8 @@ urlpatterns = [
 
     # Order management URLs
     path('process-order/', views.process_order, name='process_order'),
-    path('orders/', views.order_history, name='order_history'),
-    path('orders/<str:order_number>/', views.order_detail, name='order_detail'),
+    
+    # Comment out these URLs until models are created:
+    # path('orders/', views.order_history, name='order_history'),
+    # path('orders/<str:order_number>/', views.order_detail, name='order_detail'),
 ]
