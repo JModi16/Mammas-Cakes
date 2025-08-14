@@ -1,7 +1,6 @@
 {% extends 'cakes/base.html' %}
 {% load static %}
 
-
 {% block title %}Vegan Cakes - Mammas Cakes{% endblock %}
 {% block description %}Delicious plant-based cakes with no compromise on taste{% endblock %}
 
@@ -14,73 +13,55 @@
         </div>
     </div>
     
-<div class="row g-4">
-        <!-- vegan Cake 1 -->
+    <div class="row g-4">
+        {% for cake in cakes %}
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">
-                <img src="{% static 'images/veganblueberry.webp' %}" alt="Blueberry cake" class="card-img-top" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                    <h3 class="card-title h5">Vegan Blueberry Cake</h3>
-                    <p class="card-text">Delicious vegan cake made with fresh blueberries and almond flour</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="h5 text-primary mb-0">£25.99</span>
-                        <button class="btn btn-primary add-to-cart" 
-                                data-id="vegan-blueberry"
-                                data-name="Vegan Blueberry Cake"
-                                data-price="25.99"
-                                data-image="{% static 'images/veganblueberry.webp' %}">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
+                {% if cake.image %}
+                    <img src="{{ cake.image.url }}" class="card-img-top" alt="{{ cake.name }}" style="height: 250px; object-fit: cover;">
+                {% else %}
+                    <img src="{% static 'images/veganblueberry.webp' %}" class="card-img-top" alt="{{ cake.name }}" style="height: 250px; object-fit: cover;">
+                {% endif %}
+                
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ cake.name }}</h5>
+                    <p class="card-text">{{ cake.description }}</p>
+                    
+                    {% if cake.allergens %}
+                    <p class="text-muted small">
+                        <strong>Allergens:</strong> {{ cake.allergens }}
+                    </p>
+                    {% endif %}
+                    
+                    <div class="mt-auto d-flex justify-content-between align-items-center">
+                        <span class="h5 text-primary mb-0">£{{ cake.price }}</span>
+                        {% if user.is_authenticated %}
+                            <button class="btn btn-primary order-now-btn" 
+                                    data-id="{{ cake.id }}"
+
+                                    data-name="{{ cake.name }}"
+                                    data-price="{{ cake.price }}"
+                                    data-image="{% if cake.image %}{{ cake.image.url }}{% else %}{% static 'images/veganblueberry.webp' %}{% endif %}">
+                                <i class="fas fa-shopping-bag"></i> Order Now
+                            </button>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt"></i> Login to Order
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- vegan Cake 2 -->
-         <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm">
-                <img src="{% static 'images/vegancaramel.webp' %}" alt="Vegan caramel cake" class="card-img-top" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                    <h3 class="card-title h5">Vegan Caramel Cake</h3>
-                    <p class="card-text">Rich and moist vegan cake with a luscious caramel drizzle</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="h5 text-primary mb-0">£23.99</span>
-                        <button class="btn btn-primary add-to-cart" 
-                                data-id="vegan-caramel"
-                                data-name="Vegan Caramel Cake"
-                                data-price="23.99"
-                                data-image="{% static 'images/vegancaramel.webp' %}">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p class="lead">No vegan cakes available at the moment.</p>
+            <p>Please check back soon or contact us for custom orders!</p>
         </div>
+        {% endfor %}
+    </div>
 
-        <!-- vegan Cake 3 -->
-            <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm">
-                <img src="{% static 'images/veganbiscuit.webp' %}" alt="Vegan biscuit cake" class="card-img-top" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                    <h3 class="card-title h5">Vegan Biscuit Cake</h3>
-                    <p class="card-text">Delicious vegan cake made with crushed biscuits and a rich chocolate filling</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="h5 text-primary mb-0">£22.99</span>
-                        <button class="btn btn-primary add-to-cart" 
-                                data-id="vegan-biscuit"
-                                data-name="Vegan Biscuit Cake"
-                                data-price="22.99"
-                                data-image="{% static 'images/veganbiscuit.webp' %}">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-           <!-- Call to Action Section -->
+    <!-- Call to Action Section -->
     <div class="row mt-5">
         <div class="col-12 text-center">
             <div class="bg-light p-4 rounded">
@@ -91,16 +72,4 @@
         </div>
     </div>
 </div>
-
-<!-- Order Now Button (for modal) -->
-<button class="btn btn-primary order-now-btn" 
-        data-id="{{ cake.id }}"
-        data-name="{{ cake.name }}"
-        data-price="{{ cake.price }}"
-        data-image="{% if cake.image %}{{ cake.image.url }}{% else %}{% static 'images/default.jpg' %}{% endif %}"
-        data-bs-toggle="modal" 
-        data-bs-target="#orderDetailsModal">
-    <i class="fas fa-shopping-bag"></i> Order Now
-</button>
-
 {% endblock %}
