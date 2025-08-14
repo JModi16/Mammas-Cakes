@@ -22,8 +22,8 @@
                     <img src="{% static 'images/birthdaycake1webp.webp' %}" class="card-img-top" alt="{{ cake.name }}" style="height: 250px; object-fit: cover;">
                 {% endif %}
                 
-                <div class="card-body">
-                    <h3 class="card-title h5">{{ cake.name }}</h3>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ cake.name }}</h5>
                     <p class="card-text">{{ cake.description }}</p>
                     
                     {% if cake.allergens %}
@@ -32,15 +32,21 @@
                     </p>
                     {% endif %}
                     
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="mt-auto d-flex justify-content-between align-items-center">
                         <span class="h5 text-primary mb-0">£{{ cake.price }}</span>
-                        <button class="btn btn-primary order-now-btn" 
-                                data-id="{{ cake.id }}"
-                                data-name="{{ cake.name }}"
-                                data-price="{{ cake.price }}"
-                                data-image="{% if cake.image %}{{ cake.image.url }}{% else %}{% static 'images/birthdaycake1webp.webp' %}{% endif %}">
-                            <i class="fas fa-shopping-bag"></i> Order Now
-                        </button>
+                        {% if user.is_authenticated %}
+                            <button class="btn btn-primary order-now-btn" 
+                                    data-id="{{ cake.id }}"
+                                    data-name="{{ cake.name }}"
+                                    data-price="{{ cake.price }}"
+                                    data-image="{% if cake.image %}{{ cake.image.url }}{% else %}{% static 'images/birthdaycake1webp.webp' %}{% endif %}">
+                                <i class="fas fa-shopping-bag"></i> Order Now
+                            </button>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt"></i> Login to Order
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -51,17 +57,6 @@
             <p>Please check back soon or contact us for custom orders!</p>
         </div>
         {% endfor %}
-    </div>
-    
-    <!-- Call to Action Section -->
-    <div class="row mt-5">
-        <div class="col-12 text-center">
-            <div class="bg-light p-4 rounded">
-                <h2 class="h4">Looking for a Custom Birthday Cake?</h2>
-                <p>Contact us for custom designs and special requests. We are here to make your birthday celebration unforgettable!</p>
-                <a href="#" class="btn btn-success btn-lg">Contact Us for Custom Design</a>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -85,42 +80,35 @@
 </div>
 
 <script>
-const userIsAuthenticated = '{{ user.is_authenticated|yesno:"true,false" }}';
-
 // Order Now functionality
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('order-now-btn')) {
-        if (userIsAuthenticated) {
-            const button = e.target;
-            const cakeData = {
-                id: button.dataset.id,
-                name: button.dataset.name,
-                price: button.dataset.price,
-                image: button.dataset.image
-            };
-            
-            // Show order confirmation modal
-            document.getElementById('orderDetails').innerHTML = `
-                <div class="text-center">
-                    <img src="${cakeData.image}" class="img-fluid mb-3" style="max-height: 200px;">
-                    <h5>${cakeData.name}</h5>
-                    <p class="lead">£${cakeData.price}</p>
-                    <p>Confirm your order for this delicious cake!</p>
-                </div>
-            `;
-            
-            const modal = new bootstrap.Modal(document.getElementById('orderModal'));
-            modal.show();
-            
-            // Handle order confirmation
-            document.getElementById('confirmOrder').onclick = function() {
-                placeOrder(cakeData);
-                modal.hide();
-            };
-        } else {
-            alert('Please log in to place an order.');
-            window.location.href = '{% url "login" %}';
-        }
+        const button = e.target;
+        const cakeData = {
+            id: button.dataset.id,
+            name: button.dataset.name,
+            price: button.dataset.price,
+            image: button.dataset.image
+        };
+        
+        // Show order confirmation modal
+        document.getElementById('orderDetails').innerHTML = `
+            <div class="text-center">
+                <img src="${cakeData.image}" class="img-fluid mb-3" style="max-height: 200px;">
+                <h5>${cakeData.name}</h5>
+                <p class="lead">£${cakeData.price}</p>
+                <p>Confirm your order for this delicious cake!</p>
+            </div>
+        `;
+        
+        const modal = new bootstrap.Modal(document.getElementById('orderModal'));
+        modal.show();
+        
+        // Handle order confirmation
+        document.getElementById('confirmOrder').onclick = function() {
+            placeOrder(cakeData);
+            modal.hide();
+        };
     }
 });
 
