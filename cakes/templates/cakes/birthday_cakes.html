@@ -39,9 +39,7 @@
                                     data-id="{{ cake.id }}"
                                     data-name="{{ cake.name }}"
                                     data-price="{{ cake.price }}"
-                                    data-image="{% if cake.image %}{{ cake.image.url }}{% else %}{% static 'images/default.jpg' %}{% endif %}"
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#orderDetailsModal">
+                                    data-image="{% if cake.image %}{{ cake.image.url }}{% else %}{% static 'images/birthdaycake1webp.webp' %}{% endif %}">
                                 <i class="fas fa-shopping-bag"></i> Order Now
                             </button>
                         {% else %}
@@ -62,27 +60,8 @@
     </div>
 </div>
 
-<!-- Order Now Modal -->
-<div class="modal fade" id="orderModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Confirm Order</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div id="orderDetails"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="confirmOrder">Confirm Order</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
-// Order Now functionality
+// Order Now functionality - Use the modal from base.html
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('order-now-btn')) {
         const button = e.target;
@@ -93,51 +72,42 @@ document.addEventListener('click', function(e) {
             image: button.dataset.image
         };
         
-        // Show order confirmation modal
-        document.getElementById('orderDetails').innerHTML = `
-            <div class="text-center">
-                <img src="${cakeData.image}" class="img-fluid mb-3" style="max-height: 200px;">
-                <h5>${cakeData.name}</h5>
-                <p class="lead">£${cakeData.price}</p>
-                <p>Confirm your order for this delicious cake!</p>
-            </div>
-        `;
+        // Populate the order details modal from base.html
+        populateOrderModal(cakeData);
         
-        const modal = new bootstrap.Modal(document.getElementById('orderModal'));
+        // Show the modal
+        const modal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
         modal.show();
-        
-        // Handle order confirmation
-        document.getElementById('confirmOrder').onclick = function() {
-            placeOrder(cakeData);
-            modal.hide();
-        };
     }
 });
 
-function placeOrder(cakeData) {
-    fetch('{% url "place_order" %}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}'
-        },
-        body: JSON.stringify(cakeData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert(data.message);
-            if (data.redirect_url) {
-                window.location.href = data.redirect_url;
-            }
-        } else {
-            alert('Error: ' + data.error);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to place order. Please try again.');
-    });
+function populateOrderModal(cakeData) {
+    // Pre-fill user information if available
+    {% if user.is_authenticated %}
+    document.getElementById('customer-name').value = '{{ user.get_full_name|default:user.username }}';
+    document.getElementById('customer-email').value = '{{ user.email }}';
+    {% endif %}
+    
+    // Update order summary
+    document.getElementById('order-summary-items').innerHTML = `
+        <div class="d-flex justify-content-between">
+            <span>${cakeData.name}</span>
+            <span>£${cakeData.price}</span>
+        </div>
+    `;
+    document.getElementById('order-subtotal').textContent = '£' + cakeData.price;
+    
+    // Set minimum date to tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const minDate = tomorrow.toISOString().split('T')[0];
+    document.getElementById('collection-date').setAttribute('min', minDate);
+    document.getElementById('delivery-date').setAttribute('min', minDate);
+    
+    // Store cake data for form submission
+    document.getElementById('orderForm').setAttribute('data-cake-id', cakeData.id);
+    document.getElementById('orderForm').setAttribute('data-cake-name', cakeData.name);
+    document.getElementById('orderForm').setAttribute('data-cake-price', cakeData.price);
 }
 </script>
 {% endblock %}
