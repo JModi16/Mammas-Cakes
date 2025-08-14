@@ -332,39 +332,7 @@
     </div>
 </div>
 
-    <!-- Cart Modal -->
-<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cartModalLabel">
-                    <i class="fas fa-shopping-cart"></i> Shopping Cart
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div id="cart-items">
-                    <p class="text-center">Your cart is empty</p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="w-100 d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>Total: <span id="cart-total">£0.00</span></strong>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-secondary me-2" onclick="cart.clearCart()">Clear Cart</button>
-                        <button type="button" class="btn btn-success" onclick="cart.checkout()">
-                            <i class="fas fa-credit-card"></i> Checkout
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
- <!-- Login Required Modal for guests (ADD THIS) -->
+    <!-- Login Required Modal for guests (ADD THIS) -->
     {% if not user.is_authenticated %}
         <div class="modal fade" id="loginRequiredModal" tabindex="-1" aria-labelledby="loginRequiredModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -401,9 +369,6 @@
         const isAuthenticated = "{% if user.is_authenticated %}true{% else %}false{% endif %}";
     </script>
 
-    <!-- Include cart.js -->
-    <script src="{% static 'js/cart.js' %}"></script>
-    
     {% block extra_js %}
     <!-- Additional JavaScript can be added here -->
     {% endblock %}
