@@ -25,8 +25,6 @@ urlpatterns = [
 
     # Order management URLs
     path('process-order/', views.process_order, name='process_order'),
-    
-    # Comment out these URLs until models are created:
-    # path('orders/', views.order_history, name='order_history'),
-    # path('orders/<str:order_number>/', views.order_detail, name='order_detail'),
+    path('orders/', views.order_history, name='order_history'),
+    path('orders/<str:order_number>/', views.order_detail, name='order_detail'),
 ]
