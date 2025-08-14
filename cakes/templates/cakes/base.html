@@ -73,17 +73,6 @@
                         </button>
                     </form>
                     
-                    <!-- Shopping Cart Button -->
-                     {% if user.is_authenticated %}
-                    <div class="me-3">
-                        <a href="{% url 'view_cart' %}" class="btn btn-outline-primary position-relative">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-badge">
-                                0
-                            </span>
-                        </a>
-                    </div>
-                     {% endif %}
                     <!-- Authentication Links -->
                     <ul class="navbar-nav">
                     {% if user.is_authenticated %}
