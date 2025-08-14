@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block title %}Birthday Cakes - Mammas Cakes{% endblock %}
-{% block description %}Delicious birthday cakes made with fresh ingredients for your special celebration{% endblock %}
 
 {% block content %}
 <div class="container my-5">
@@ -13,69 +12,45 @@
         </div>
     </div>
 
-     <div class="row g-4">
-        <!-- Birthday Cake 1 -->
+    <div class="row g-4">
+        {% for cake in cakes %}
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">
-                <img src="{% static 'images/birthdaycake1webp.webp' %}" alt="Colorful birthday cake" class="card-img-top" style="height: 250px; object-fit: cover;">
+                {% if cake.image %}
+                    <img src="{{ cake.image.url }}" class="card-img-top" alt="{{ cake.name }}" style="height: 250px; object-fit: cover;">
+                {% else %}
+                    <img src="{% static 'images/birthdaycake1webp.webp' %}" class="card-img-top" alt="{{ cake.name }}" style="height: 250px; object-fit: cover;">
+                {% endif %}
+                
                 <div class="card-body">
-                    <h3 class="card-title h5">Colorful Birthday Cake</h3>
-                    <p class="card-text">Perfect for kids and adults who love vibrant celebrations</p>
+                    <h3 class="card-title h5">{{ cake.name }}</h3>
+                    <p class="card-text">{{ cake.description }}</p>
+                    
+                    {% if cake.allergens %}
+                    <p class="text-muted small">
+                        <strong>Allergens:</strong> {{ cake.allergens }}
+                    </p>
+                    {% endif %}
+                    
                     <div class="d-flex justify-content-between align-items-center">
-                        <span class="h5 text-primary mb-0">£21.99</span>
-                        <button class="btn btn-primary add-to-cart" 
-                                data-id="birthday-colorful"
-                                data-name="Colorful Birthday Cake"
-                                data-price="21.99"
-                                data-image="{% static 'images/birthdaycake1webp.webp' %}">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        <span class="h5 text-primary mb-0">£{{ cake.price }}</span>
+                        <button class="btn btn-primary order-now-btn" 
+                                data-id="{{ cake.id }}"
+                                data-name="{{ cake.name }}"
+                                data-price="{{ cake.price }}"
+                                data-image="{% if cake.image %}{{ cake.image.url }}{% else %}{% static 'images/birthdaycake1webp.webp' %}{% endif %}">
+                            <i class="fas fa-shopping-bag"></i> Order Now
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Birthday Cake 2 -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm">
-                <img src="{% static 'images/birthdaycake2.webp' %}" alt="Elegant birthday cake" class="card-img-top" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                    <h3 class="card-title h5">Elegant Birthday Cake</h3>
-                    <p class="card-text">Sophisticated design for a classy birthday celebration</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="h5 text-primary mb-0">£25.99</span>
-                        <button class="btn btn-primary add-to-cart" 
-                                data-id="birthday-elegant"
-                                data-name="Elegant Birthday Cake"
-                                data-price="25.99"
-                                data-image="{% static 'images/birthdaycake2.webp' %}">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p class="lead">No birthday cakes available at the moment.</p>
+            <p>Please check back soon or contact us for custom orders!</p>
         </div>
-
-         <!-- Birthday Cake 3 -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm">
-                <img src="{% static 'images/birthdaycake3.webp' %}" alt="Custom birthday cake" class="card-img-top" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                    <h3 class="card-title h5">Custom Birthday Cake</h3>
-                    <p class="card-text">Personalized design with your special message</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="h5 text-primary mb-0">£45.99</span>
-                        <button class="btn btn-primary add-to-cart" 
-                                data-id="birthday-custom"
-                                data-name="Custom Birthday Cake"
-                                data-price="45.99"
-                                data-image="{% static 'images/birthdaycake3.webp' %}">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     
     <!-- Call to Action Section -->
@@ -89,4 +64,88 @@
         </div>
     </div>
 </div>
+
+<!-- Order Now Modal -->
+<div class="modal fade" id="orderModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Order</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="orderDetails"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmOrder">Confirm Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Order Now functionality
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('order-now-btn')) {
+        {% if user.is_authenticated %}
+            const button = e.target;
+            const cakeData = {
+                id: button.dataset.id,
+                name: button.dataset.name,
+                price: button.dataset.price,
+                image: button.dataset.image
+            };
+            
+            // Show order confirmation modal
+            document.getElementById('orderDetails').innerHTML = `
+                <div class="text-center">
+                    <img src="${cakeData.image}" class="img-fluid mb-3" style="max-height: 200px;">
+                    <h5>${cakeData.name}</h5>
+                    <p class="lead">£${cakeData.price}</p>
+                    <p>Confirm your order for this delicious cake!</p>
+                </div>
+            `;
+            
+            const modal = new bootstrap.Modal(document.getElementById('orderModal'));
+            modal.show();
+            
+            // Handle order confirmation
+            document.getElementById('confirmOrder').onclick = function() {
+                placeOrder(cakeData);
+                modal.hide();
+            };
+        {% else %}
+            alert('Please log in to place an order.');
+            window.location.href = '{% url "login" %}';
+        {% endif %}
+    }
+});
+
+function placeOrder(cakeData) {
+    fetch('{% url "place_order" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify(cakeData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url;
+            }
+        } else {
+            alert('Error: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to place order. Please try again.');
+    });
+}
+</script>
 {% endblock %}
