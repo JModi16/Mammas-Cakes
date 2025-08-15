@@ -1,5 +1,5 @@
-// Order System JavaScript
-// Handles all order-related functionality
+// Order System JavaScript - FIXED VERSION
+// Handles single cake orders (not cart-based)
 
 class OrderSystem {
     constructor() {
@@ -108,6 +108,7 @@ class OrderSystem {
     }
 
     setupDeliveryToggle() {
+        // FIXED: Use correct radio button names from your base.html
         const collectionRadio = document.getElementById('collection');
         const deliveryRadio = document.getElementById('delivery');
 
@@ -224,7 +225,8 @@ class OrderSystem {
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
         submitButton.disabled = true;
 
-        fetch('/place-order/', {
+        // FIXED: Use correct endpoint that matches your Django URLs
+        fetch('/order/place/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -232,7 +234,12 @@ class OrderSystem {
             },
             body: JSON.stringify(formData)
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.success) {
                 alert('Order placed successfully! Order number: ' + data.order_number);
@@ -246,7 +253,7 @@ class OrderSystem {
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Failed to place order. Please try again.');
+            alert('Failed to place order. Please check your connection and try again.');
         })
         .finally(() => {
             // Restore button state
