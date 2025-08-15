@@ -1,0 +1,81 @@
+{% extends 'cakes/base.html' %}
+{% load static %}
+
+{% block title %}Order Confirmation - {{ order.order_number }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="text-center mb-4">
+                <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                <h1 class="text-success mt-3">Order Confirmed!</h1>
+                <p class="lead">Thank you for your order. We'll be in touch soon!</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-receipt"></i> Order Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Order Number:</strong><br>
+                            <span class="text-primary">{{ order.order_number }}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Order Date:</strong><br>
+                            {{ order.created_at|date:"F j, Y g:i A" }}
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Customer:</strong><br>
+                            {{ order.customer.get_full_name|default:order.customer.username }}<br>
+                            {{ order.customer_email }}
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Status:</strong><br>
+                            <span class="badge bg-warning">{{ order.get_status_display }}</span>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h6>Order Items:</h6>
+                    {% for item in order.items.all %}
+                    <div class="d-flex justify-content-between">
+                        <span>{{ item.cake_name }} (x{{ item.quantity }})</span>
+                        <span>£{{ item.total_price }}</span>
+                    </div>
+                    {% endfor %}
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between">
+                        <strong>Total: £{{ order.total }}</strong>
+                    </div>
+                    
+                    {% if order.special_instructions %}
+                    <hr>
+                    <strong>Special Instructions:</strong><br>
+                    {{ order.special_instructions }}
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="{% url 'home' %}" class="btn btn-primary">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+                <a href="{% url 'order_history' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-history"></i> View Order History
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
