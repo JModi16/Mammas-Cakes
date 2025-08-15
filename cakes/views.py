@@ -13,6 +13,7 @@ import json
 import logging
 from decimal import Decimal
 from datetime import datetime
+import uuid
 
 from .models import Cake, Customer, Order, OrderItem
 from .forms import CustomUserCreationForm
@@ -98,55 +99,67 @@ def process_order(request):
 
 @login_required
 @csrf_exempt
-@require_http_methods(["POST"])
 def place_order(request):
-    """Place immediate order for single item"""
-    try:
-        data = json.loads(request.body)
-        
-        # Generate order number
-        order_number = f"MC{datetime.now().strftime('%Y%m%d%H%M%S')}"
-        
-        # Create order in database
-        order = Order.objects.create(
-            order_number=order_number,
-            customer=request.user,
-            customer_email=request.user.email,
-            total=Decimal(str(data['price'])),
-            status='pending',
-            order_type='single_item'
-        )
-        
-        # Create order item
-        OrderItem.objects.create(
-            order=order,
-            cake_name=data['name'],
-            cake_price=Decimal(str(data['price'])),
-            quantity=1,
-            total_price=Decimal(str(data['price']))
-        )
-        
-        # Send confirmation email (optional)
+    if request.method == 'POST':
         try:
-            send_order_confirmation_email(order)
+            data = json.loads(request.body)
+            
+            # Create order number
+            order_number = f"MC{datetime.now().strftime('%Y%m%d')}{uuid.uuid4().hex[:6].upper()}"
+            
+            # Get or create customer
+            customer, created = Customer.objects.get_or_create(
+                user=request.user,
+                defaults={
+                    'phone_number': data.get('customer_phone', ''),
+                    'address': data.get('delivery_address', ''),
+                    'city': data.get('delivery_city', ''),
+                    'postcode': data.get('delivery_postcode', ''),
+                }
+            )
+            
+            # Get cake
+            cake = Cake.objects.get(id=data['cake_id'])
+            
+            # Calculate total
+            subtotal = float(data['cake_price'])
+            delivery_fee = 5.00 if data['delivery_option'] == 'delivery' else 0.00
+            total = subtotal + delivery_fee
+            
+            # Create order
+            order = Order.objects.create(
+                customer=request.user,
+                order_number=order_number,
+                customer_email=data['customer_email'],
+                total=total,
+                status='pending',
+                order_type='single_item',
+                special_instructions=data.get('special_instructions', ''),
+            )
+            
+            # Create order item
+            OrderItem.objects.create(
+                order=order,
+                cake=cake,
+                cake_name=cake.name,
+                cake_price=cake.price,
+                quantity=1,
+                total_price=subtotal
+            )
+            
+            return JsonResponse({
+                'success': True,
+                'order_number': order_number,
+                'message': 'Order placed successfully!'
+            })
+            
         except Exception as e:
-            logger.warning(f"Failed to send confirmation email: {e}")
-        
-        logger.info(f"Order placed: {order_number} for {request.user.email}")
-        
-        return JsonResponse({
-            'success': True,
-            'order_number': order_number,
-            'message': f'Order {order_number} placed successfully!',
-            'redirect_url': f'/orders/{order_number}/'
-        })
-        
-    except Exception as e:
-        logger.error(f"Order placement error: {e}")
-        return JsonResponse({
-            'success': False,
-            'error': 'Failed to place order. Please try again.'
-        })
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            })
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
 @login_required
 def order_history(request):
