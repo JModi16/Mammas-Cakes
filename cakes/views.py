@@ -173,36 +173,69 @@ def place_order(request):
             total_price=subtotal
         )
         
-        # Send confirmation email (optional)
+        # Send confirmation email
         try:
             from django.core.mail import send_mail
+            from django.template.loader import render_to_string
+            from django.utils.html import strip_tags
             from django.conf import settings
             
+            print(f"🔧 Attempting to send email to: {data['customer_email']}")
+            print(f"🔧 Email backend: {settings.EMAIL_BACKEND}")
+            
+            # Create email context
+            email_context = {
+                'order': order,
+                'items': order.items.all(),
+                'customer_name': data['customer_name'],
+                'order_number': order_number,
+                'total': total,
+            }
+            
+            # Try to render email template
+            try:
+                html_message = render_to_string('emails/order_confirmation.html', email_context)
+                plain_message = strip_tags(html_message)
+            except Exception as template_error:
+                print(f"⚠️ Template error, using simple message: {template_error}")
+                # Fallback to simple text email
+                plain_message = f"""
+                Dear {data['customer_name']},
+                
+                Thank you for your order!
+                
+                Order Number: {order_number}
+                Cake: {cake.name}
+                Total: £{total}
+                
+                We'll be in touch soon with updates.
+                
+                Best regards,
+                Mamma's Cakes Team
+                """
+                html_message = None
+            
+            # Send the email
             subject = f'Order Confirmation - {order_number}'
-            message = f"""
-            Dear {data['customer_name']},
-            
-            Thank you for your order!
-            
-            Order Number: {order_number}
-            Cake: {cake.name}
-            Total: £{total}
-            
-            We'll be in touch soon with updates.
-            
-            Best regards,
-            Mamma's Cakes Team
-            """
+            from_email = settings.DEFAULT_FROM_EMAIL or 'mammas.cakes16@gmail.com'
             
             send_mail(
                 subject,
-                message,
-                settings.DEFAULT_FROM_EMAIL,
+                plain_message,
+                from_email,
                 [data['customer_email']],
-                fail_silently=True,
+                html_message=html_message,
+                fail_silently=False,  # This will show errors
             )
+            
+            print(f"✅ Email sent successfully to {data['customer_email']}")
+            
         except Exception as e:
-            print(f"Email sending failed: {e}")
+            print(f"❌ Email sending failed: {e}")
+            print(f"📧 Email settings - Backend: {settings.EMAIL_BACKEND}")
+            print(f"📧 Email settings - Host User: {settings.EMAIL_HOST_USER}")
+            # Don't fail the order just because email failed
+            pass
         
         return JsonResponse({
             'success': True,
