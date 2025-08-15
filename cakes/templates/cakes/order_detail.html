@@ -28,11 +28,17 @@
                     {% for item in order.items.all %}
                         <div class="row align-items-center mb-3">
                             <div class="col-2">
-                                <img src="{{ item.cake_image }}" alt="{{ item.cake_name }}" class="img-fluid rounded" style="height: 50px; object-fit: cover;">
+                                {% if item.cake.image %}
+                                    <img src="{{ item.cake.image.url }}" alt="{{ item.cake_name }}" class="img-fluid rounded" style="height: 50px; object-fit: cover;">
+                                {% else %}
+                                    <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 50px; width: 50px;">
+                                        <i class="fas fa-birthday-cake text-muted"></i>
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="col-6">
                                 <h6 class="mb-0">{{ item.cake_name }}</h6>
-                                <small class="text-muted">£{{ item.unit_price }} each</small>
+                                <small class="text-muted">£{{ item.cake_price }} each</small>
                             </div>
                             <div class="col-2 text-center">
                                 <span class="badge bg-secondary">x{{ item.quantity }}</span>
@@ -56,51 +62,52 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <span>Subtotal:</span>
-                        <span>£{{ order.subtotal }}</span>
+                        <span>£{{ order.total|floatformat:2 }}</span>
                     </div>
-                    {% if order.delivery_fee > 0 %}
-                        <div class="d-flex justify-content-between">
-                            <span>Delivery Fee:</span>
-                            <span>£{{ order.delivery_fee }}</span>
-                        </div>
-                    {% endif %}
+                    <div class="d-flex justify-content-between">
+                        <span>Collection Fee:</span>
+                        <span>£0.00</span>
+                    </div>
                     <hr>
                     <div class="d-flex justify-content-between">
-                        <strong>Total: £{{ order.total }}</strong>
+                        <strong>Total:</strong>
+                        <strong class="text-success">£{{ order.total }}</strong>
                     </div>
                 </div>
             </div>
             
-            <!-- Delivery/Collection Info -->
+            <!-- Collection/Delivery Info -->
             <div class="card">
                 <div class="card-header">
                     <h5>
-                        {% if order.order_type == 'delivery' %}
-                            <i class="fas fa-truck"></i> Delivery Details
-                        {% else %}
-                            <i class="fas fa-store"></i> Collection Details
-                        {% endif %}
+                        <i class="fas fa-store"></i> Collection Details
                     </h5>
                 </div>
                 <div class="card-body">
-                    {% if order.order_type == 'delivery' %}
-                        <p><strong>Address:</strong><br>
-                        {{ order.delivery_address }}<br>
-                        {{ order.delivery_city }}, {{ order.delivery_postcode }}</p>
-                        <p><strong>Delivery Date:</strong> {{ order.delivery_date|date:"F d, Y" }}</p>
-                        {% if order.delivery_time %}
-                            <p><strong>Time:</strong> {{ order.delivery_time }}</p>
-                        {% endif %}
-                    {% else %}
-                        <p><strong>Collection from:</strong><br>
-                        Mamma's Cakes Bakery<br>
-                        123 Baker Street<br>
-                        London, W1U 6TU</p>
-                        <p><strong>Collection Date:</strong> {{ order.collection_date|date:"F d, Y" }}</p>
-                        <p><strong>Time:</strong> {{ order.collection_time }}</p>
+                    <p><strong>Collection from:</strong><br>
+                    Mamma's Cakes Bakery<br>
+                    123 Baker Street<br>
+                    London, W1U 6TU</p>
+                    
+                    {% if order.delivery_date %}
+                        <p><strong>Collection Date:</strong> {{ order.delivery_date|date:"F d, Y" }}</p>
                     {% endif %}
+                    
+                    <p><strong>Phone:</strong> 020 7946 0958</p>
+                    <p><strong>Hours:</strong> Mon-Sat 9AM-6PM</p>
                 </div>
             </div>
+            
+            {% if order.special_instructions %}
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5><i class="fas fa-sticky-note"></i> Special Instructions</h5>
+                </div>
+                <div class="card-body">
+                    <p>{{ order.special_instructions }}</p>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
     
@@ -109,7 +116,11 @@
             <a href="{% url 'order_history' %}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Back to Order History
             </a>
+            <a href="{% url 'home' %}" class="btn btn-outline-primary ms-2">
+                <i class="fas fa-home"></i> Home
+            </a>
         </div>
     </div>
 </div>
+{% endblock %}
 
