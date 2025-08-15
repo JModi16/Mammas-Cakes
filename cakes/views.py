@@ -240,9 +240,17 @@ def order_detail(request, order_number):
 
 @login_required
 def order_confirmation(request, order_number):
-    """Display order confirmation page"""
-    order = get_object_or_404(Order, order_number=order_number, customer=request.user)
-    return render(request, 'cakes/order_confirmation.html', {'order': order})
+    try:
+        order = Order.objects.get(
+            order_number=order_number,
+            customer=request.user
+        )
+        return render(request, 'cakes/order_confirmation.html', {
+            'order': order
+        })
+    except Order.DoesNotExist:
+        messages.error(request, 'Order not found.')
+        return redirect('home')
 
 def send_order_confirmation_email(order):
     """Send order confirmation email to customer"""
