@@ -24,6 +24,7 @@ urlpatterns = [
 
     # Order URLs (replace cart URLs)
     path('order/place/', views.place_order, name='place_order'),
+    path('order-confirmation/<str:order_number>/', views.order_confirmation, name='order_confirmation'),
     path('orders/', views.order_history, name='order_history'),
     path('orders/<str:order_number>/', views.order_detail, name='order_detail'),
     path('orders/<str:order_number>/confirmation/', views.order_confirmation, name='order_confirmation'),
