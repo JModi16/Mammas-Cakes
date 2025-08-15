@@ -14,6 +14,8 @@ import logging
 from decimal import Decimal
 from datetime import datetime
 import uuid
+from .models import Cake, Order, OrderItem, Customer
+import uuid
 
 from .models import Cake, Customer, Order, OrderItem
 from .forms import CustomUserCreationForm
