@@ -9,6 +9,7 @@ class OrderSystem {
     init() {
         this.attachEventListeners();
         this.setMinDates();
+        this.addRealTimeValidation(); // Add this line
     }
 
     attachEventListeners() {
@@ -184,15 +185,27 @@ class OrderSystem {
 
     handleOrderSubmission(e) {
         e.preventDefault();
+        
+        console.log('=== ORDER SUBMISSION STARTED ===');
 
         // Collect form data
         const formData = this.collectFormData();
+        console.log('Collected form data:', formData);
         
-        // Validate form
-        if (!this.validateFormData(formData)) {
+        // Check if we have cake data
+        if (!this.currentCake) {
+            alert('Error: No cake selected. Please try again.');
             return;
         }
-
+        
+        // Validate form
+        console.log('Starting validation...');
+        if (!this.validateFormData(formData)) {
+            console.log('❌ Validation failed');
+            return;
+        }
+        
+        console.log('✅ Validation passed, submitting order...');
         this.submitOrder(formData);
     }
 
@@ -227,19 +240,24 @@ class OrderSystem {
     }
 
     validateFormData(formData) {
-        // Basic validation
+        console.log('Validating form data:', formData); // Debug log
+
+        // Basic validation - always required
         if (!formData.customer_name) {
             alert('Please enter your full name.');
+            document.getElementById('customer-name')?.focus();
             return false;
         }
 
         if (!formData.customer_email) {
             alert('Please enter your email address.');
+            document.getElementById('customer-email')?.focus();
             return false;
         }
 
         if (!formData.customer_phone) {
             alert('Please enter your phone number.');
+            document.getElementById('customer-phone')?.focus();
             return false;
         }
 
@@ -248,40 +266,59 @@ class OrderSystem {
             return false;
         }
 
+        // Collection validation
         if (formData.delivery_option === 'collection') {
+            console.log('Validating collection fields...');
+            
             if (!formData.collection_date) {
                 alert('Please select a collection date.');
+                document.getElementById('collection-date')?.focus();
                 return false;
             }
+            
             if (!formData.collection_time) {
-                alert('Please select a collection time.');
+                alert('Please select a collection time slot.');
+                document.getElementById('collection-time')?.focus();
                 return false;
             }
         }
 
+        // Delivery validation
         if (formData.delivery_option === 'delivery') {
+            console.log('Validating delivery fields...');
+            
             if (!formData.delivery_address) {
-                alert('Please enter delivery address.');
+                alert('Please enter your delivery address.');
+                document.getElementById('delivery-address')?.focus();
                 return false;
             }
+            
             if (!formData.delivery_city) {
-                alert('Please enter delivery city.');
+                alert('Please enter your delivery city.');
+                document.getElementById('delivery-city')?.focus();
                 return false;
             }
+            
             if (!formData.delivery_postcode) {
-                alert('Please enter delivery postcode.');
+                alert('Please enter your delivery postcode.');
+                document.getElementById('delivery-postcode')?.focus();
                 return false;
             }
+            
             if (!formData.delivery_date) {
-                alert('Please select delivery date.');
+                alert('Please select a delivery date.');
+                document.getElementById('delivery-date')?.focus();
                 return false;
             }
+            
             if (!formData.delivery_time) {
-                alert('Please select delivery time.');
+                alert('Please select a delivery time slot.');
+                document.getElementById('delivery-time')?.focus();
                 return false;
             }
         }
 
+        console.log('✅ All validation passed');
         return true;
     }
 
@@ -317,6 +354,66 @@ class OrderSystem {
             console.error('Order submission error:', error);
             alert('Error placing order. Please try again.');
         }
+    }
+
+    addRealTimeValidation() {
+        // Add event listeners for real-time validation
+        const requiredFields = [
+            'customer-name', 'customer-email', 'customer-phone',
+            'collection-date', 'collection-time',
+            'delivery-address', 'delivery-city', 'delivery-postcode', 
+            'delivery-date', 'delivery-time'
+        ];
+
+        requiredFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.addEventListener('blur', () => {
+                    this.validateField(fieldId);
+                });
+            }
+        });
+    }
+
+    validateField(fieldId) {
+        const field = document.getElementById(fieldId);
+        if (!field) return;
+
+        const isRequired = field.hasAttribute('required');
+        const isEmpty = !field.value.trim();
+
+        if (isRequired && isEmpty) {
+            field.classList.add('is-invalid');
+            field.classList.remove('is-valid');
+        } else if (!isEmpty) {
+            field.classList.add('is-valid');
+            field.classList.remove('is-invalid');
+        } else {
+            field.classList.remove('is-invalid', 'is-valid');
+        }
+    }
+
+    debugFormState() {
+        const formData = this.collectFormData();
+        console.log('=== FORM STATE DEBUG ===');
+        console.log('Current cake:', this.currentCake);
+        console.log('Form data:', formData);
+        
+        // Check which option is selected
+        const collectionRadio = document.getElementById('collection');
+        const deliveryRadio = document.getElementById('delivery');
+        
+        console.log('Collection radio checked:', collectionRadio?.checked);
+        console.log('Delivery radio checked:', deliveryRadio?.checked);
+        
+        // Check field visibility
+        const collectionDetails = document.getElementById('collection-details');
+        const deliveryDetails = document.getElementById('delivery-details');
+        
+        console.log('Collection details visible:', collectionDetails?.style.display !== 'none');
+        console.log('Delivery details visible:', deliveryDetails?.style.display !== 'none');
+        
+        console.log('========================');
     }
 }
 
