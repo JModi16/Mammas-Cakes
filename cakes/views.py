@@ -9,6 +9,7 @@ from django.views.decorators.http import require_http_methods
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.utils import timezone
 import json
 import logging
 from decimal import Decimal
@@ -99,167 +100,61 @@ def process_order(request):
         logger.error(f"Order processing error: {e}")
         return JsonResponse({'success': False, 'error': 'Order failed'})
 
-@login_required
 @csrf_exempt
-@require_http_methods(["POST"])
 def place_order(request):
-    try:
-        # Parse JSON data from request
-        data = json.loads(request.body)
-        
-        # Generate unique order number
-        order_number = f"MC{datetime.now().strftime('%Y%m%d')}{uuid.uuid4().hex[:6].upper()}"
-        
-        # Get or create customer profile
-        customer, created = Customer.objects.get_or_create(
-            user=request.user,
-            defaults={
-                'phone_number': data.get('customer_phone', ''),
-                'address': data.get('delivery_address', ''),
-                'city': data.get('delivery_city', ''),
-                'postcode': data.get('delivery_postcode', ''),
-            }
-        )
-        
-        # Update customer info if changed
-        if not created:
-            customer.phone_number = data.get('customer_phone', customer.phone_number)
-            if data.get('delivery_address'):
-                customer.address = data.get('delivery_address')
-                customer.city = data.get('delivery_city')
-                customer.postcode = data.get('delivery_postcode')
-            customer.save()
-        
-        # Get the cake
+    if request.method == 'POST':
         try:
-            cake = Cake.objects.get(id=data['cake_id'])
-        except Cake.DoesNotExist:
-            return JsonResponse({
-                'success': False,
-                'error': 'Cake not found'
-            })
-        
-        # Calculate total
-        subtotal = Decimal(str(data['cake_price']))
-        delivery_fee = Decimal('5.00') if data['delivery_option'] == 'delivery' else Decimal('0.00')
-        total = subtotal + delivery_fee
-        
-        # Determine delivery date
-        delivery_date = None
-        if data['delivery_option'] == 'collection' and data.get('collection_date'):
-            delivery_date = datetime.strptime(data['collection_date'], '%Y-%m-%d').date()
-        elif data['delivery_option'] == 'delivery' and data.get('delivery_date'):
-            delivery_date = datetime.strptime(data['delivery_date'], '%Y-%m-%d').date()
-        
-        # Create the order
-        order = Order.objects.create(
-            customer=request.user,
-            order_number=order_number,
-            customer_email=data['customer_email'],
-            total=total,
-            status='pending',
-            order_type='single_item',
-            special_instructions=data.get('special_instructions', ''),
-            delivery_date=delivery_date
-        )
-        
-        # Create order item
-        OrderItem.objects.create(
-            order=order,
-            cake=cake,
-            cake_name=cake.name,
-            cake_price=cake.price,
-            quantity=1,
-            total_price=subtotal
-        )
-        
-        # Send confirmation email
-        try:
-            from django.core.mail import send_mail
-            from django.template.loader import render_to_string
-            from django.utils.html import strip_tags
-            from django.conf import settings
+            data = json.loads(request.body)
             
-            print(f"🔧 Attempting to send email to: {data['customer_email']}")
-            print(f"🔧 Email backend: {settings.EMAIL_BACKEND}")
-            
-            # Create email context
-            email_context = {
-                'order': order,
-                'items': order.items.all(),
-                'customer_name': data['customer_name'],
-                'order_number': order_number,
-                'total': total,
-            }
-            
-            # Try to render email template
-            try:
-                html_message = render_to_string('emails/order_confirmation.html', email_context)
-                plain_message = strip_tags(html_message)
-            except Exception as template_error:
-                print(f"⚠️ Template error, using simple message: {template_error}")
-                # Fallback to simple text email
-                plain_message = f"""
-                Dear {data['customer_name']},
+            # Create the order
+            order = Order.objects.create(
+                customer=request.user,
+                customer_email=data.get('customer_email'),
+                order_number=f"MC{timezone.now().strftime('%Y%m%d%H%M%S')}",
+                order_type=data.get('delivery_option', 'single_item'),
+                special_instructions=data.get('special_instructions', ''),
                 
-                Thank you for your order!
-                
-                Order Number: {order_number}
-                Cake: {cake.name}
-                Total: £{total}
-                
-                We'll be in touch soon with updates.
-                
-                Best regards,
-                Mamma's Cakes Team
-                """
-                html_message = None
-            
-            # Send the email
-            subject = f'Order Confirmation - {order_number}'
-            from_email = settings.DEFAULT_FROM_EMAIL or 'mammas.cakes16@gmail.com'
-            
-            send_mail(
-                subject,
-                plain_message,
-                from_email,
-                [data['customer_email']],
-                html_message=html_message,
-                fail_silently=False,  # This will show errors
+                # ADD THESE FIELDS:
+                collection_date=data.get('collection_date') if data.get('collection_date') else None,
+                collection_time=data.get('collection_time', ''),
+                delivery_address=data.get('delivery_address', ''),
+                delivery_city=data.get('delivery_city', ''),
+                delivery_postcode=data.get('delivery_postcode', ''),
+                delivery_date=data.get('delivery_date') if data.get('delivery_date') else None,
+                delivery_time=data.get('delivery_time', ''),
             )
             
-            print(f"✅ Email sent successfully to {data['customer_email']}")
+            # Create order item
+            OrderItem.objects.create(
+                order=order,
+                cake_name=data.get('cake_name'),
+                cake_price=Decimal(str(data.get('cake_price', 0))),
+                quantity=1,
+                total_price=Decimal(str(data.get('cake_price', 0)))
+            )
+            
+            # Update order total
+            order.total = order.items.aggregate(
+                total=models.Sum('total_price')
+            )['total'] or Decimal('0')
+            order.save()
+            
+            # Send confirmation email
+            try:
+                send_order_confirmation_email(order)
+            except Exception as e:
+                print(f"Email error: {e}")
+            
+            return JsonResponse({
+                'success': True, 
+                'message': 'Order placed successfully!',
+                'order_number': order.order_number
+            })
             
         except Exception as e:
-            print(f"❌ Email sending failed: {e}")
-            print(f"📧 Email settings - Backend: {settings.EMAIL_BACKEND}")
-            print(f"📧 Email settings - Host User: {settings.EMAIL_HOST_USER}")
-            # Don't fail the order just because email failed
-            pass
-        
-        return JsonResponse({
-            'success': True,
-            'order_number': order_number,
-            'message': f'Order placed successfully! Order number: {order_number}',
-            'redirect_url': f'/order-confirmation/{order_number}/'
-        })
-        
-    except json.JSONDecodeError:
-        return JsonResponse({
-            'success': False,
-            'error': 'Invalid JSON data'
-        })
-    except KeyError as e:
-        return JsonResponse({
-            'success': False,
-            'error': f'Missing required field: {str(e)}'
-        })
-    except Exception as e:
-        print(f"Order processing error: {e}")
-        return JsonResponse({
-            'success': False,
-            'error': 'Failed to process order. Please try again.'
-        })
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=405)
 
 @login_required
 def order_history(request):
