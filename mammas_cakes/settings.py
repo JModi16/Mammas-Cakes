@@ -70,6 +70,17 @@ TEMPLATES = [
     },
 ]
 
+# Import environment variables - ADD THIS
+if os.path.isfile('env.py'):
+    import env
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+env_path = os.path.join(os.path.dirname(__file__), 'env.py')
+if os.path.isfile(env_path):
+    exec(open(env_path).read())
+
 WSGI_APPLICATION = 'mammas_cakes.wsgi.application'
 
 #Database - SECURE VERSION
