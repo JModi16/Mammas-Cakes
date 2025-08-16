@@ -61,8 +61,19 @@ class Order(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     order_type = models.CharField(max_length=20, choices=ORDER_TYPE_CHOICES, default='single_item')
     special_instructions = models.TextField(blank=True)
-    delivery_date = models.DateTimeField(blank=True, null=True)
+    delivery_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    # Collection fields
+    collection_date = models.DateField(blank=True, null=True)
+    collection_time = models.CharField(max_length=20, blank=True)
+    
+    # Delivery fields
+    delivery_address = models.TextField(blank=True)
+    delivery_city = models.CharField(max_length=100, blank=True)
+    delivery_postcode = models.CharField(max_length=20, blank=True)
+    delivery_date = models.DateField(blank=True, null=True)
+    delivery_time = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
         return f"Order {self.order_number} - {self.customer.username}"
