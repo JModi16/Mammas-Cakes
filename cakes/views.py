@@ -10,6 +10,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.utils import timezone
+from django.utils.dateparse import parse_date
 import json
 import logging
 from decimal import Decimal
@@ -106,6 +107,25 @@ def place_order(request):
         try:
             data = json.loads(request.body)
             
+            # Debug: Print received data
+            print("Received order data:", data)
+            
+            # Parse dates properly
+            collection_date = None
+            delivery_date = None
+            
+            if data.get('collection_date'):
+                try:
+                    collection_date = parse_date(data.get('collection_date'))
+                except:
+                    collection_date = None
+                    
+            if data.get('delivery_date'):
+                try:
+                    delivery_date = parse_date(data.get('delivery_date'))
+                except:
+                    delivery_date = None
+            
             # Create the order
             order = Order.objects.create(
                 customer=request.user,
@@ -114,13 +134,15 @@ def place_order(request):
                 order_type=data.get('delivery_option', 'single_item'),
                 special_instructions=data.get('special_instructions', ''),
                 
-                # ADD THESE FIELDS:
-                collection_date=data.get('collection_date') if data.get('collection_date') else None,
+                # Collection fields
+                collection_date=collection_date,
                 collection_time=data.get('collection_time', ''),
+                
+                # Delivery fields
                 delivery_address=data.get('delivery_address', ''),
                 delivery_city=data.get('delivery_city', ''),
                 delivery_postcode=data.get('delivery_postcode', ''),
-                delivery_date=data.get('delivery_date') if data.get('delivery_date') else None,
+                delivery_date=delivery_date,
                 delivery_time=data.get('delivery_time', ''),
             )
             
@@ -142,8 +164,9 @@ def place_order(request):
             # Send confirmation email
             try:
                 send_order_confirmation_email(order)
+                print(f"✅ Email sent successfully to {order.customer_email}")
             except Exception as e:
-                print(f"Email error: {e}")
+                print(f"❌ Email error: {e}")
             
             return JsonResponse({
                 'success': True, 
@@ -152,9 +175,10 @@ def place_order(request):
             })
             
         except Exception as e:
+            print(f"❌ Order creation error: {e}")
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
     
-    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=405)
+    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
 
 @login_required
 def order_history(request):
