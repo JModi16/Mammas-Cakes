@@ -161,156 +161,205 @@
     </footer>
 
     <!-- Order Details Modal -->
-    <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="orderDetailsModalLabel">
-                        <i class="fas fa-shopping-bag"></i> Complete Your Order
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title">Order Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form id="orderForm">
-                    <div class="modal-body">
-                        <div class="row">
-                            <!-- Customer Details -->
-                            <div class="col-md-6">
-                                <h6 class="mb-3"><i class="fas fa-user"></i> Customer Information</h6>
-                                
-                                <div class="mb-3">
+                <div class="modal-body">
+                    <form id="orderForm" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Customer Information -->
+                        <div class="mb-4">
+                            <h6 class="border-bottom pb-2">Customer Information</h6>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
                                     <label for="customer-name" class="form-label">Full Name *</label>
-                                    <input type="text" class="form-control" id="customer-name" required>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="customer-name" 
+                                           name="customer_name"
+                                           required>
                                 </div>
-                                
-                                <div class="mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label for="customer-email" class="form-label">Email Address *</label>
-                                    <input type="email" class="form-control" id="customer-email" required>
+                                    <input type="email" 
+                                           class="form-control" 
+                                           id="customer-email" 
+                                           name="customer_email"
+                                           required>
                                 </div>
-                                
-                                <div class="mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label for="customer-phone" class="form-label">Phone Number *</label>
-                                    <input type="tel" class="form-control" id="customer-phone" required>
+                                    <input type="tel" 
+                                           class="form-control" 
+                                           id="customer-phone" 
+                                           name="customer_phone"
+                                           required>
                                 </div>
                             </div>
-                            
-                            <!-- Collection/Delivery Details -->
-                            <div class="col-md-6">
-                                <!-- Delivery Option Toggle -->
-                                <div class="mb-3">
-                                    <h6 class="mb-3"><i class="fas fa-truck"></i> Delivery Options</h6>
+                        </div>
+
+                        <!-- Delivery Options -->
+                        <div class="mb-4">
+                            <h6 class="border-bottom pb-2">Delivery Options</h6>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="deliveryOption" id="collection" value="collection" checked>
+                                        <input class="form-check-input" 
+                                               type="radio" 
+                                               name="delivery_option" 
+                                               id="collection" 
+                                               value="collection" 
+                                               checked>
                                         <label class="form-check-label" for="collection">
                                             Collection (Free)
                                         </label>
                                     </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="deliveryOption" id="delivery" value="delivery">
+                                        <input class="form-check-input" 
+                                               type="radio" 
+                                               name="delivery_option" 
+                                               id="delivery" 
+                                               value="delivery">
                                         <label class="form-check-label" for="delivery">
                                             Delivery (+£5.00)
                                         </label>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
 
-                                <!-- Collection Details -->
-                                <div id="collection-details">
-                                    <h6 class="mb-3"><i class="fas fa-map-marker-alt"></i> Collection Details</h6>
-                                    
-                                    <div class="alert alert-info">
-                                        <strong>Mamma's Cakes Bakery</strong><br>
-                                        Moore Court, Howard Road<br>
-                                        Edgware, HA7 1FA<br>
-                                        <small>Open: Mon-Sat 8AM-6PM, Sun 10AM-4PM</small>
-                                    </div>
-                                    
-                                    <div class="mb-3">
-                                        <label for="collection-date" class="form-label">Collection Date *</label>
-                                        <input type="date" class="form-control" id="collection-date" required>
-                                    </div>
-                                    
-                                    <div class="mb-3">
-                                        <label for="collection-time" class="form-label">Collection Time *</label>
-                                        <select class="form-control" id="collection-time" required>
-                                            <option value="">Select time slot</option>
-                                            <option value="8am-10am">8:00 AM - 10:00 AM</option>
-                                            <option value="10am-12pm">10:00 AM - 12:00 PM</option>
-                                            <option value="12pm-2pm">12:00 PM - 2:00 PM</option>
-                                            <option value="2pm-4pm">2:00 PM - 4:00 PM</option>
-                                            <option value="4pm-6pm">4:00 PM - 6:00 PM</option>
-                                        </select>
-                                    </div>
+                        <!-- Collection Details -->
+                        <div id="collection-details" class="mb-4">
+                            <h6 class="border-bottom pb-2">Collection Details</h6>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="collection-date" class="form-label">Collection Date</label>
+                                    <input type="date" 
+                                           class="form-control" 
+                                           id="collection-date" 
+                                           name="collection_date">
                                 </div>
-                                
-                                <!-- Delivery Details -->
-                                <div id="delivery-details" style="display: none;">
-                                    <h6 class="mb-3"><i class="fas fa-truck"></i> Delivery Address</h6>
-                                    
-                                    <div class="mb-3">
-                                        <label for="delivery-address" class="form-label">Street Address *</label>
-                                        <input type="text" class="form-control" id="delivery-address">
-                                    </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-md-8 mb-3">
-                                            <label for="delivery-city" class="form-label">City *</label>
-                                            <input type="text" class="form-control" id="delivery-city">
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="delivery-postcode" class="form-label">Postcode *</label>
-                                            <input type="text" class="form-control" id="delivery-postcode">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="mb-3">
-                                        <label for="delivery-date" class="form-label">Delivery Date *</label>
-                                        <input type="date" class="form-control" id="delivery-date">
-                                    </div>
-                                    
-                                    <div class="mb-3">
-                                        <label for="delivery-time" class="form-label">Delivery Time</label>
-                                        <select class="form-control" id="delivery-time">
-                                            <option value="">Select time slot</option>
-                                            <option value="9am-12pm">9:00 AM - 12:00 PM</option>
-                                            <option value="12pm-3pm">12:00 PM - 3:00 PM</option>
-                                            <option value="3pm-6pm">3:00 PM - 6:00 PM</option>
-                                            <option value="6pm-9pm">6:00 PM - 9:00 PM</option>
-                                        </select>
-                                    </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="collection-time" class="form-label">Collection Time</label>
+                                    <select class="form-select" 
+                                            id="collection-time" 
+                                            name="collection_time">
+                                        <option value="">Select time</option>
+                                        <option value="09:00">9:00 AM</option>
+                                        <option value="10:00">10:00 AM</option>
+                                        <option value="11:00">11:00 AM</option>
+                                        <option value="12:00">12:00 PM</option>
+                                        <option value="13:00">1:00 PM</option>
+                                        <option value="14:00">2:00 PM</option>
+                                        <option value="15:00">3:00 PM</option>
+                                        <option value="16:00">4:00 PM</option>
+                                        <option value="17:00">5:00 PM</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <!-- Delivery Details -->
+                        <div id="delivery-details" class="mb-4" style="display: none;">
+                            <h6 class="border-bottom pb-2">Delivery Details</h6>
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="delivery-address" class="form-label">Delivery Address</label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="delivery-address" 
+                                           name="delivery_address"
+                                           placeholder="Street address">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="delivery-city" class="form-label">City</label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="delivery-city" 
+                                           name="delivery_city">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="delivery-postcode" class="form-label">Postcode</label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="delivery-postcode" 
+                                           name="delivery_postcode">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="delivery-date" class="form-label">Delivery Date</label>
+                                    <input type="date" 
+                                           class="form-control" 
+                                           id="delivery-date" 
+                                           name="delivery_date">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="delivery-time" class="form-label">Delivery Time</label>
+                                    <select class="form-select" 
+                                            id="delivery-time" 
+                                            name="delivery_time">
+                                        <option value="">Select time</option>
+                                        <option value="09:00">9:00 AM</option>
+                                        <option value="10:00">10:00 AM</option>
+                                        <option value="11:00">11:00 AM</option>
+                                        <option value="12:00">12:00 PM</option>
+                                        <option value="13:00">1:00 PM</option>
+                                        <option value="14:00">2:00 PM</option>
+                                        <option value="15:00">3:00 PM</option>
+                                        <option value="16:00">4:00 PM</option>
+                                        <option value="17:00">5:00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Special Instructions -->
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="special-instructions" class="form-label">Special Instructions</label>
-                            <textarea class="form-control" id="special-instructions" rows="3" placeholder="Any special cake personalization, dietary requirements, or other notes..."></textarea>
+                            <textarea class="form-control" 
+                                      id="special-instructions" 
+                                      name="special_instructions"
+                                      rows="3" 
+                                      placeholder="Any special requests or dietary requirements..."></textarea>
                         </div>
-                        
+
                         <!-- Order Summary -->
-                        <div class="border-top pt-3">
-                            <h6><i class="fas fa-receipt"></i> Order Summary</h6>
-                            <div id="order-summary-items"></div>
-                            <div class="d-flex justify-content-between">
-                                <span>Subtotal:</span>
-                                <span id="order-subtotal">£0.00</span>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <span id="delivery-fee-label">Collection Fee:</span>
-                                <span id="delivery-fee">£0.00</span>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between">
-                                <strong>Total: <span id="order-total">£0.00</span></strong>
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">Order Summary</h6>
+                                <div id="order-summary-items" class="mb-2">
+                                    <!-- Items will be populated by JavaScript -->
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between">
+                                    <span>Subtotal:</span>
+                                    <span id="order-subtotal">£0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span id="delivery-fee-label">Collection Fee:</span>
+                                    <span id="delivery-fee">£0.00</span>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between fw-bold">
+                                    <span>Total:</span>
+                                    <span id="order-total">£0.00</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">
-                            <i class="fas fa-check"></i> Confirm Order
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="orderForm" class="btn btn-primary">
+                        <i class="fas fa-shopping-cart"></i> Confirm Order
+                    </button>
+                </div>
             </div>
         </div>
     </div>
