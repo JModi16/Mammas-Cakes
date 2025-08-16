@@ -17,10 +17,8 @@ from decimal import Decimal
 from datetime import datetime
 import uuid
 from .models import Cake, Order, OrderItem, Customer
-import uuid
-
-from .models import Cake, Customer, Order, OrderItem
 from .forms import CustomUserCreationForm
+from django.db import models
 
 logger = logging.getLogger(__name__)
 
@@ -60,11 +58,6 @@ def register_view(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Comment out until Customer model is created
-            # Customer.objects.create(
-            #     user=user,
-            #     phone_number=form.cleaned_data.get('phone_number', '')
-            # )
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}! You can now log in.')
             return redirect('login')
@@ -105,10 +98,12 @@ def process_order(request):
 def place_order(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)
+            # Log raw request data
+            raw_data = request.body.decode('utf-8')
+            print(f"Raw request data: {raw_data}")
             
-            # Debug: Print received data
-            print("Received order data:", data)
+            data = json.loads(request.body)
+            print(f"Parsed data: {data}")
             
             # Parse dates properly
             collection_date = None
@@ -117,34 +112,44 @@ def place_order(request):
             if data.get('collection_date'):
                 try:
                     collection_date = parse_date(data.get('collection_date'))
-                except:
+                    print(f"Parsed collection_date: {collection_date}")
+                except Exception as e:
+                    print(f"Error parsing collection_date: {e}")
                     collection_date = None
                     
             if data.get('delivery_date'):
                 try:
                     delivery_date = parse_date(data.get('delivery_date'))
-                except:
+                    print(f"Parsed delivery_date: {delivery_date}")
+                except Exception as e:
+                    print(f"Error parsing delivery_date: {e}")
                     delivery_date = None
             
-            # Create the order
-            order = Order.objects.create(
-                customer=request.user,
-                customer_email=data.get('customer_email'),
-                order_number=f"MC{timezone.now().strftime('%Y%m%d%H%M%S')}",
-                order_type=data.get('delivery_option', 'single_item'),
-                special_instructions=data.get('special_instructions', ''),
-                
-                # Collection fields
-                collection_date=collection_date,
-                collection_time=data.get('collection_time', ''),
-                
-                # Delivery fields
-                delivery_address=data.get('delivery_address', ''),
-                delivery_city=data.get('delivery_city', ''),
-                delivery_postcode=data.get('delivery_postcode', ''),
-                delivery_date=delivery_date,
-                delivery_time=data.get('delivery_time', ''),
-            )
+            # Create the order with error handling
+            order_data = {
+                'customer': request.user,
+                'customer_email': data.get('customer_email'),
+                'order_number': f"MC{timezone.now().strftime('%Y%m%d%H%M%S')}",
+                'order_type': data.get('delivery_option', 'collection'),
+                'special_instructions': data.get('special_instructions', ''),
+            }
+            
+            # Add new fields only if they exist in the model
+            try:
+                order_data.update({
+                    'collection_date': collection_date,
+                    'collection_time': data.get('collection_time', ''),
+                    'delivery_address': data.get('delivery_address', ''),
+                    'delivery_city': data.get('delivery_city', ''),
+                    'delivery_postcode': data.get('delivery_postcode', ''),
+                    'delivery_date': delivery_date,
+                    'delivery_time': data.get('delivery_time', ''),
+                })
+            except Exception as e:
+                print(f"Warning: Some fields not available in model: {e}")
+            
+            order = Order.objects.create(**order_data)
+            print(f"Order created: {order.order_number}")
             
             # Create order item
             OrderItem.objects.create(
@@ -160,6 +165,7 @@ def place_order(request):
                 total=models.Sum('total_price')
             )['total'] or Decimal('0')
             order.save()
+            print(f"Order total updated: £{order.total}")
             
             # Send confirmation email
             try:
@@ -176,6 +182,8 @@ def place_order(request):
             
         except Exception as e:
             print(f"❌ Order creation error: {e}")
+            import traceback
+            traceback.print_exc()
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
     
     return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
@@ -210,10 +218,13 @@ def send_order_confirmation_email(order):
     """Send order confirmation email to customer"""
     try:
         subject = f'Order Confirmation - {order.order_number}'
-        html_message = render_to_string('cakes/email/order_confirmation.html', {
+        
+        # Use the email template with delivery details
+        html_message = render_to_string('emails/order_confirmation.html', {
             'order': order,
             'customer_name': order.customer.first_name or order.customer.username,
         })
+        
         plain_message = f"""
         Dear {order.customer.first_name or order.customer.username},
         
