@@ -149,10 +149,6 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = f"Mamma's Cakes <{os.environ.get('EMAIL_HOST_USER', '')}>"
 
-# For development/testing, you can also use:
-# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-# EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
-
 # Heroku settings
 
 # Security settings for production
