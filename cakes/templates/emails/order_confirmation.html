@@ -23,45 +23,27 @@
         </div>
         
         <div class="content">
-            <h3>Thank you for your order, {{ order.customer_name }}!</h3>
+            <h3>Thank you for your order!</h3>
             <p>We've received your order and will begin preparing your delicious cakes.</p>
             
             <div class="order-details">
                 <h4>📋 Order Details</h4>
                 <p><strong>Order Number:</strong> {{ order.order_number }}</p>
                 <p><strong>Order Date:</strong> {{ order.created_at|date:"F d, Y at g:i A" }}</p>
-                <p><strong>Order Type:</strong> {{ order.get_order_type_display }}</p>
-                
-                {% if order.order_type == 'collection' %}
-                    <p><strong>Collection Date:</strong> {{ order.collection_date|date:"F d, Y" }}</p>
-                    <p><strong>Collection Time:</strong> {{ order.collection_time }}</p>
-                    <p><strong>Collection Address:</strong><br>
-                    Mamma's Cakes Bakery<br>
-                    123 Baker Street<br>
-                    London, W1U 6TU</p>
-                {% else %}
-                    <p><strong>Delivery Date:</strong> {{ order.delivery_date|date:"F d, Y" }}</p>
-                    <p><strong>Delivery Time:</strong> {{ order.delivery_time|default:"Any time" }}</p>
-                    <p><strong>Delivery Address:</strong><br>
-                    {{ order.delivery_address }}<br>
-                    {{ order.delivery_city }}, {{ order.delivery_postcode }}</p>
-                {% endif %}
+                <p><strong>Customer Email:</strong> {{ order.customer_email }}</p>
+                <p><strong>Status:</strong> {{ order.get_status_display }}</p>
             </div>
             
             <div class="order-details">
                 <h4>🍰 Your Cakes</h4>
-                {% for item in items %}
+                {% for item in order.items.all %}
                     <div class="item">
                         <strong>{{ item.cake_name }}</strong><br>
-                        Quantity: {{ item.quantity }} × £{{ item.unit_price }} = £{{ item.total_price }}
+                        Quantity: {{ item.quantity }} × £{{ item.cake_price }} = £{{ item.total_price }}
                     </div>
                 {% endfor %}
                 
                 <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #6f42c1;">
-                    <p>Subtotal: £{{ order.subtotal }}</p>
-                    {% if order.delivery_fee > 0 %}
-                        <p>Delivery Fee: £{{ order.delivery_fee }}</p>
-                    {% endif %}
                     <p class="total">Total: £{{ order.total }}</p>
                 </div>
             </div>
@@ -76,9 +58,19 @@
             <div class="order-details">
                 <h4>📞 Contact Information</h4>
                 <p>If you have any questions about your order, please contact us:</p>
-                <p><strong>Email:</strong> info@mammascakes.com</p>
-                <p><strong>Phone:</strong> 020 7123 4567</p>
+                <p><strong>Email:</strong> mammas.cakes16@gmail.com</p>
+                <p><strong>Phone:</strong> 020 7946 0958</p>
                 <p><strong>Address:</strong> 123 Baker Street, London, W1U 6TU</p>
+            </div>
+            
+            <div class="order-details">
+                <h4>🏪 Collection Details</h4>
+                <p><strong>Collection from:</strong><br>
+                Mamma's Cakes Bakery<br>
+                123 Baker Street<br>
+                London, W1U 6TU</p>
+                <p><strong>Hours:</strong> Monday-Saturday 9AM-6PM</p>
+                <p>We'll contact you when your order is ready for collection!</p>
             </div>
         </div>
         
