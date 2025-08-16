@@ -324,6 +324,8 @@ class OrderSystem {
 
     async submitOrder(formData) {
         try {
+            console.log('Submitting order with data:', formData);
+            
             const response = await fetch('/place-order/', {
                 method: 'POST',
                 headers: {
@@ -333,7 +335,10 @@ class OrderSystem {
                 body: JSON.stringify(formData)
             });
 
+            console.log('Response status:', response.status);
+            
             const result = await response.json();
+            console.log('Response data:', result);
 
             if (response.ok && result.success) {
                 // Close modal
@@ -343,16 +348,15 @@ class OrderSystem {
                 // Show success message
                 alert('Order placed successfully! You will receive a confirmation email shortly.');
                 
-                // Optionally redirect to order confirmation page
-                if (result.redirect_url) {
-                    window.location.href = result.redirect_url;
-                }
             } else {
-                alert('Error placing order: ' + (result.error || 'Please try again.'));
+                // Show detailed error message
+                const errorMsg = result.error || 'Unknown error occurred';
+                console.error('Order submission failed:', errorMsg);
+                alert(`Failed to place order: ${errorMsg}\n\nPlease check all required fields are filled correctly.`);
             }
         } catch (error) {
             console.error('Order submission error:', error);
-            alert('Error placing order. Please try again.');
+            alert('Connection error. Please check your internet connection and try again.');
         }
     }
 
