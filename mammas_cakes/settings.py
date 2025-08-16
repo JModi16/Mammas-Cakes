@@ -70,16 +70,7 @@ TEMPLATES = [
     },
 ]
 
-# Import environment variables - ADD THIS
-if os.path.isfile('env.py'):
-    import env
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-env_path = os.path.join(os.path.dirname(__file__), 'env.py')
-if os.path.isfile(env_path):
-    exec(open(env_path).read())
 
 WSGI_APPLICATION = 'mammas_cakes.wsgi.application'
 
@@ -102,21 +93,14 @@ WSGI_APPLICATION = 'mammas_cakes.wsgi.application'
 #Password validation
 #https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
-DATABASE_URL = os.environ.get("DATABASE_URL")
-if DATABASE_URL:
-    DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-}
-else:
-    print("WARNING: DATABASE_URL not set, using SQLite fallback.")
-    DATABASES = {
+DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
 
-    CSRF_TRUSTED_ORIGINS = [
+CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
     "https://*.herokuapp.com"
 ]
