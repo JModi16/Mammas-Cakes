@@ -179,9 +179,10 @@ class OrderSystem {
             delivery_option: this.getCheckedRadioValue('deliveryOption'),
             collection_date: this.getFieldValue('collection-date'),
             collection_time: this.getFieldValue('collection-time'),
-            delivery_address: this.getFieldValue('delivery-address'),
-            delivery_city: this.getFieldValue('delivery-city'),
-            delivery_postcode: this.getFieldValue('delivery-postcode'),
+            // FIXED: Try both possible field names
+            delivery_address: this.getFieldValue('delivery-address') || this.getFieldValue('address'),
+            delivery_city: this.getFieldValue('delivery-city') || this.getFieldValue('city'),
+            delivery_postcode: this.getFieldValue('delivery-postcode') || this.getFieldValue('postcode'),
             delivery_date: this.getFieldValue('delivery-date'),
             delivery_time: this.getFieldValue('delivery-time'),
             special_instructions: this.getFieldValue('special-instructions')
@@ -205,14 +206,41 @@ class OrderSystem {
             return false;
         }
 
-        if (formData.delivery_option === 'collection' && (!formData.collection_date || !formData.collection_time)) {
-            alert('Please select collection date and time.');
-            return false;
+        if (formData.delivery_option === 'collection') {
+            if (!formData.collection_date || !formData.collection_time) {
+                alert('Please select collection date and time.');
+                return false;
+            }
         }
 
-        if (formData.delivery_option === 'delivery' && (!formData.delivery_address || !formData.delivery_city || !formData.delivery_postcode)) {
-            alert('Please fill in all delivery address fields.');
-            return false;
+        if (formData.delivery_option === 'delivery') {
+            // FIXED: Check if delivery fields exist and have values
+            const deliveryAddress = this.getFieldValue('delivery-address') || this.getFieldValue('address');
+            const deliveryCity = this.getFieldValue('delivery-city') || this.getFieldValue('city');
+            const deliveryPostcode = this.getFieldValue('delivery-postcode') || this.getFieldValue('postcode');
+            const deliveryDate = this.getFieldValue('delivery-date');
+            const deliveryTime = this.getFieldValue('delivery-time');
+
+            if (!deliveryAddress) {
+                alert('Please enter delivery address.');
+                return false;
+            }
+            if (!deliveryCity) {
+                alert('Please enter delivery city.');
+                return false;
+            }
+            if (!deliveryPostcode) {
+                alert('Please enter delivery postcode.');
+                return false;
+            }
+            if (!deliveryDate) {
+                alert('Please select delivery date.');
+                return false;
+            }
+            if (!deliveryTime) {
+                alert('Please select delivery time.');
+                return false;
+            }
         }
 
         return true;
