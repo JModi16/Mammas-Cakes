@@ -77,32 +77,6 @@ def register_view(request):
 
 # Order processing views
 @csrf_exempt
-@require_http_methods(["POST"])
-def process_order(request):
-    """Process order from cart.js"""
-    if not request.user.is_authenticated:
-        return JsonResponse({'success': False, 'error': 'Please log in'})
-    
-    try:
-        data = json.loads(request.body)
-        
-        # Generate order number
-        order_number = f"MC{datetime.now().strftime('%Y%m%d%H%M%S')}"
-        
-        # Log the order (you can save to database later)
-        logger.info(f"Order received: {order_number} for {data['customer']['email']}")
-        
-        return JsonResponse({
-            'success': True,
-            'order_number': order_number,
-            'message': 'Order placed successfully!'
-        })
-        
-    except Exception as e:
-        logger.error(f"Order processing error: {e}")
-        return JsonResponse({'success': False, 'error': 'Order failed'})
-
-@csrf_exempt
 @require_http_methods(["POST"])  # Only allow POST requests
 def place_order(request):
     print(f"🔧 place_order view called - Method: {request.method}")
