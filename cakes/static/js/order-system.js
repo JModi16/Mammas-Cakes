@@ -188,6 +188,9 @@ class OrderSystem {
         
         console.log('=== ORDER SUBMISSION STARTED ===');
 
+        // TEMPORARY: Add debugging
+        this.debugFormValidation();
+
         // Collect form data
         const formData = this.collectFormData();
         console.log('Collected form data:', formData);
@@ -421,6 +424,37 @@ class OrderSystem {
         
         console.log('Collection details visible:', collectionDetails?.style.display !== 'none');
         console.log('Delivery details visible:', deliveryDetails?.style.display !== 'none');
+        
+        console.log('========================');
+    }
+
+    // ADD this method to your OrderSystem class for debugging:
+    debugFormValidation() {
+        const formData = this.collectFormData();
+        console.log('=== VALIDATION DEBUG ===');
+        console.log('Form data:', formData);
+        
+        // Check each field individually
+        console.log('Customer name:', formData.customer_name);
+        console.log('Customer email:', formData.customer_email);
+        console.log('Customer phone:', formData.customer_phone);
+        console.log('Delivery option:', formData.delivery_option);
+        
+        if (formData.delivery_option === 'collection') {
+            console.log('Collection date field value:', document.getElementById('collection-date')?.value);
+            console.log('Collection time field value:', document.getElementById('collection-time')?.value);
+            console.log('Collection date from formData:', formData.collection_date);
+            console.log('Collection time from formData:', formData.collection_time);
+        }
+        
+        if (formData.delivery_option === 'delivery') {
+            console.log('Delivery address field value:', document.getElementById('delivery-address')?.value);
+            console.log('Delivery date field value:', document.getElementById('delivery-date')?.value);
+            console.log('Delivery time field value:', document.getElementById('delivery-time')?.value);
+            console.log('Delivery address from formData:', formData.delivery_address);
+            console.log('Delivery date from formData:', formData.delivery_date);
+            console.log('Delivery time from formData:', formData.delivery_time);
+        }
         
         console.log('========================');
     }
