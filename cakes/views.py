@@ -77,10 +77,9 @@ def register_view(request):
 
 # Order processing views
 @csrf_exempt
-@require_http_methods(["POST"])  # Only allow POST requests
+@require_http_methods(["POST"])
 def place_order(request):
     print(f"🔧 place_order view called - Method: {request.method}")
-    print(f"🔧 Content-Type: {request.content_type}")
     print(f"🔧 User authenticated: {request.user.is_authenticated}")
     
     try:
