@@ -30,10 +30,8 @@
     <script>
         window.csrfToken = '{{ csrf_token }}';
         window.isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}";
-        {% if user.is_authenticated %}
-            window.userEmail = "{{ user.email }}";
-            window.userName = "{{ user.first_name|default:user.username }}";
-        {% endif %}
+        window.userEmail = "{% if user.is_authenticated %}{{ user.email|escapejs }}{% else %}{% endif %}";
+        window.userName = "{% if user.is_authenticated %}{{ user.first_name|default:user.username|escapejs }}{% else %}{% endif %}";
     </script>
 </head>
 
