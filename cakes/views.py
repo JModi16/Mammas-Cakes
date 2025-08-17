@@ -16,11 +16,19 @@ import logging
 from decimal import Decimal
 from datetime import datetime
 import uuid
+import random
+import string
 from .models import Cake, Order, OrderItem, Customer
 from .forms import CustomUserCreationForm
 from django.db import models
 
 logger = logging.getLogger(__name__)
+
+def generate_order_number():
+    """Generate a unique order number"""
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    random_chars = ''.join(random.choices(string.digits, k=4))
+    return f"MC{timestamp}{random_chars}"
 
 # Existing page views
 def home(request):
