@@ -410,3 +410,67 @@ footer .link:hover {
 .hero-subtitle {
     margin-bottom: 40px !important;
 }
+
+/* ADD these new styles for compact hero section */
+
+/* Compact Hero Section */
+.hero-section-compact {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
+}
+
+/* Reduce hero title spacing */
+.hero-title-compact {
+    margin-bottom: 15px !important;
+    font-size: 2.5rem !important;
+}
+
+.hero-subtitle-compact {
+    margin-bottom: 20px !important;
+    font-size: 1.1rem !important;
+}
+
+/* Compact cake categories section */
+.cake-categories-compact {
+    padding-top: 30px !important;
+    padding-bottom: 40px !important;
+    margin-top: 0 !important;
+}
+
+/* Reduce section title spacing */
+.section-title-compact {
+    margin-bottom: 20px !important;
+    font-size: 2rem !important;
+}
+
+.section-subtitle-compact {
+    margin-bottom: 30px !important;
+    font-size: 1rem !important;
+}
+
+/* Page header compact styling for cake category pages */
+.page-header-compact {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section-compact {
+        padding-top: 30px !important;
+        padding-bottom: 30px !important;
+    }
+    
+    .hero-title-compact {
+        font-size: 2rem !important;
+    }
+    
+    .cake-categories-compact {
+        padding-top: 20px !important;
+        padding-bottom: 30px !important;
+    }
+}
