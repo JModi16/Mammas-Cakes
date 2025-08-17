@@ -5,11 +5,12 @@
 {% block description %}Delicious plant-based cakes with no compromise on taste{% endblock %}
 
 {% block content %}
-<div class="container my-5">
+<!-- Compact page header -->
+<div class="container page-header-compact">
     <div class="row">
-        <div class="col-12 text-center mb-5">
+        <div class="col-12 text-center mb-3">
             <h1 class="logo-font">Vegan Cakes</h1>
-            <p class="lead">Delicious plant-based cakes with no compromise on taste</p>
+            <p class="lead">Delicious plant-based cakes that don't compromise on taste or quality</p>
         </div>
     </div>
     
@@ -18,9 +19,9 @@
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">
                 {% if cake.image %}
-                    <img src="{{ cake.image.url }}" class="card-img-top" alt="{{ cake.name }}" style="height: 250px; object-fit: cover;">
+                    <img src="{{ cake.image.url }}" class="card-img-top" alt="{{ cake.name }}" style="height: 220px; object-fit: cover;">
                 {% else %}
-                    <img src="{% static 'images/veganblueberry.webp' %}" class="card-img-top" alt="{{ cake.name }}" style="height: 250px; object-fit: cover;">
+                    <img src="{% static 'images/veganbiscuit.webp' %}" class="card-img-top" alt="{{ cake.name }}" style="height: 220px; object-fit: cover;">
                 {% endif %}
                 
                 <div class="card-body d-flex flex-column">
@@ -38,10 +39,9 @@
                         {% if user.is_authenticated %}
                             <button class="btn btn-primary order-now-btn" 
                                     data-id="{{ cake.id }}"
-
                                     data-name="{{ cake.name }}"
                                     data-price="{{ cake.price }}"
-                                    data-image="{% if cake.image %}{{ cake.image.url }}{% else %}{% static 'images/veganblueberry.webp' %}{% endif %}">
+                                    data-image="{% if cake.image %}{{ cake.image.url }}{% else %}{% static 'images/veganbiscuit.webp' %}{% endif %}">
                                 <i class="fas fa-shopping-bag"></i> Order Now
                             </button>
                         {% else %}
@@ -61,13 +61,13 @@
         {% endfor %}
     </div>
 
-    <!-- Call to Action Section -->
-    <div class="row mt-5">
+    <!-- Compact Call to Action Section -->
+    <div class="row mt-4">
         <div class="col-12 text-center">
             <div class="bg-light p-4 rounded">
-                <h3>Vegan Cakes for Every Occasion</h3>
-                <p>Whether it's a birthday, wedding, or any special event, our vegan cakes are perfect for all celebrations!</p>
-                <a href="#" class="btn btn-success btn-lg">Contact Us for Custom Design</a>
+                <h3 class="h4">Vegan Cakes for Every Occasion</h3>
+                <p class="mb-3">Whether it's a birthday, wedding, or any special event, our vegan cakes are perfect for all celebrations!</p>
+                <a href="{% url 'contact' %}" class="btn btn-success">Contact Us for Custom Design</a>
             </div>
         </div>
     </div>

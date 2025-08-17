@@ -5,11 +5,12 @@
 {% block description %}Sweet treats perfect for any occasion{% endblock %}
 
 {% block content %}
-<div class="container my-5">
+<!-- Compact page header -->
+<div class="container page-header-compact">
     <div class="row">
-        <div class="col-12 text-center mb-5">
+        <div class="col-12 text-center mb-3">
             <h1 class="logo-font">Sweet Treats</h1>
-            <p class="lead">Sweet treats perfect for any occasion</p>
+            <p class="lead">Delightful treats and pastries perfect for any occasion</p>
         </div>
     </div>
     
@@ -18,9 +19,9 @@
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">
                 {% if cake.image %}
-                    <img src="{{ cake.image.url }}" class="card-img-top" alt="{{ cake.name }}" style="height: 250px; object-fit: cover;">
+                    <img src="{{ cake.image.url }}" class="card-img-top" alt="{{ cake.name }}" style="height: 220px; object-fit: cover;">
                 {% else %}
-                    <img src="{% static 'images/redvelvetcupcakes.webp' %}" class="card-img-top" alt="{{ cake.name }}" style="height: 250px; object-fit: cover;">
+                    <img src="{% static 'images/redvelvetcupcakes.webp' %}" class="card-img-top" alt="{{ cake.name }}" style="height: 220px; object-fit: cover;">
                 {% endif %}
                 
                 <div class="card-body d-flex flex-column">
@@ -60,13 +61,13 @@
         {% endfor %}
     </div>
 
-    <!-- Call to Action Section -->
-    <div class="row mt-5">
+    <!-- Compact Call to Action Section -->
+    <div class="row mt-4">
         <div class="col-12 text-center">
             <div class="bg-light p-4 rounded">
-                <h3>Custom Treats</h3>
-                <p>Explore our range of delicious treats made with love and care</p>
-                <a href="#" class="btn btn-success btn-lg">Contact Us for Custom Design</a>
+                <h3 class="h4">Custom Treats</h3>
+                <p class="mb-3">Explore our range of delicious treats made with love and care</p>
+                <a href="{% url 'contact' %}" class="btn btn-success">Contact Us for Custom Design</a>
             </div>
         </div>
     </div>
