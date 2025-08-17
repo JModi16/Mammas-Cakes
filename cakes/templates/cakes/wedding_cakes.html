@@ -4,9 +4,10 @@
 {% block title %}Wedding Cakes - Mammas Cakes{% endblock %}
 
 {% block content %}
-<div class="container my-5">
+<!-- Compact page header -->
+<div class="container page-header-compact">
     <div class="row">
-        <div class="col-12 text-center mb-5">
+        <div class="col-12 text-center mb-3">
             <h1 class="logo-font">Wedding Cakes</h1>
             <p class="lead">Elegant wedding cakes designed to make your special day unforgettable</p>
         </div>
@@ -17,9 +18,9 @@
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">
                 {% if cake.image %}
-                    <img src="{{ cake.image.url }}" class="card-img-top" alt="{{ cake.name }}" style="height: 250px; object-fit: cover;">
+                    <img src="{{ cake.image.url }}" class="card-img-top" alt="{{ cake.name }}" style="height: 220px; object-fit: cover;">
                 {% else %}
-                    <img src="{% static 'images/weddingcake.webp' %}" class="card-img-top" alt="{{ cake.name }}" style="height: 250px; object-fit: cover;">
+                    <img src="{% static 'images/weddingcake.webp' %}" class="card-img-top" alt="{{ cake.name }}" style="height: 220px; object-fit: cover;">
                 {% endif %}
                 
                 <div class="card-body d-flex flex-column">
