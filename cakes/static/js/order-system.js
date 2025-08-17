@@ -137,12 +137,15 @@ class OrderSystem {
     handleOrderSubmission(e) {
         e.preventDefault();
         
-        // Simple form data collection
-        const formData = this.collectFormData();
+        console.log('=== ORDER SUBMISSION STARTED ===');
         
-        // Basic validation only
+        // Collect form data
+        const formData = this.collectFormData();
+        console.log('Collected form data:', formData);
+        
+        // Basic validation
         if (!formData.customer_name || !formData.customer_email || !formData.customer_phone) {
-            alert('Please fill in all required fields.');
+            alert('Please fill in all required fields (Name, Email, Phone).');
             return;
         }
 
@@ -151,6 +154,67 @@ class OrderSystem {
             return;
         }
 
+        // COLLECTION VALIDATION
+        if (formData.delivery_option === 'collection') {
+            console.log('Validating collection fields...');
+            
+            if (!formData.collection_date || formData.collection_date === '') {
+                alert('Please select a collection date.');
+                const dateField = document.getElementById('collection-date');
+                if (dateField) dateField.focus();
+                return;
+            }
+            
+            if (!formData.collection_time || formData.collection_time === '') {
+                alert('Please select a collection time slot.');
+                const timeField = document.getElementById('collection-time');
+                if (timeField) timeField.focus();
+                return;
+            }
+        }
+
+        // DELIVERY VALIDATION
+        if (formData.delivery_option === 'delivery') {
+            console.log('Validating delivery fields...');
+            
+            if (!formData.delivery_address || formData.delivery_address === '') {
+                alert('Please enter your delivery address.');
+                const addressField = document.getElementById('delivery-address');
+                if (addressField) addressField.focus();
+                return;
+            }
+            
+            if (!formData.delivery_city || formData.delivery_city === '') {
+                alert('Please enter your delivery city.');
+                const cityField = document.getElementById('delivery-city');
+                if (cityField) cityField.focus();
+                return;
+            }
+            
+            if (!formData.delivery_postcode || formData.delivery_postcode === '') {
+                alert('Please enter your delivery postcode.');
+                const postcodeField = document.getElementById('delivery-postcode');
+                if (postcodeField) postcodeField.focus();
+                return;
+            }
+            
+            if (!formData.delivery_date || formData.delivery_date === '') {
+                alert('Please select a delivery date.');
+                const dateField = document.getElementById('delivery-date');
+                if (dateField) dateField.focus();
+                return;
+            }
+            
+            if (!formData.delivery_time || formData.delivery_time === '') {
+                alert('Please select a delivery time slot.');
+                const timeField = document.getElementById('delivery-time');
+                if (timeField) timeField.focus();
+                return;
+            }
+        }
+
+        console.log('✅ All validation passed - submitting order...');
+        
         // Submit the order
         this.submitOrder(formData);
     }
