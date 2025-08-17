@@ -474,3 +474,63 @@ footer .link:hover {
         padding-bottom: 30px !important;
     }
 }
+
+/* ADD these social media link styles */
+
+/* Social Media Links Styling */
+.social-links {
+    list-style: none;
+    padding: 0;
+}
+
+.social-links li {
+    margin-bottom: 10px;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 5px 0;
+}
+
+.social-links a:hover {
+    color: #6f42c1;
+    transform: translateX(5px);
+}
+
+.social-links i {
+    width: 20px;
+    text-align: center;
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+/* Individual social media platform colors on hover */
+.social-links a[href*="facebook"]:hover {
+    color: #1877f2;
+}
+
+.social-links a[href*="instagram"]:hover {
+    color: #e4405f;
+}
+
+.social-links a[href*="twitter"]:hover {
+    color: #1da1f2;
+}
+
+.social-links a[href*="tiktok"]:hover {
+    color: #000000;
+}
+
+/* Footer specific social link styling */
+footer .social-links a {
+    color: inherit;
+}
+
+footer .social-links a:hover {
+    color: #6f42c1;
+    text-shadow: 0 0 5px rgba(111, 66, 193, 0.3);
+}
