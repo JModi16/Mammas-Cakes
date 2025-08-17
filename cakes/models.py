@@ -54,34 +54,35 @@ class Order(models.Model):
         ('delivery', 'Delivery'),
     ]
 
-    # Existing fields
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    # Basic fields
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     customer_email = models.EmailField()
     order_number = models.CharField(max_length=20, unique=True)
-    order_type = models.CharField(max_length=20, choices=ORDER_TYPE_CHOICES, default='collection')
-    status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='pending')
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
+    order_type = models.CharField(max_length=20, choices=ORDER_TYPE_CHOICES)
+    status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='pending')  # ✅ ADDED
+    total = models.DecimalField(max_digits=10, decimal_places=2)
     special_instructions = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    # ADD THESE NEW FIELDS:
-    # Collection fields
-    collection_date = models.DateField(blank=True, null=True)
-    collection_time = models.CharField(max_length=20, blank=True)
     
-    # Delivery fields
-    delivery_address = models.TextField(blank=True)
+    # Collection fields
+    collection_date = models.DateField(null=True, blank=True)
+    collection_time = models.CharField(max_length=50, blank=True)
+    
+    # Delivery fields  
+    delivery_address = models.CharField(max_length=200, blank=True)
     delivery_city = models.CharField(max_length=100, blank=True)
     delivery_postcode = models.CharField(max_length=20, blank=True)
-    delivery_date = models.DateField(blank=True, null=True)
-    delivery_time = models.CharField(max_length=20, blank=True)
+    delivery_date = models.DateField(null=True, blank=True)
+    delivery_time = models.CharField(max_length=50, blank=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Order {self.order_number} - {self.customer.username}"
+        customer_name = self.customer.username if self.customer else self.customer_email
+        return f"Order {self.order_number} - {customer_name}"
 
     def get_status_display_badge(self):
         """Return Bootstrap badge class for status"""

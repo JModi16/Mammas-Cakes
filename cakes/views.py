@@ -87,13 +87,18 @@ def place_order(request):
         data = json.loads(request.body)
         print(f"🔧 Parsed data: {data}")
         
-        # Validate required fields
-        required_fields = ['cake_id', 'cake_name', 'cake_price', 'customer_name', 'customer_email', 'customer_phone', 'delivery_option']
-        for field in required_fields:
-            if not data.get(field):
-                return JsonResponse({'success': False, 'error': f'Missing required field: {field}'}, status=400)
+        # Parse dates properly
+        collection_date = None
+        if data.get('collection_date'):
+            collection_date = parse_date(data['collection_date'])
+            print(f"🔧 Parsed collection_date: {collection_date}")
         
-        # Create order
+        delivery_date = None
+        if data.get('delivery_date'):
+            delivery_date = parse_date(data['delivery_date'])
+            print(f"🔧 Parsed delivery_date: {delivery_date}")
+        
+        # Create order with parsed dates
         order = Order.objects.create(
             customer=request.user if request.user.is_authenticated else None,
             customer_email=data['customer_email'],
@@ -102,15 +107,15 @@ def place_order(request):
             total=Decimal(str(data['cake_price'])),
             special_instructions=data.get('special_instructions', ''),
             
-            # Collection fields
-            collection_date=data.get('collection_date') or None,
+            # Collection fields with parsed date
+            collection_date=collection_date,
             collection_time=data.get('collection_time', ''),
             
-            # Delivery fields
+            # Delivery fields with parsed date
             delivery_address=data.get('delivery_address', ''),
             delivery_city=data.get('delivery_city', ''),
             delivery_postcode=data.get('delivery_postcode', ''),
-            delivery_date=data.get('delivery_date') or None,
+            delivery_date=delivery_date,
             delivery_time=data.get('delivery_time', ''),
         )
         
@@ -118,8 +123,9 @@ def place_order(request):
         OrderItem.objects.create(
             order=order,
             cake_name=data['cake_name'],
+            cake_price=Decimal(str(data['cake_price'])),
             quantity=1,
-            price=Decimal(str(data['cake_price']))
+            total_price=Decimal(str(data['cake_price'])),
         )
         
         # Send confirmation email
