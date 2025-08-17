@@ -240,7 +240,7 @@ class OrderSystem {
     }
 
     validateFormData(formData) {
-        console.log('Validating form data:', formData); // Debug log
+        console.log('Validating form data:', formData);
 
         // Basic validation - always required
         if (!formData.customer_name) {
@@ -269,49 +269,54 @@ class OrderSystem {
         // Collection validation
         if (formData.delivery_option === 'collection') {
             console.log('Validating collection fields...');
+            console.log('Collection date:', formData.collection_date);
+            console.log('Collection time:', formData.collection_time);
             
-            if (!formData.collection_date) {
+            if (!formData.collection_date || formData.collection_date === '') {
                 alert('Please select a collection date.');
                 document.getElementById('collection-date')?.focus();
                 return false;
             }
             
-            if (!formData.collection_time) {
+            if (!formData.collection_time || formData.collection_time === '') {
                 alert('Please select a collection time slot.');
                 document.getElementById('collection-time')?.focus();
                 return false;
             }
         }
 
-        // Delivery validation
+        // Delivery validation  
         if (formData.delivery_option === 'delivery') {
             console.log('Validating delivery fields...');
+            console.log('Delivery address:', formData.delivery_address);
+            console.log('Delivery date:', formData.delivery_date);
+            console.log('Delivery time:', formData.delivery_time);
             
-            if (!formData.delivery_address) {
+            if (!formData.delivery_address || formData.delivery_address === '') {
                 alert('Please enter your delivery address.');
                 document.getElementById('delivery-address')?.focus();
                 return false;
             }
             
-            if (!formData.delivery_city) {
+            if (!formData.delivery_city || formData.delivery_city === '') {
                 alert('Please enter your delivery city.');
                 document.getElementById('delivery-city')?.focus();
                 return false;
             }
             
-            if (!formData.delivery_postcode) {
+            if (!formData.delivery_postcode || formData.delivery_postcode === '') {
                 alert('Please enter your delivery postcode.');
                 document.getElementById('delivery-postcode')?.focus();
                 return false;
             }
             
-            if (!formData.delivery_date) {
+            if (!formData.delivery_date || formData.delivery_date === '') {
                 alert('Please select a delivery date.');
                 document.getElementById('delivery-date')?.focus();
                 return false;
             }
             
-            if (!formData.delivery_time) {
+            if (!formData.delivery_time || formData.delivery_time === '') {
                 alert('Please select a delivery time slot.');
                 document.getElementById('delivery-time')?.focus();
                 return false;
