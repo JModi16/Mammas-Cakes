@@ -16,6 +16,7 @@ urlpatterns = [
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
     
+    
     # Password Reset URLs
     path('accounts/password-reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('accounts/password-reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
@@ -23,7 +24,7 @@ urlpatterns = [
     path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     # Order URLs (replace cart URLs)
-    path('order/place/', views.place_order, name='place_order'),
+    path('place-order/', views.place_order, name='place_order'),
     path('order-confirmation/<str:order_number>/', views.order_confirmation, name='order_confirmation'),
     path('orders/', views.order_history, name='order_history'),
     path('orders/<str:order_number>/', views.order_detail, name='order_detail'),

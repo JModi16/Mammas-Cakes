@@ -96,14 +96,18 @@ def process_order(request):
 
 @csrf_exempt
 def place_order(request):
+    print(f"🔧 place_order view called - Method: {request.method}")
+    print(f"🔧 Request path: {request.path}")
+    print(f"🔧 User authenticated: {request.user.is_authenticated}")
+    
     if request.method == 'POST':
         try:
             # Log raw request data
             raw_data = request.body.decode('utf-8')
-            print(f"Raw request data: {raw_data}")
+            print(f"🔧 Raw request data: {raw_data}")
             
             data = json.loads(request.body)
-            print(f"Parsed data: {data}")
+            print(f"🔧 Parsed data: {data}")
             
             # Parse dates properly
             collection_date = None
@@ -184,9 +188,11 @@ def place_order(request):
             print(f"❌ Order creation error: {e}")
             import traceback
             traceback.print_exc()
-            return JsonResponse({'success': False, 'error': str(e)}, status=400)
+            return JsonResponse({'success': False, 'error': str(e)}, status=500)
     
-    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
+    else:
+        print(f"❌ Invalid method: {request.method}")
+        return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
 
 @login_required
 def order_history(request):
