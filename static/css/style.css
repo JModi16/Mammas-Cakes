@@ -5,6 +5,8 @@ body {
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
+    line-height: 1.6;
+    color: #333;
 }
 
 header {
@@ -83,4 +85,288 @@ footer .link:hover {
     text-align: center;
     font-size: 1.2rem;
     font-weight: bold;
+}
+
+/* ===============================
+   ORDER CONFIRMATION STYLES
+   =============================== */
+
+/* Container for order pages */
+.order-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styling for order pages */
+.order-header {
+    background-color: #6f42c1;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 0;
+}
+
+.order-header h1 {
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.order-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+/* Content area for order details */
+.order-content {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 0 0 8px 8px;
+}
+
+/* Order details boxes */
+.order-details {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid #e9ecef;
+}
+
+.order-details h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #6f42c1;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #6f42c1;
+    padding-bottom: 8px;
+}
+
+/* Individual order items */
+.order-item {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-item strong {
+    color: #333;
+    font-size: 1.1rem;
+}
+
+/* Order total styling */
+.order-total {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #6f42c1;
+    text-align: right;
+}
+
+.total-amount {
+    font-weight: bold;
+    font-size: 1.3em;
+    color: #6f42c1;
+    margin: 0;
+}
+
+/* Delivery information box */
+.delivery-info {
+    background-color: #e7f3ff;
+    border-left: 4px solid #007bff;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.delivery-info h4 {
+    color: #007bff;
+    margin-top: 0;
+    border-bottom: 1px solid #007bff;
+}
+
+/* Collection information box */
+.collection-info {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.collection-info h4 {
+    color: #856404;
+    margin-top: 0;
+    border-bottom: 1px solid #ffc107;
+}
+
+/* Order footer */
+.order-footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.order-footer p {
+    margin: 5px 0;
+}
+
+/* Status badges */
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.status-confirmed {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.status-preparing {
+    background-color: #cce5ff;
+    color: #004085;
+    border: 1px solid #99d1ff;
+}
+
+.status-ready {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-completed {
+    background-color: #d6d8db;
+    color: #383d41;
+    border: 1px solid #c6c8ca;
+}
+
+.status-cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Contact information styling */
+.contact-info {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.contact-info p {
+    margin: 8px 0;
+}
+
+.contact-info strong {
+    color: #6f42c1;
+}
+
+/* Special instructions box */
+.special-instructions {
+    background-color: #fff8e1;
+    border-left: 4px solid #ff9800;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+}
+
+/* Success message styling */
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.success-message h3 {
+    margin-top: 0;
+    color: #155724;
+}
+
+/* Error message styling */
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* Responsive design for order pages */
+@media (max-width: 768px) {
+    .order-container {
+        margin: 10px;
+        padding: 10px;
+    }
+    
+    .order-header {
+        padding: 15px;
+    }
+    
+    .order-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .order-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .order-details {
+        padding: 15px;
+        margin: 15px 0;
+    }
+    
+    .order-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
+
+/* Print styles for order confirmations */
+@media print {
+    .navbar, .footer, .btn {
+        display: none !important;
+    }
+    
+    .order-container {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .order-header {
+        background-color: #6f42c1 !important;
+        color: white !important;
+    }
 }
