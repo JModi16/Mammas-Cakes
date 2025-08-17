@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <meta name="author" content="Jitesh Modi">
     <meta name="description" content="{% block description %}Mammas Cakes - fresh and quality cakes for several occasions!{% endblock %}">
     <meta name="keywords" content="{% block keywords %}cakes, birthday, wedding, parties {% endblock %}">
@@ -26,13 +27,6 @@
     <!-- Additional CSS can be added here -->
     {% endblock %}
 
-    <!-- CSRF Token for JavaScript -->
-    <script>
-        window.csrfToken = '{{ csrf_token }}';
-        window.isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}";
-        window.userEmail = "{% if user.is_authenticated %}{{ user.email|escapejs }}{% else %}{% endif %}";
-        window.userName = "{% if user.is_authenticated %}{{ user.first_name|default:user.username|escapejs }}{% else %}{% endif %}";
-    </script>
 </head>
 
 <body>
@@ -407,9 +401,9 @@
     <!-- CSRF Token and User Data for JavaScript -->
     <script>
         window.csrfToken = '{{ csrf_token }}';
-        window.isAuthenticated = "{% if user.is_authenticated %}true{% else %}false{% endif %}";
-        window.userName = "{% if user.is_authenticated %}{{ user.get_full_name|default:user.username|escapejs }}{% else %}{% endif %}";
-        window.userEmail = "{% if user.is_authenticated %}{{ user.email|escapejs }}{% else %}{% endif %}";
+        window.isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}";
+        window.userEmail = "{% if user.is_authenticated %}{{ user.email }}{% else %}{% endif %}";
+        window.userName = "{% if user.is_authenticated %}{{ user.get_full_name|default:user.username }}{% else %}{% endif %}";
     </script>
 
     <!-- Order System JavaScript -->
