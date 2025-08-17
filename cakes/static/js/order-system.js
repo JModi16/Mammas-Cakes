@@ -187,16 +187,35 @@ class OrderSystem {
 
     async submitOrder(formData) {
         try {
+            console.log('Submitting order data:', formData);
+            
+            // Get CSRF token from cookie or form
+            const csrfToken = this.getCSRFToken();
+            console.log('Using CSRF token:', csrfToken);
+            
             const response = await fetch('/place-order/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': window.csrfToken
+                    'X-CSRFToken': csrfToken,
+                    'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify(formData)
             });
-
+            
+            console.log('Response status:', response.status);
+            console.log('Response headers:', response.headers);
+            
+            // Check if response is JSON
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                const textResponse = await response.text();
+                console.error('Non-JSON response:', textResponse);
+                throw new Error('Server returned HTML instead of JSON. Check URL configuration.');
+            }
+            
             const result = await response.json();
+            console.log('Response data:', result);
 
             if (response.ok && result.success) {
                 // Close modal
@@ -207,12 +226,44 @@ class OrderSystem {
                 alert(`Order placed successfully! Order number: ${result.order_number}`);
                 
             } else {
-                alert('Failed to place order. Please try again.');
+                const errorMsg = result.error || 'Unknown error occurred';
+                alert(`Failed to place order: ${errorMsg}`);
             }
         } catch (error) {
             console.error('Order submission error:', error);
-            alert('Connection error. Please try again.');
+            alert(`Connection error: ${error.message}`);
         }
+    }
+
+    getCSRFToken() {
+        // Try to get from window variable first
+        if (window.csrfToken) {
+            return window.csrfToken;
+        }
+        
+        // Try to get from cookie
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            const [name, value] = cookie.trim().split('=');
+            if (name === 'csrftoken') {
+                return value;
+            }
+        }
+        
+        // Try to get from meta tag
+        const metaTag = document.querySelector('meta[name="csrf-token"]');
+        if (metaTag) {
+            return metaTag.getAttribute('content');
+        }
+        
+        // Try to get from hidden input
+        const hiddenInput = document.querySelector('input[name="csrfmiddlewaretoken"]');
+        if (hiddenInput) {
+            return hiddenInput.value;
+        }
+        
+        console.error('CSRF token not found');
+        return '';
     }
 }
 
