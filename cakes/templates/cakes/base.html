@@ -25,6 +25,16 @@
     {% block extra_css %}
     <!-- Additional CSS can be added here -->
     {% endblock %}
+
+    <!-- CSRF Token for JavaScript -->
+    <script>
+        window.csrfToken = '{{ csrf_token }}';
+        window.isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}";
+        {% if user.is_authenticated %}
+            window.userEmail = "{{ user.email }}";
+            window.userName = "{{ user.first_name|default:user.username }}";
+        {% endif %}
+    </script>
 </head>
 
 <body>

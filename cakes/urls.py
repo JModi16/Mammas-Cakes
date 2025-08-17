@@ -28,4 +28,5 @@ urlpatterns = [
     path('orders/', views.order_history, name='order_history'),
     path('orders/<str:order_number>/', views.order_detail, name='order_detail'),
     path('orders/<str:order_number>/confirmation/', views.order_confirmation, name='order_confirmation'),
+    path('order-history/', views.order_history, name='order_history'),
 ]
