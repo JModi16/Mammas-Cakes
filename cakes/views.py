@@ -95,104 +95,72 @@ def process_order(request):
         return JsonResponse({'success': False, 'error': 'Order failed'})
 
 @csrf_exempt
+@require_http_methods(["POST"])  # Only allow POST requests
 def place_order(request):
     print(f"🔧 place_order view called - Method: {request.method}")
-    print(f"🔧 Request path: {request.path}")
+    print(f"🔧 Content-Type: {request.content_type}")
     print(f"🔧 User authenticated: {request.user.is_authenticated}")
     
-    if request.method == 'POST':
+    try:
+        # Parse JSON data
+        data = json.loads(request.body)
+        print(f"🔧 Parsed data: {data}")
+        
+        # Validate required fields
+        required_fields = ['cake_id', 'cake_name', 'cake_price', 'customer_name', 'customer_email', 'customer_phone', 'delivery_option']
+        for field in required_fields:
+            if not data.get(field):
+                return JsonResponse({'success': False, 'error': f'Missing required field: {field}'}, status=400)
+        
+        # Create order
+        order = Order.objects.create(
+            customer=request.user if request.user.is_authenticated else None,
+            customer_email=data['customer_email'],
+            order_number=generate_order_number(),
+            order_type=data['delivery_option'],
+            total=Decimal(str(data['cake_price'])),
+            special_instructions=data.get('special_instructions', ''),
+            
+            # Collection fields
+            collection_date=data.get('collection_date') or None,
+            collection_time=data.get('collection_time', ''),
+            
+            # Delivery fields
+            delivery_address=data.get('delivery_address', ''),
+            delivery_city=data.get('delivery_city', ''),
+            delivery_postcode=data.get('delivery_postcode', ''),
+            delivery_date=data.get('delivery_date') or None,
+            delivery_time=data.get('delivery_time', ''),
+        )
+        
+        # Create order item
+        OrderItem.objects.create(
+            order=order,
+            cake_name=data['cake_name'],
+            quantity=1,
+            price=Decimal(str(data['cake_price']))
+        )
+        
+        # Send confirmation email
         try:
-            # Log raw request data
-            raw_data = request.body.decode('utf-8')
-            print(f"🔧 Raw request data: {raw_data}")
-            
-            data = json.loads(request.body)
-            print(f"🔧 Parsed data: {data}")
-            
-            # Parse dates properly
-            collection_date = None
-            delivery_date = None
-            
-            if data.get('collection_date'):
-                try:
-                    collection_date = parse_date(data.get('collection_date'))
-                    print(f"Parsed collection_date: {collection_date}")
-                except Exception as e:
-                    print(f"Error parsing collection_date: {e}")
-                    collection_date = None
-                    
-            if data.get('delivery_date'):
-                try:
-                    delivery_date = parse_date(data.get('delivery_date'))
-                    print(f"Parsed delivery_date: {delivery_date}")
-                except Exception as e:
-                    print(f"Error parsing delivery_date: {e}")
-                    delivery_date = None
-            
-            # Create the order with error handling
-            order_data = {
-                'customer': request.user,
-                'customer_email': data.get('customer_email'),
-                'order_number': f"MC{timezone.now().strftime('%Y%m%d%H%M%S')}",
-                'order_type': data.get('delivery_option', 'collection'),
-                'special_instructions': data.get('special_instructions', ''),
-            }
-            
-            # Add new fields only if they exist in the model
-            try:
-                order_data.update({
-                    'collection_date': collection_date,
-                    'collection_time': data.get('collection_time', ''),
-                    'delivery_address': data.get('delivery_address', ''),
-                    'delivery_city': data.get('delivery_city', ''),
-                    'delivery_postcode': data.get('delivery_postcode', ''),
-                    'delivery_date': delivery_date,
-                    'delivery_time': data.get('delivery_time', ''),
-                })
-            except Exception as e:
-                print(f"Warning: Some fields not available in model: {e}")
-            
-            order = Order.objects.create(**order_data)
-            print(f"Order created: {order.order_number}")
-            
-            # Create order item
-            OrderItem.objects.create(
-                order=order,
-                cake_name=data.get('cake_name'),
-                cake_price=Decimal(str(data.get('cake_price', 0))),
-                quantity=1,
-                total_price=Decimal(str(data.get('cake_price', 0)))
-            )
-            
-            # Update order total
-            order.total = order.items.aggregate(
-                total=models.Sum('total_price')
-            )['total'] or Decimal('0')
-            order.save()
-            print(f"Order total updated: £{order.total}")
-            
-            # Send confirmation email
-            try:
-                send_order_confirmation_email(order)
-                print(f"✅ Email sent successfully to {order.customer_email}")
-            except Exception as e:
-                print(f"❌ Email error: {e}")
-            
-            return JsonResponse({
-                'success': True, 
-                'message': 'Order placed successfully!',
-                'order_number': order.order_number
-            })
-            
-        except Exception as e:
-            print(f"❌ Order creation error: {e}")
-            import traceback
-            traceback.print_exc()
-            return JsonResponse({'success': False, 'error': str(e)}, status=500)
-    
-    else:
-        print(f"❌ Invalid method: {request.method}")
-        return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
+            send_order_confirmation_email(order)
+            print(f"✅ Order confirmation email sent for {order.order_number}")
+        except Exception as email_error:
+            print(f"⚠️ Email sending failed: {email_error}")
+        
+        return JsonResponse({
+            'success': True,
+            'order_number': order.order_number,
+            'message': 'Order placed successfully!'
+        })
+        
+    except json.JSONDecodeError:
+        return JsonResponse({'success': False, 'error': 'Invalid JSON data'}, status=400)
+    except Exception as e:
+        print(f"❌ Error creating order: {e}")
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({'success': False, 'error': 'Failed to create order'}, status=500)
 
 @login_required
 def order_history(request):
