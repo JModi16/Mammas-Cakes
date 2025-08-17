@@ -1,4 +1,6 @@
 // Order System JavaScript - COMPLETELY FIXED VERSION
+console.log('🔧 Order System JavaScript Loading...');
+
 class OrderSystem {
     constructor() {
         this.currentCake = null;
@@ -49,22 +51,40 @@ class OrderSystem {
     }
 
     handleOrderClick(button) {
+        console.log('🔧 Order button clicked!', button);
+        
         // Check if user is authenticated
+        console.log('🔧 Authentication check:', window.isAuthenticated);
         if (window.isAuthenticated === "false") {
+            console.log('🔧 User not authenticated, showing login modal');
             const loginModal = new bootstrap.Modal(document.getElementById('loginRequiredModal'));
             loginModal.show();
             return;
         }
 
         // Get cake data
+        console.log('🔧 Button dataset:', button.dataset);
         this.currentCake = {
             id: button.dataset.cakeId,
             name: button.dataset.cakeName,
             price: parseFloat(button.dataset.cakePrice)
         };
+        console.log('🔧 Current cake set:', this.currentCake);
+
+        // Check if modal exists
+        const modal = document.getElementById('orderDetailsModal');
+        console.log('🔧 Modal element found:', modal);
+        
+        if (!modal) {
+            console.error('❌ orderDetailsModal not found in DOM');
+            alert('Error: Order form not found. Please refresh the page.');
+            return;
+        }
 
         // Set form attributes
         const orderForm = document.getElementById('orderForm');
+        console.log('🔧 Order form found:', orderForm);
+        
         if (orderForm) {
             orderForm.setAttribute('data-cake-id', this.currentCake.id);
             orderForm.setAttribute('data-cake-name', this.currentCake.name);
@@ -78,8 +98,14 @@ class OrderSystem {
         this.updateOrderSummary();
 
         // Show modal
-        const modal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
-        modal.show();
+        try {
+            const modalInstance = new bootstrap.Modal(modal);
+            modalInstance.show();
+            console.log('🔧 Modal shown successfully');
+        } catch (error) {
+            console.error('❌ Error showing modal:', error);
+            alert('Error opening order form. Please try again.');
+        }
     }
 
     prefillUserData() {
