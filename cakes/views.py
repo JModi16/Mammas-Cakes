@@ -19,7 +19,7 @@ import uuid
 import random
 import string
 from .models import Cake, Order, OrderItem, Customer
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ContactForm
 from django.db import models
 
 logger = logging.getLogger(__name__)
@@ -175,11 +175,90 @@ def order_confirmation(request, order_number):
         messages.error(request, 'Order not found.')
         return redirect('home')
 
-# ADD this view function:
-
 def contact(request):
-    """Display contact page"""
-    return render(request, 'cakes/contact.html')
+    """Display contact page with form"""
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Get form data
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            phone = form.cleaned_data.get('phone', 'Not provided')
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            event_date = form.cleaned_data.get('event_date', 'Not specified')
+            
+            # Create email content
+            email_subject = f"Contact Form: {dict(form.SUBJECT_CHOICES)[subject]}"
+            email_message = f"""
+New contact form submission from Mamma's Cakes website:
+
+Name: {name}
+Email: {email}
+Phone: {phone}
+Subject: {dict(form.SUBJECT_CHOICES)[subject]}
+Event Date: {event_date}
+
+Message:
+{message}
+
+---
+This message was sent from the Mamma's Cakes contact form.
+            """
+            
+            try:
+                # Send email to business
+                send_mail(
+                    subject=email_subject,
+                    message=email_message,
+                    from_email=email,
+                    recipient_list=['info@mammascakes.com'],  # Your business email
+                    fail_silently=False,
+                )
+                
+                # Send confirmation email to customer
+                confirmation_subject = "Thank you for contacting Mamma's Cakes!"
+                confirmation_message = f"""
+Dear {name},
+
+Thank you for contacting Mamma's Cakes! We have received your message regarding: {dict(form.SUBJECT_CHOICES)[subject]}
+
+We will get back to you within 24 hours at {email}.
+
+In the meantime, feel free to check out our delicious cake collections on our website.
+
+Best regards,
+The Mamma's Cakes Team
+
+Phone: 07920554000
+Email: info@mammascakes.com
+Address: Moore Court, Howard Road, Edgware, HA7 1FA
+                """
+                
+                send_mail(
+                    subject=confirmation_subject,
+                    message=confirmation_message,
+                    from_email='info@mammascakes.com',
+                    recipient_list=[email],
+                    fail_silently=True,  # Don't fail if confirmation email fails
+                )
+                
+                messages.success(request, 'Thank you! Your message has been sent successfully. We will get back to you within 24 hours.')
+                form = ContactForm()  # Reset form after successful submission
+                
+            except Exception as e:
+                print(f"Error sending contact email: {e}")
+                messages.error(request, 'Sorry, there was an error sending your message. Please try again or call us directly at 07920554000.')
+    else:
+        form = ContactForm()
+    
+    context = {
+        'form': form,
+        'page_title': 'Contact Us',
+        'page_description': 'Get in touch for custom orders and inquiries'
+    }
+    
+    return render(request, 'cakes/contact.html', context)
 
 def send_order_confirmation_email(order):
     """Send order confirmation email to customer"""
