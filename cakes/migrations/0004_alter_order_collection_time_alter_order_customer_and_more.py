@@ -21,7 +21,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='order',
             name='customer',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AlterField(
             model_name='order',
@@ -36,7 +41,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='order',
             name='order_type',
-            field=models.CharField(choices=[('collection', 'Collection'), ('delivery', 'Delivery')], max_length=20),
+            field=models.CharField(
+                choices=[
+                    ('collection', 'Collection'),
+                    ('delivery', 'Delivery')
+                ],
+                max_length=20
+            ),
         ),
         migrations.AlterField(
             model_name='order',
