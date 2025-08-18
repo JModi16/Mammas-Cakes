@@ -123,58 +123,123 @@
     </main>
 
     <!-- Footer -->
-    <footer class="container purple-bg text-black pt-4 pb-2 mt-4">
-        <div class="row">
-            <div class="col-md-6">
-                <h4>About Mammas Cakes</h4>
-                <p class="small">Mammas Cakes is a premium bakery that has established itself as a leader in the
-                    industry. With a rich history spanning several decades, their expertise and commitment to quality shine through</p>
+    <footer class="container-fluid purple-bg text-black pt-4 pb-2 mt-4">
+        <div class="container">
+            <div class="row">
+                <!-- Quick Links -->
+                <div class="col-6 col-md-3">
+                    <h4>Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="{% url 'home' %}" class="text-black text-decoration-none">Home</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{% url 'birthday_cakes' %}" class="text-black text-decoration-none">Birthday Cakes</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{% url 'wedding_cakes' %}" class="text-black text-decoration-none">Wedding Cakes</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{% url 'treats' %}" class="text-black text-decoration-none">Treats</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{% url 'vegan_cakes' %}" class="text-black text-decoration-none">Vegan Cakes</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="col-6 col-md-3">
+                    <h4>Contact Us</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="{% url 'contact' %}" class="text-black text-decoration-none">
+                                <i class="fas fa-envelope me-1"></i>Contact Form
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="tel:07920554000" class="text-black text-decoration-none">
+                                <i class="fas fa-phone me-1"></i>07920554000
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="mailto:info@mammascakes.com" class="text-black text-decoration-none">
+                                <i class="fas fa-envelope me-1"></i>info@mammascakes.com
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <span class="text-black">
+                                <i class="fas fa-map-marker-alt me-1"></i>Edgware, HA7 1FA
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="col-6 col-md-3">
+                    <h4>Follow Us</h4>
+                    <ul class="list-unstyled social-links">
+                        <li class="mb-2">
+                            <a href="https://www.facebook.com/mammascakesbakery" 
+                               class="text-black" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               title="Follow Mamma's Cakes on Facebook">
+                                <i class="fab fa-facebook-f me-1"></i>Facebook
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://www.instagram.com/mammascakesbakery" 
+                               class="text-black" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               title="Follow Mamma's Cakes on Instagram">
+                                <i class="fab fa-instagram me-1"></i>Instagram
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://www.twitter.com/mammascakes" 
+                               class="text-black" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               title="Follow Mamma's Cakes on Twitter">
+                                <i class="fab fa-twitter me-1"></i>Twitter
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://wa.me/447920554000" 
+                               class="text-black" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               title="Contact us on WhatsApp">
+                                <i class="fab fa-whatsapp me-1"></i>WhatsApp
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Business Hours -->
+                <div class="col-6 col-md-3">
+                    <h4>Business Hours</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-1"><strong>Mon-Sat:</strong> 8AM-6PM</li>
+                        <li class="mb-1"><strong>Sunday:</strong> 10AM-4PM</li>
+                        <li class="mb-2 mt-2">
+                            <small class="text-muted">Order by 4PM for next day delivery</small>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <!-- Contact us -->
-            <div class="col-6 col-md-3">
-                <h4>Contact Us</h4>
-                <ul class="list-unstyled">
-                    <li><strong>Phone:</strong> 0203 909 1000</li>
-                    <li><strong>Email:</strong> info@mammascakes.com</li>
-                    <li><strong>Address:</strong> Moore Court, Howard Road, Edgware, HA7 1FA</li>
-                </ul>
+
+            <!-- Copyright -->
+            <hr class="mt-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; 2025 Mamma's Cakes. All rights reserved.</p>
+                </div>
             </div>
-            <!-- Social media links -->
-        <div class="col-6 col-md-3">
-            <h4>Follow Us</h4>
-            <ul class="list-unstyled">
-                <li class="mb-2">
-                    <a href="https://www.facebook.com/mammascakesbakery" 
-                        class="text-black text-decoration-none" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        title="Follow us on Facebook">
-                          <i class="fab fa-facebook-f me-2"></i>Facebook
-                    </a>
-                </li>
-        <li class="mb-2">
-            <a href="https://www.instagram.com/" 
-               class="text-black text-decoration-none" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               title="Follow us on Instagram">
-               title="Follow us on Facebook">
-                <i class="fab fa-facebook-f me-2"></i>Facebook
-            </a>
-        </li>
-        <li class="mb-2">
-            <a href="https://www.twitter.com/" 
-               class="text-black text-decoration-none" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               title="Follow us on Twitter">
-                <i class="fab fa-twitter me-2"></i>Twitter
-            </a>
-        </li>
-    </ul>
-</div>
-                    
-</footer>
+        </div>
+    </footer>
 
     <!-- Order Details Modal -->
     <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
