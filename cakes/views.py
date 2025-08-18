@@ -175,6 +175,12 @@ def order_confirmation(request, order_number):
         messages.error(request, 'Order not found.')
         return redirect('home')
 
+# ADD this view function:
+
+def contact(request):
+    """Display contact page"""
+    return render(request, 'cakes/contact.html')
+
 def send_order_confirmation_email(order):
     """Send order confirmation email to customer"""
     try:
