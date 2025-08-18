@@ -3,15 +3,41 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Customer
 
+
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    first_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    phone_number = forms.CharField(max_length=20, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control'}))
+    first_name = forms.CharField(
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control'}))
+    last_name = forms.CharField(
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control'}))
+    phone_number = forms.CharField(
+        max_length=20,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control'}))
 
     class Meta:
         model = User
-        fields = ("username", "first_name", "last_name", "email", "password1", "password2")
+        fields = (
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "password1",
+            "password2")
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
         }
@@ -30,6 +56,7 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
 
+
 class ContactForm(forms.Form):
     SUBJECT_CHOICES = [
         ('general', 'General Inquiry'),
@@ -39,7 +66,7 @@ class ContactForm(forms.Form):
         ('complaint', 'Complaint or Issue'),
         ('compliment', 'Compliment or Feedback'),
     ]
-    
+
     name = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={
@@ -48,7 +75,7 @@ class ContactForm(forms.Form):
             'required': True
         })
     )
-    
+
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
@@ -56,7 +83,7 @@ class ContactForm(forms.Form):
             'required': True
         })
     )
-    
+
     phone = forms.CharField(
         max_length=20,
         required=False,
@@ -65,7 +92,7 @@ class ContactForm(forms.Form):
             'placeholder': 'Your Phone Number (Optional)',
         })
     )
-    
+
     subject = forms.ChoiceField(
         choices=SUBJECT_CHOICES,
         widget=forms.Select(attrs={
@@ -73,16 +100,15 @@ class ContactForm(forms.Form):
             'required': True
         })
     )
-    
+
     message = forms.CharField(
-        widget=forms.Textarea(attrs={
-            'class': 'form-control',
-            'rows': 6,
-            'placeholder': 'Please tell us about your inquiry, custom order details, or any questions you have...',
-            'required': True
-        })
-    )
-    
+        widget=forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'rows': 6,
+                'placeholder': 'Please tell us about your inquiry, custom order details, or any questions you have...',
+                'required': True}))
+
     # Optional: Add cake event date for custom orders
     event_date = forms.DateField(
         required=False,
@@ -92,15 +118,16 @@ class ContactForm(forms.Form):
             'placeholder': 'Event Date (if applicable)'
         })
     )
-    
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if email:
             email = email.lower().strip()
         return email
-    
+
     def clean_message(self):
         message = self.cleaned_data.get('message')
         if len(message) < 10:
-            raise forms.ValidationError("Please provide more details in your message (minimum 10 characters).")
+            raise forms.ValidationError(
+                "Please provide more details in your message (minimum 10 characters).")
         return message
