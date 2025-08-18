@@ -17,14 +17,37 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Cake',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID'
+                )),
                 ('name', models.CharField(max_length=200)),
                 ('description', models.TextField()),
-                ('price', models.DecimalField(decimal_places=2, max_digits=8)),
-                ('category', models.CharField(choices=[('birthday', 'Birthday Cakes'), ('wedding', 'Wedding Cakes'), ('vegan', 'Vegan Cakes'), ('treats', 'Treats')], max_length=20)),
-                ('image', models.ImageField(blank=True, null=True, upload_to='cakes/')),
+                ('price', models.DecimalField(
+                    decimal_places=2,
+                    max_digits=8
+                )),
+                ('category', models.CharField(
+                    choices=[
+                        ('birthday', 'Birthday Cakes'),
+                        ('wedding', 'Wedding Cakes'),
+                        ('vegan', 'Vegan Cakes'),
+                        ('treats', 'Treats')
+                    ],
+                    max_length=20
+                )),
+                ('image', models.ImageField(
+                    blank=True,
+                    null=True,
+                    upload_to='cakes/'
+                )),
                 ('ingredients', models.TextField(blank=True)),
-                ('allergens', models.CharField(blank=True, max_length=200)),
+                ('allergens', models.CharField(
+                    blank=True,
+                    max_length=200
+                )),
                 ('is_available', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
             ],
@@ -35,16 +58,53 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Order',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('order_number', models.CharField(max_length=50, unique=True)),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID'
+                )),
+                ('order_number', models.CharField(
+                    max_length=50,
+                    unique=True
+                )),
                 ('customer_email', models.EmailField(max_length=254)),
-                ('total', models.DecimalField(decimal_places=2, default=0, max_digits=10)),
-                ('status', models.CharField(choices=[('pending', 'Pending'), ('confirmed', 'Confirmed'), ('preparing', 'Preparing'), ('ready', 'Ready for Collection'), ('completed', 'Completed'), ('cancelled', 'Cancelled')], default='pending', max_length=20)),
-                ('order_type', models.CharField(choices=[('single_item', 'Single Item'), ('multiple_items', 'Multiple Items'), ('custom', 'Custom Order')], default='single_item', max_length=20)),
+                ('total', models.DecimalField(
+                    decimal_places=2,
+                    default=0,
+                    max_digits=10
+                )),
+                ('status', models.CharField(
+                    choices=[
+                        ('pending', 'Pending'),
+                        ('confirmed', 'Confirmed'),
+                        ('preparing', 'Preparing'),
+                        ('ready', 'Ready for Collection'),
+                        ('completed', 'Completed'),
+                        ('cancelled', 'Cancelled')
+                    ],
+                    default='pending',
+                    max_length=20
+                )),
+                ('order_type', models.CharField(
+                    choices=[
+                        ('single_item', 'Single Item'),
+                        ('multiple_items', 'Multiple Items'),
+                        ('custom', 'Custom Order')
+                    ],
+                    default='single_item',
+                    max_length=20
+                )),
                 ('special_instructions', models.TextField(blank=True)),
-                ('delivery_date', models.DateTimeField(blank=True, null=True)),
+                ('delivery_date', models.DateTimeField(
+                    blank=True,
+                    null=True
+                )),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('customer', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to=settings.AUTH_USER_MODEL
+                )),
             ],
             options={
                 'ordering': ['-created_at'],
@@ -53,25 +113,56 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='OrderItem',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID'
+                )),
                 ('cake_name', models.CharField(max_length=200)),
-                ('cake_price', models.DecimalField(decimal_places=2, max_digits=8)),
+                ('cake_price', models.DecimalField(
+                    decimal_places=2,
+                    max_digits=8
+                )),
                 ('quantity', models.PositiveIntegerField(default=1)),
-                ('total_price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('cake', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='cakes.cake')),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', to='cakes.order')),
+                ('total_price', models.DecimalField(
+                    decimal_places=2,
+                    max_digits=10
+                )),
+                ('cake', models.ForeignKey(
+                    blank=True,
+                    null=True,
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='cakes.cake'
+                )),
+                ('order', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='items',
+                    to='cakes.order'
+                )),
             ],
         ),
         migrations.CreateModel(
             name='Customer',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('phone_number', models.CharField(blank=True, max_length=20)),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID'
+                )),
+                ('phone_number', models.CharField(
+                    blank=True,
+                    max_length=20
+                )),
                 ('address', models.TextField(blank=True)),
                 ('city', models.CharField(blank=True, max_length=100)),
                 ('postcode', models.CharField(blank=True, max_length=20)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to=settings.AUTH_USER_MODEL
+                )),
             ],
         ),
     ]
