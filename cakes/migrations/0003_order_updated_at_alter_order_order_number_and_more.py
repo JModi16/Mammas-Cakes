@@ -23,11 +23,29 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='order',
             name='order_type',
-            field=models.CharField(choices=[('collection', 'Collection'), ('delivery', 'Delivery')], default='collection', max_length=20),
+            field=models.CharField(
+                choices=[
+                    ('collection', 'Collection'),
+                    ('delivery', 'Delivery')
+                ],
+                default='collection',
+                max_length=20
+            ),
         ),
         migrations.AlterField(
             model_name='order',
             name='status',
-            field=models.CharField(choices=[('pending', 'Pending'), ('confirmed', 'Confirmed'), ('preparing', 'Preparing'), ('ready', 'Ready for Collection/Delivery'), ('completed', 'Completed'), ('cancelled', 'Cancelled')], default='pending', max_length=20),
+            field=models.CharField(
+                choices=[
+                    ('pending', 'Pending'),
+                    ('confirmed', 'Confirmed'),
+                    ('preparing', 'Preparing'),
+                    ('ready', 'Ready for Collection/Delivery'),
+                    ('completed', 'Completed'),
+                    ('cancelled', 'Cancelled')
+                ],
+                default='pending',
+                max_length=20
+            ),
         ),
     ]
