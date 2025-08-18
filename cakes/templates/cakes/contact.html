@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contact Us - Mammas Cakes</title>
+    <title>{% block title %}Contact Us - Mammas Cakes{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
@@ -16,25 +16,60 @@
     {% endblock %}
 
     <main>
-        <section>
-            <h2>Get in Touch</h2>
-            <form method="POST" action="{% url 'contact' %}">
-                {% csrf_token %}
-                <div>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
+        {% block content %}
+        <div class="container page-header-compact">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h1 class="logo-font">Contact Us</h1>
+                    <p class="lead">Get in touch for custom orders and inquiries</p>
                 </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h4 class="mb-3">Contact Information</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><i class="fas fa-phone text-primary me-2"></i><strong>Phone:</strong>
+                                        07920554000
+                                    </p>
+                                    <p><i class="fas fa-envelope text-primary me-2"></i><strong>Email:</strong>
+                                        info@mammascakes.com
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><i class="fas fa-map-marker-alt text-primary me-2"></i><strong>Address:</strong><br>
+                                        Mamma's Cakes Bakery<br>
+                                        Moore Court, Howard Road<br>
+                                        Edgware, HA7 1FA
+                                    </p>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <h4 class="mb-3">Business Hours</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Monday - Saturday:</strong> 8AM - 6PM</p>
+                                    <p><strong>Sunday:</strong> 10AM - 4PM</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="bg-light p-3 rounded">
+                                        <h5>Custom Orders</h5>
+                                        <p class="small mb-0">Contact us for custom cake designs and special requests. We
+                                            love bringing your cake dreams to life!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit">Send Message</button>
-            </form>
-        </section>
+            </div>
+        </div>
+        {% endblock %}
     </main>
 
     {% block footer %}

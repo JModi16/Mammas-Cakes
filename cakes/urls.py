@@ -10,6 +10,7 @@ urlpatterns = [
     path('wedding-cakes/', views.wedding_cakes, name='wedding_cakes'),
     path('treats/', views.treats, name='treats'),
     path('products/', views.products, name='products'),
+    path('contact/', views.contact, name='contact'),
 
     # Authentication URLs
     path('accounts/register/', views.register_view, name='register'),
