@@ -1,4 +1,6 @@
 // SIMPLIFIED WORKING VERSION - No Complex Validation
+/* jshint esversion: 8 */
+/* global bootstrap */
 console.log('Order System JavaScript Loading...');
 
 class OrderSystem {
@@ -333,5 +335,5 @@ class OrderSystem {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new OrderSystem();
+    const orderSystem = new OrderSystem();
 });
