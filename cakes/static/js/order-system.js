@@ -1,6 +1,6 @@
 // SIMPLIFIED WORKING VERSION - No Complex Validation
-/* jshint esversion: 8 */
 /* global bootstrap */
+/* jshint esversion: 8 */
 console.log('Order System JavaScript Loading...');
 
 class OrderSystem {
