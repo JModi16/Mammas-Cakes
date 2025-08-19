@@ -1,6 +1,6 @@
 {% extends 'cakes/base.html' %}
 {% load static %}
-{% block title %}Welcome to Mammas Cakes{% endblock %}
+{% block title %}Welcome to Mamma's Cakes{% endblock %}
 {% block description %}Premium bakery offering fresh birthday cakes, wedding cakes, treats and vegan options{% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-12">
-                <h1 class="display-5 logo-font hero-title-compact">Welcome to Mammas Cakes</h1>
+                <h1 class="display-5 logo-font hero-title-compact">Welcome to Mamma's Cakes</h1>
                 <p class="lead hero-subtitle-compact">Premium bakery offering fresh birthday cakes, wedding cakes, treats and vegan options</p>
             </div>
         </div>
@@ -17,12 +17,12 @@
 </div>
 
 <!-- Compact Cake Categories Section -->
-<section id="Cakes" class="cake-categories-compact">
+<section id="cakes" class="cake-categories-compact">
     <div class="container">
         <div class="row text-center mb-4">
             <div class="col-12">
                 <h2 class="logo-font section-title-compact">What Type of Cakes Are You Looking For?</h2>
-                <p class="section-subtitle-compact">Mammas Cakes offers tasty cakes with fresh ingredients</p>
+                <p class="section-subtitle-compact">Mamma's Cakes offers tasty cakes with fresh ingredients</p>
             </div>
         </div>
         
@@ -32,7 +32,7 @@
                 <div class="card h-100 shadow-sm text-center">
                     <img src="{% static 'images/birthdaycake1webp.webp' %}" alt="Birthday cake" class="card-img-top" style="height: 200px; object-fit: cover;">
                     <div class="card-body">
-                        <h3 class="card-title h5 mb-2">Birthday Cakes <i class="fa-solid fa-birthday-cake text-primary"></i></h3>
+                        <h3 class="card-title h5 mb-2">Birthday Cakes <i class="fas fa-birthday-cake text-primary" aria-hidden="true"></i></h3>
                         <p class="card-text small">Celebrate special moments with our custom birthday cakes made with love and fresh ingredients.</p>
                         <a href="{% url 'birthday_cakes' %}" class="btn btn-primary btn-sm">View Collection</a>
                     </div>
@@ -44,7 +44,7 @@
                 <div class="card h-100 shadow-sm text-center">
                     <img src="{% static 'images/weddingcake.webp' %}" alt="Elegant wedding cake" class="card-img-top" style="height: 200px; object-fit: cover;">
                     <div class="card-body">
-                        <h3 class="card-title h5 mb-2">Wedding Cakes <i class="fa-solid fa-heart text-danger"></i></h3>
+                        <h3 class="card-title h5 mb-2">Wedding Cakes <i class="fas fa-heart text-danger" aria-hidden="true"></i></h3>
                         <p class="card-text small">Elegant wedding cakes designed to make your special day unforgettable and delicious.</p>
                         <a href="{% url 'wedding_cakes' %}" class="btn btn-primary btn-sm">View Collection</a>
                     </div>
@@ -56,7 +56,7 @@
                 <div class="card h-100 shadow-sm text-center">
                     <img src="{% static 'images/redvelvetcupcakes.webp' %}" alt="Delicious treats" class="card-img-top" style="height: 200px; object-fit: cover;">
                     <div class="card-body">
-                        <h3 class="card-title h5 mb-2">Treats <i class="fa-solid fa-cookie-bite text-warning"></i></h3>
+                        <h3 class="card-title h5 mb-2">Treats <i class="fas fa-cookie-bite text-warning" aria-hidden="true"></i></h3>
                         <p class="card-text small">Delightful treats and pastries perfect for any occasion or as a sweet surprise.</p>
                         <a href="{% url 'treats' %}" class="btn btn-primary btn-sm">View Collection</a>
                     </div>
@@ -68,7 +68,7 @@
                 <div class="card h-100 shadow-sm text-center">
                     <img src="{% static 'images/veganbiscuit.webp' %}" alt="Vegan cake" class="card-img-top" style="height: 200px; object-fit: cover;">
                     <div class="card-body">
-                        <h3 class="card-title h5 mb-2">Vegan Cakes <i class="fa-solid fa-leaf text-success"></i></h3>
+                        <h3 class="card-title h5 mb-2">Vegan Cakes <i class="fas fa-leaf text-success" aria-hidden="true"></i></h3>
                         <p class="card-text small">Delicious plant-based cakes that don't compromise on taste or quality.</p>
                         <a href="{% url 'vegan_cakes' %}" class="btn btn-primary btn-sm">View Collection</a>
                     </div>
@@ -83,21 +83,21 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-12">
-                <h2 class="logo-font mb-3">Why Choose Mammas Cakes?</h2>
+                <h2 class="logo-font mb-3">Why Choose Mamma's Cakes?</h2>
                 <div class="row g-3">
                     <div class="col-md-4">
-                        <i class="fas fa-birthday-cake fa-2x mb-2"></i>
-                        <h5>Custom Designs</h5>
+                        <i class="fas fa-birthday-cake fa-2x mb-2" aria-hidden="true"></i>
+                        <h3 class="h5">Custom Designs</h3>
                         <p class="small">Personalized cakes tailored to your special occasion</p>
                     </div>
                     <div class="col-md-4">
-                        <i class="fas fa-leaf fa-2x mb-2"></i>
-                        <h5>Fresh Ingredients</h5>
+                        <i class="fas fa-leaf fa-2x mb-2" aria-hidden="true"></i>
+                        <h3 class="h5">Fresh Ingredients</h3>
                         <p class="small">Only the finest, freshest ingredients in every cake</p>
                     </div>
                     <div class="col-md-4">
-                        <i class="fas fa-truck fa-2x mb-2"></i>
-                        <h5>Fast Delivery</h5>
+                        <i class="fas fa-truck fa-2x mb-2" aria-hidden="true"></i>
+                        <h3 class="h5">Fast Delivery</h3>
                         <p class="small">Order by 4PM for next day delivery</p>
                     </div>
                 </div>
