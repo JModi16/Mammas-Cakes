@@ -78,7 +78,9 @@ def register_view(request):
             user = form.save()
             username = form.cleaned_data.get('username')
             messages.success(
-                request, f'Account created for {username}! You can now log in.')
+                request,
+                f'Account created for {username}! You can now log in.'
+            )
             return redirect('login')
         else:
             messages.error(request, 'Please correct the errors below.')
@@ -168,8 +170,11 @@ def place_order(request):
 @login_required
 def order_history(request):
     """Display user's order history"""
-    orders = Order.objects.filter(customer=request.user).prefetch_related(
-        'items').order_by('-created_at')
+    orders = Order.objects.filter(
+        customer=request.user
+    ).prefetch_related(
+        'items'
+    ).order_by('-created_at')
     return render(request, 'cakes/order_history.html', {'orders': orders})
 
 
@@ -212,16 +217,15 @@ def contact(request):
             event_date = form.cleaned_data.get('event_date', 'Not specified')
 
             # Create email content
-            email_subject = f"Contact Form: {
-                dict(
-                    form.SUBJECT_CHOICES)[subject]}"
+            subject_display = dict(form.SUBJECT_CHOICES)[subject]
+            email_subject = f"Contact Form: {subject_display}"
             email_message = f"""
 New contact form submission from Mamma's Cakes website:
 
 Name: {name}
 Email: {email}
 Phone: {phone}
-Subject: {dict(form.SUBJECT_CHOICES)[subject]}
+Subject: {subject_display}
 Event Date: {event_date}
 
 Message:
@@ -237,17 +241,18 @@ This message was sent from the Mamma's Cakes contact form.
                     subject=email_subject,
                     message=email_message,
                     from_email=email,
-                    # Your business email
                     recipient_list=['info@mammascakes.com'],
                     fail_silently=False,
                 )
 
                 # Send confirmation email to customer
-                confirmation_subject = "Thank you for contacting Mamma's Cakes!"
+                confirmation_subject = (
+                    "Thank you for contacting Mamma's Cakes!"
+                )
                 confirmation_message = f"""
 Dear {name},
 
-Thank you for contacting Mamma's Cakes! We have received your message regarding: {dict(form.SUBJECT_CHOICES)[subject]}
+Thank you for contacting Mamma's Cakes! We have received your message regarding: {subject_display}
 
 We will get back to you within 24 hours at {email}.
 
@@ -266,19 +271,23 @@ Address: Moore Court, Howard Road, Edgware, HA7 1FA
                     message=confirmation_message,
                     from_email='info@mammascakes.com',
                     recipient_list=[email],
-                    fail_silently=True,  # Don't fail if confirmation email fails
+                    fail_silently=True,
                 )
 
                 messages.success(
                     request,
-                    'Thank you! Your message has been sent successfully. We will get back to you within 24 hours.')
+                    'Thank you! Your message has been sent successfully. '
+                    'We will get back to you within 24 hours.'
+                )
                 form = ContactForm()  # Reset form after successful submission
 
             except Exception as e:
                 print(f"Error sending contact email: {e}")
-                messages.error(
-                    request,
-                    'Sorry, there was an error sending your message. Please try again or call us directly at 07920554000.')
+                error_message = (
+                    'Sorry, there was an error sending your message. '
+                    'Please try again or call us directly at 07920554000.'
+                )
+                messages.error(request, error_message)
     else:
         form = ContactForm()
 
@@ -301,11 +310,18 @@ def send_order_confirmation_email(order):
             'emails/order_confirmation.html',
             {
                 'order': order,
-                'customer_name': order.customer.first_name or order.customer.username,
+                'customer_name': (
+                    order.customer.first_name or
+                    order.customer.username
+                ),
             })
 
+        customer_name = (
+            order.customer.first_name or
+            order.customer.username
+        )
         plain_message = f"""
-        Dear {order.customer.first_name or order.customer.username},
+        Dear {customer_name},
 
         Thank you for your order!
 
@@ -328,7 +344,9 @@ def send_order_confirmation_email(order):
         )
         logger.info(f"Confirmation email sent for order {order.order_number}")
     except Exception as e:
-        logger.error(
-            f"Failed to send confirmation email for order {
-                order.order_number}: {e}")
+        error_msg = (
+            f"Failed to send confirmation email for order "
+            f"{order.order_number}: {e}"
+        )
+        logger.error(error_msg)
         raise
