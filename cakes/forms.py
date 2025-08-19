@@ -44,8 +44,12 @@ class CustomUserCreationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['password1'].widget.attrs.update({'class': 'form-control'})
-        self.fields['password2'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password1'].widget.attrs.update(
+            {'class': 'form-control'}
+        )
+        self.fields['password2'].widget.attrs.update(
+            {'class': 'form-control'}
+        )
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -106,8 +110,14 @@ class ContactForm(forms.Form):
             attrs={
                 'class': 'form-control',
                 'rows': 6,
-                'placeholder': 'Please tell us about your inquiry, custom order details, or any questions you have...',
-                'required': True}))
+                'placeholder': (
+                    'Please tell us about your inquiry, custom order '
+                    'details, or any questions you have...'
+                ),
+                'required': True
+            }
+        )
+    )
 
     # Optional: Add cake event date for custom orders
     event_date = forms.DateField(
@@ -128,6 +138,9 @@ class ContactForm(forms.Form):
     def clean_message(self):
         message = self.cleaned_data.get('message')
         if len(message) < 10:
-            raise forms.ValidationError(
-                "Please provide more details in your message (minimum 10 characters).")
+            error_msg = (
+                "Please provide more details in your message "
+                "(minimum 10 characters)."
+            )
+            raise forms.ValidationError(error_msg)
         return message
