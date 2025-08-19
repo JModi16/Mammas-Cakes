@@ -534,3 +534,211 @@ footer .social-links a:hover {
     color: #6f42c1;
     text-shadow: 0 0 5px rgba(111, 66, 193, 0.3);
 }
+
+/* Responsive design for smartphones and tablets */
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    body {
+        font-size: 0.95rem;
+    }
+    .logo-font {
+        font-size: 1.5rem;
+    }
+    .order-header h1,
+    .hero-title,
+    .hero-title-compact {
+        font-size: 1.3rem !important;
+    }
+    .order-header h2,
+    .hero-subtitle,
+    .hero-subtitle-compact {
+        font-size: 1rem !important;
+    }
+    .order-container,
+    .order-details,
+    .order-content {
+        padding: 8px;
+        margin: 5px 0;
+    }
+    .navbar {
+        margin-bottom: 10px;
+    }
+    .footer,
+    footer {
+        padding: 10px 0;
+    }
+    .cake-categories-compact,
+    .cake-categories-section {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+    .section-title-compact {
+        font-size: 1.2rem !important;
+    }
+    .section-subtitle-compact {
+        font-size: 0.95rem !important;
+    }
+    .social-links a {
+        font-size: 0.95rem;
+    }
+    .order-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        font-size: 0.95rem;
+    }
+    .search-box input[type="text"] {
+        width: 100%;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .logo-font {
+        font-size: 1.8rem;
+    }
+    .order-header h1,
+    .hero-title,
+    .hero-title-compact {
+        font-size: 1.5rem !important;
+    }
+    .order-header h2,
+    .hero-subtitle,
+    .hero-subtitle-compact {
+        font-size: 1.1rem !important;
+    }
+    .order-container,
+    .order-details,
+    .order-content {
+        padding: 12px;
+        margin: 8px 0;
+    }
+    .navbar {
+        margin-bottom: 12px;
+    }
+    .footer,
+    footer {
+        padding: 12px 0;
+    }
+    .cake-categories-compact,
+    .cake-categories-section {
+        padding-top: 18px !important;
+        padding-bottom: 18px !important;
+    }
+    .section-title-compact {
+        font-size: 1.4rem !important;
+    }
+    .section-subtitle-compact {
+        font-size: 1rem !important;
+    }
+    .order-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        font-size: 1rem;
+    }
+    .search-box input[type="text"] {
+        width: 95%;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .logo-font {
+        font-size: 2rem;
+    }
+    .order-header h1,
+    .hero-title,
+    .hero-title-compact {
+        font-size: 1.8rem !important;
+    }
+    .order-header h2,
+    .hero-subtitle,
+    .hero-subtitle-compact {
+        font-size: 1.2rem !important;
+    }
+    .order-container,
+    .order-details,
+    .order-content {
+        padding: 16px;
+        margin: 10px 0;
+    }
+    .navbar {
+        margin-bottom: 16px;
+    }
+    .footer,
+    footer {
+        padding: 16px 0;
+    }
+    .cake-categories-compact,
+    .cake-categories-section {
+        padding-top: 24px !important;
+        padding-bottom: 24px !important;
+    }
+    .section-title-compact {
+        font-size: 1.7rem !important;
+    }
+    .section-subtitle-compact {
+        font-size: 1.1rem !important;
+    }
+    .order-item {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        font-size: 1.05rem;
+    }
+    .search-box input[type="text"] {
+        width: 90%;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .logo-font {
+        font-size: 2.5rem;
+    }
+    .order-header h1,
+    .hero-title,
+    .hero-title-compact {
+        font-size: 2.5rem !important;
+    }
+    .order-header h2,
+    .hero-subtitle,
+    .hero-subtitle-compact {
+        font-size: 1.3rem !important;
+    }
+    .order-container,
+    .order-details,
+    .order-content {
+        padding: 20px;
+        margin: 15px 0;
+    }
+    .navbar {
+        margin-bottom: 20px;
+    }
+    .footer,
+    footer {
+        padding: 20px 0;
+    }
+    .cake-categories-compact,
+    .cake-categories-section {
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+    }
+    .section-title-compact {
+        font-size: 2rem !important;
+    }
+    .section-subtitle-compact {
+        font-size: 1.2rem !important;
+    }
+    .order-item {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.1rem;
+    }
+    .search-box input[type="text"] {
+        width: 80%;
+    }
+}
