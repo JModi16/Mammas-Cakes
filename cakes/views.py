@@ -252,11 +252,13 @@ This message was sent from the Mamma's Cakes contact form.
                 confirmation_message = f"""
 Dear {name},
 
-Thank you for contacting Mamma's Cakes! We have received your message regarding: {subject_display}
+Thank you for contacting Mamma's Cakes!
+We have received your message regarding: {subject_display}
 
 We will get back to you within 24 hours at {email}.
 
-In the meantime, feel free to check out our delicious cake collections on our website.
+In the meantime, feel free to check out 
+our delicious cake collections on our website.
 
 Best regards,
 The Mamma's Cakes Team
