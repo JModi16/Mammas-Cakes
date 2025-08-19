@@ -69,7 +69,7 @@ class Order(models.Model):
     status = models.CharField(
         max_length=20,
         choices=ORDER_STATUS_CHOICES,
-        default='pending')  # ✅ ADDED
+        default='pending')
     total = models.DecimalField(max_digits=10, decimal_places=2)
     special_instructions = models.TextField(blank=True)
 
@@ -91,7 +91,9 @@ class Order(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        customer_name = self.customer.username if self.customer else self.customer_email
+        customer_name = (
+            self.customer.username if self.customer else self.customer_email
+        )
         return f"Order {self.order_number} - {customer_name}"
 
     def get_status_display_badge(self):
