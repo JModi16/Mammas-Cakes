@@ -76,10 +76,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mammas_cakes.wsgi.application'
 
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'again_ladle_blink_719876',
+        'USER': 'neondb_owner',
+        'PASSWORD': 'npg_uMcI0l7GokAL',
+        'HOST': 'ep-late-feather-a2avc9t0.eu-central-1.aws.neon.tech',
+        'PORT': '5432',
+    }
 }
 
 
