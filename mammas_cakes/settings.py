@@ -11,7 +11,7 @@ import dj_database_url
 # Import environment variables FIRST
 try:
     import env
-    print("✅ Environment variables loaded")
+    print("Environment variables loaded")
 except ImportError:
     print("⚠️ No env.py found - using system environment variables")
 
