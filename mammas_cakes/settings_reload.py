@@ -11,4 +11,4 @@ if 'django.conf' in sys.modules:
 if 'mammas_cakes.settings' in sys.modules:
     del sys.modules['mammas_cakes.settings']
 
-print("🔄 Settings cache cleared")
+print("Settings cache cleared")
