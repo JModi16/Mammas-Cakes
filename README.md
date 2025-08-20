@@ -61,3 +61,48 @@ https://git.heroku.com/mammas-cakes.git/)
 * Be able to view customer cake orders
 * Be able to reset customer passwords
 * Have easy access to admin controls
+
+# Testing 
+
+## All testing undertaken for this project can be found in the [Testing documentation](/TESTING.md)
+
+## Lighthouse Testing
+The site was run through Google Chrome Dev Tools Lighthouse. Results were excellent, close to 100% for majority. See below
+
+#### For full results see dropdown below
+
+### Desktop
+
+<details><summary>Home Page</summary>
+<img src="static/images/cakeslighthousehome.png">
+</details>
+<details><summary>Birthday Cakes</summary>
+<img src="static/images/cakesbirthdaylighthouse.png">
+</details>
+<details><summary>Wedding Cakes</summary>
+<img src="static/images/cakeslighthousewedding.png">
+</details>
+<details><summary>Treats</summary>
+<img src="static/images/cakeslighthousetreats.png">
+</details>
+<details><summary>Vegan Cakes</summary>
+<img src="static/images/cakesveganlighthouse.png">
+</details>
+<details><summary>Order History</summary>
+<img src="static/images/cakesorderhistorylighthouse.png">
+</details>
+<details><summary>Registration</summary>
+<img src="static/images/cakesregisterlighthouse.png">
+</details>
+<details><summary>Login</summary>
+<img src="static/images/cakesloginlighthouse.png">
+</details>
+<details><summary>Password Reset</summary>
+<img src="static/images/cakespasswordlighthouse.png">
+</details>
+<details><summary>Contact Form</summary>
+<img src="static/images/cakescontactlighthouse.png">
+</details>
+
+
+
