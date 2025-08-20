@@ -13,7 +13,7 @@ try:
     import env
     print("Environment variables loaded")
 except ImportError:
-    print("⚠️ No env.py found - using system environment variables")
+    print("No env.py found - using system environment variables")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -188,9 +188,9 @@ if 'DATABASE_URL' in os.environ:  # Heroku production
 # Import local development settings
 try:
     from .local_settings import *
-    print("✅ Development settings imported successfully")
+    print("Development settings imported successfully")
 except ImportError:
-    print("ℹ️  No local_settings.py found - using production settings")
+    print("No local_settings.py found - using production settings")
 
 # Comment out the bottom override section:
 # import sys

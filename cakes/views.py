@@ -146,9 +146,9 @@ def place_order(request):
         # Send confirmation email
         try:
             send_order_confirmation_email(order)
-            print(f"✅ Order confirmation email sent for {order.order_number}")
+            print(f"Order confirmation email sent for {order.order_number}")
         except Exception as email_error:
-            print(f"⚠️ Email sending failed: {email_error}")
+            print(f"Email sending failed: {email_error}")
 
         return JsonResponse({
             'success': True,
@@ -160,7 +160,7 @@ def place_order(request):
         return JsonResponse(
             {'success': False, 'error': 'Invalid JSON data'}, status=400)
     except Exception as e:
-        print(f"❌ Error creating order: {e}")
+        print(f"Error creating order: {e}")
         import traceback
         traceback.print_exc()
         return JsonResponse(
@@ -241,7 +241,7 @@ This message was sent from the Mamma's Cakes contact form.
                     subject=email_subject,
                     message=email_message,
                     from_email=email,
-                    recipient_list=['info@mammascakes.com'],
+                    recipient_list=['mammas.cakes16@gmail.com'],
                     fail_silently=False,
                 )
 
@@ -271,7 +271,7 @@ Address: Moore Court, Howard Road, Edgware, HA7 1FA
                 send_mail(
                     subject=confirmation_subject,
                     message=confirmation_message,
-                    from_email='info@mammascakes.com',
+                    from_email='mammas.cakes16@gmail.com',
                     recipient_list=[email],
                     fail_silently=True,
                 )
