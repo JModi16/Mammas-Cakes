@@ -15,7 +15,7 @@ header {
 }
 
 .navbar {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .nav-link {
@@ -434,7 +434,7 @@ footer .link:hover {
 
 /* Compact cake categories section */
 .cake-categories-compact {
-    padding-top: 30px !important;
+    padding-top: 10px !important;
     padding-bottom: 40px !important;
     margin-top: 0 !important;
 }
