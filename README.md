@@ -28,6 +28,18 @@ https://git.heroku.com/mammas-cakes.git/)
     * [Error Page](#error-page)
 * [Technologies](#technologies-used)
 * [Testing](#testing)
+  * [Validation](#validation)
+    * [HTML Validation](#html-validation)
+    * [CSS Validation](#css-validation)
+    * [JavaScript Linting](#javascript-linting)
+    * [Python Linting](#python-linting)
+    * [Lighthouse Testing](#lighthouse-testing)
+    * [Wave Testing](#wave-testing)
+* [Responsiveness](#responsiveness)
+* [Manual Testing](#manual-testing)
+* [User Stories Testing](#user-stories-testing)
+* [Bugs, Issues and Solutions](#bugs-issues-and-solutions)
+
 * [Deployment](#deployment)
 * [Credits](#credits)
 
@@ -124,7 +136,59 @@ Site Administrators only have priveleges to modify the site, add products, manag
 
 # Testing 
 
-## All testing undertaken for this project can be found in the [Testing documentation](/TESTING.md)
+# Validation 
+## HTML Validation
+Variious html pages shows a mixture of pass and fails. W3 Validator sees % extends cake/base.html' % and does not recognize. Validator cannot parse Django Syntax. By creating a static template to pass validaton, would miss template inheritance and dynamic content. Using page source, rendered html and pasting code into html validator returns 0 error and warnings.All pages show no errors when entered 
+
+| Template                    | Result                                                                                                                                                                                                                                                                                                                | Pass/Fail | Reason for Fail                                        |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------------------------------------------------ |
+| Base.html                   | Non space errors found, element missing head, strey doc type, stray startup                                                                                                                                                                                                                                           | Fail      | because W3 validator not understanding django template |
+| Home                        | Non space value, bad attributes src on elements                                                                                                                                                                                                                                                                       | Fail      | because W3 validator not understanding django template |
+| Products                    | Fail                                                                                                                                                                                                                                                                                                                  | Fail      | because W3 validator not understanding django template |
+| Birthday                    | Non space errors found, element missing head, bad value for attribute on element                                                                                                                                                                                                                                      | Fail      | because W3 validator not understanding django template |
+| Wedding                     | Non space errors found, element missing head, bad value for attribute on element                                                                                                                                                                                                                                      | Fail      | because W3 validator not understanding django template |
+| Treats                      | Non space errors found, element missing head, bad value for attribute on element                                                                                                                                                                                                                                      | Fail      | because W3 validator not understanding django template |
+| Vegan                       | Non space errors found, element missing head, bad value for attribute on element                                                                                                                                                                                                                                      | Fail      | because W3 validator not understanding django template |
+| Signup                      | No Warnings                                                                                                                                                                                                                                                                                                           | Pass      |                                                        |
+| Register                    | No Warnings                                                                                                                                                                                                                                                                                                           | Pass      |                                                        |
+| Login                       | No Warnings                                                                                                                                                                                                                                                                                                           | Pass      |                                                        |
+| Order Confirmation Email    | No Warnings                                                                                                                                                                                                                                                                                                           | Pass      |                                                        |
+| Order History               | No Warnings                                                                                                                                                                                                                                                                                                           | Pass      |                                                        |
+| Order Detail                | No Warnings                                                                                                                                                                                                                                                                                                           | Pass      |                                                        |
+| Order Confirmation          | No Warnings                                                                                                                                                                                                                                                                                                           | Pass      |                                                        |
+| Password reset request      | Non space errors found, element missing head, bad value for attribute on element                                                                                                                                                                                                                                      | Fail      | because W3 validator not understanding django template |
+| Password reset confirmation | Non space errors found, element missing head, bad value for attribute on element                                                                                                                                                                                                                                      | Fail      | because W3 validator not understanding django template |
+|                             | W3 Validator sees % extends cake/base.html' % and does not recognize. Validator cannot parse Django Syntax. By creating a static template to pass validaton, would miss template inheritance and dynamic content. Using page source, rendered html and pasting code into html validator returns 0 error and warnings. |           |                                                        |
+
+## CSS Validation
+I run the CSS code through [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) and showed No errors
+<img src="static/images/cssvalidator.png">
+
+## JavaScript Linting
+
+<details><summary>JavaScript Linting</summary>
+<img src="static/images/cakesjsint.png">
+</details> I ran the JavaScript code through [JSHint](https://jshint.com/), I only had one js file to run the code order-system.js. Two warnings  and one undefined bootstrap variables, which have been resolved.
+
+## Python Linter
+
+I ran the code through [CI Python Liner](https://pep8ci.herokuapp.com/), which shows a multiple errors mostly regarding blank lines, missing whitespaces and too long lines, which all were fixed.
+
+| App          | File                   | Result                                       | Fixed |
+| ------------ | ---------------------- | -------------------------------------------- | ----- |
+| Cakes        | views                  | lines too long (81, 246, 250, 254, 269, 274) | Yes   |
+| Cakes        | models                 | line 94 too long                             | Yes   |
+| Cakes        | forms                  | line 109, 132 too long                       | yes   |
+| Cakes        | admin                  | All ok                                       | yes   |
+| Cakes        | urls                   | no new line at end                           | yes   |
+| Cakes        | settings               | lines 93, 96, 92 102 too long                | Yes   |
+| Migration    | 0001_initial.py        | spacing and long line                        | Yes   |
+| Migration    | 00021_order_collection | All ok                                       | yes   |
+| Migration    | 0003_order_update      | All ok                                       | yes   |
+| Migration    | 0004_alter             | All ok                                       | Yes   |
+| Mammas-Cakes | urls.py                | All ok                                       | Yes   |
+| Mammas-Cakes | manage.py              | All ok                                       | Yes   |
+| Mammas-Cakes | env.py                 | All ok                                       | Yes   |
 
 ## Lighthouse Testing
 The site was run through Google Chrome Dev Tools Lighthouse. Results were excellent, close to 100% for majority. See below
@@ -163,6 +227,7 @@ The site was run through Google Chrome Dev Tools Lighthouse. Results were excell
 <details><summary>Contact Form</summary>
 <img src="static/images/cakescontactlighthouse.png">
 </details>
+
 
 
 
