@@ -68,9 +68,17 @@ https://git.heroku.com/mammas-cakes.git/)
 * Be able to reset customer passwords
 * Have easy access to admin controls
 
+## Structue
+
+ ### Database Schema
+The database was designed using DpDiagram.io
+<details><summary>ERD</summary>
+<img src="static/images/erdcakes.png">
+</details>
+
 
 ## Skeleton
-### Wireframes
+   ### Wireframes
 
 <details><summary>Home Page</summary>
 <img src="static/images/mammashomewf.png">
@@ -361,3 +369,4 @@ To deploy Mammas-Cakes to Heroku, take the following steps:
 10. In the Heroku dashboard, click "Deploy"
 11. In the "Manual Deployment" section, ensure the master branch is selected then click "Deploy Branch"
 11. The site is now deployed
+
