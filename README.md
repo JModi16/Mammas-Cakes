@@ -12,20 +12,15 @@ https://git.heroku.com/mammas-cakes.git/)
 # Table content
 * [UX & 5 Placen of Webiste Design](#ux-and-five-planes-of-website-design)
     * [Strategy](#strategy)
-    * [Scope](#scope)
     * [Structure](#structure)
     * [Skeleton](#skeleton)
     * [Surface](#surface)
 * [Features](#features)
     * [Home Page](#home-page)
     * [Product Page](#products-page)
-    * [Shopping Bag](#shopping-bag)
-    * [Checkout](#checkout)
     * [Profile Page](#profile-page)
-    * [Management Site](#management-site)
     * [Contact Form](#contact-form)
     * [Authentication](#authentication)
-    * [Error Page](#error-page)
 * [Technologies](#technologies-used)
 * [Testing](#testing)
   * [Validation](#validation)
@@ -34,7 +29,6 @@ https://git.heroku.com/mammas-cakes.git/)
     * [JavaScript Linting](#javascript-linting)
     * [Python Linting](#python-linting)
     * [Lighthouse Testing](#lighthouse-testing)
-    * [Wave Testing](#wave-testing)
 * [Responsiveness](#responsiveness)
 * [Manual Testing](#manual-testing)
 * [User Stories Testing](#user-stories-testing)
@@ -74,18 +68,63 @@ https://git.heroku.com/mammas-cakes.git/)
 * Be able to reset customer passwords
 * Have easy access to admin controls
 
+## Structue
+
+ ### Database Schema
+The database was designed using DpDiagram.io
+<details><summary>ERD</summary>
+<img src="static/images/erdcakes.png">
+</details>
+
+
+## Skeleton
+   ### Wireframes
+
+<details><summary>Home Page</summary>
+<img src="static/images/mammashomewf.png">
+</details>
+<details><summary>Templates</summary>
+<img src="static/images/mammastemplateswf.png">
+</details>
+<details><summary>Account Creation</summary>
+<img src="static/images/mammasregisterwf.png">
+</details>
+<details><summary>Login</summary>
+<img src="static/images/mammasloginwf.png">
+</details>
+<details><summary>Order Confirm</summary>
+<img src="static/images/orderconfirmwf.png">
+</details>
+
+## Surface
+
+### **Colour** 
+The Colour palette is a mixture of 3 colours. Dark blue for the header, white colour for the main body and light blue for the footer.The buttons consists of blue colours too.
+ 
+
+### **Typography** 
+
+Fonts were imported from [Google Fonts](https://fonts.google.com/). 
+
+I used the "Arial"  as the primary font for the main body and Mocando Cursive as the Secondary font . I found the Aerial font is a simple, user-friendly, outstanding and clean typeface that contributes the design. I chose Mocando Cursive for my headings, because I love the way letters A, M and W stand out in each heading. I was inspired by using 'Mocando' Cursive when I completed the BoardWalk Games site using on the Code Institute learning management system module. https://jmodi16.github.io/boardwalk-games/ .
+Colour 'black' is used as the font for the text.
 
 
 # Features
 
 ## Home Page
 
+## User Functionality
+
 <details><summary>Home Page</summary>
+Site is opened on this page
 <img src="static/images/mammashome.png">
-</details> Site is opened on this page
+</details>
 <details><summary>Product</summary>
+
+Customers can view selection of cakes on offer, ranging from Birthday, Wedding, Treats and Vegan Cakes.
 <img src="static/images/mammasproducts.png">
-</details>Customers can view selection of cakes on offer, ranging from Birthday, Wedding, Treats and Vegan Cakes.
+</details>
 <details><summary>Login</summary>
 <img src="static/images/cakeslogin.png">
 </details> Customer are required to login before placing an order
@@ -113,7 +152,8 @@ https://git.heroku.com/mammas-cakes.git/)
 <details><summary>Contact Mail Confirmation</summary>
 <img src="static/images/contactrequestmail.png">
 </details> Confirmation the business has received a contact request query
-## Admin Page
+
+ ## Site Admin 
 Site Administrators only have priveleges to modify the site, add products, manage customer orders using super user login credentials. Please see below the 
 <details><summary>Admin Site Login</summary>
 <img src="static/images/adminlogin.png">
@@ -228,7 +268,105 @@ The site was run through Google Chrome Dev Tools Lighthouse. Results were excell
 <img src="static/images/cakescontactlighthouse.png">
 </details>
 
+# Manual Testing
+I conducted comprehensive manual testing on my page, ensuring all functions, links and button functioned correctly. I verified the layout and design, checked the responsivenessreviewed the content for accuracy. All successfully passed the thorough testing, ensuring its user-friendly navigational, form submission functionality and reliability.
+
+<details><summary>User Link Navigation</summary>
+
+| Test Page                   | Goal                                                                        | Result |
+| --------------------------- | --------------------------------------------------------------------------- | ------ |
+| Home Page                   | Cake Collection categories Visible with images and option to view and order | Pass   |
+| Cake type Navigation links  | Visible on all page                                                         | Pass   |
+| Birthday Cakes link         | All birthday cakes visible with price, description and order button         | Pass   |
+| Wedding Cakes link          | All Wedding cakes visible with price, description and order button          | Pass   |
+| Treat Cake Link             | All treat cakes visible with price, description and order button            | Pass   |
+| Vegan Cake Link             | All  Vegan cakes visible with price, description and order button           | Pass   |
+| Register Link               | Opens up registration form                                                  | Pass   |
+| Forgotten you password link | Opens window to enter email address                                         | Pass   |
+| Order History               | Available whilst logged in                                                  | Pass   |
+| Footer                      | Visible on all page                                                         | Pass   |
+| Quick links                 | All navigation links functional                                             | Pass   |
+| Social networking Links     | All links functional and open up an external page                           | Pass   |
+| Contact form                | Fully functional and received by email to mammas.cakes16@gmail.com          | Pass   |
+
+</details>
+
+<details><summary>User Functions</summary>
+
+| Function                                                  | Goal                                                          | Result |
+| --------------------------------------------------------- | ------------------------------------------------------------- | ------ |
+| Login Now Button                                          | Opens with login window                                       | Pass   |
+| Order Now Button                                          | Visible and clickable when user is logged in                  | Pass   |
+| Order Form not available without login                    | User needs to be registered and logged in                     | Pass   |
+| Order form required to complete all fields before sending | Any fields empty prompts with an alert message                | Pass   |
+| Delivery or Collection                                    | Option to switch between both                                 | pass   |
+| Delivery Address prompt ?                                 | Prompted to enter address detail on delivery only             | Pass   |
+| Order Confirmation message                                | Visible on screen and received by email with required details | pass   |
+
+</details>
+
+<details><summary>Admin Functions</summary> Test
+   
+| Test Function                                   | Goal                                                                  | Result |
+| ----------------------------------------------- | --------------------------------------------------------------------- | ------ |
+| Login as super user                             | Opened up admin panel                                                 | Pass   |
+| Add Cake products                               | Opens up form to add cake with image, price, description and category | Pass   |
+| Adjust registered customer email address        | Click users, clicking on their username and make change               | Pass   |
+| Change registered customer contact phone number | Click customer and adjust phone number                                | Pass   |
+| View customer order                             | Order queue listed                                                    | Pass   |
+| Option to change order status                   | Clicking on order and change status                                   | Pass   |
+| Change Customer password                        | Click users, open their profile, complete form to create new password | Pass   |
+| Remove customer                                 | select customer and  delete                                           | Pass   |
+| Remove Cake                                     | select Cakes, select cake and action by delete                        | Pass   |
+
+</details>
 
 
+## Bugs, Issues and Solutions
 
+<details><summary>Errors and Problems</summary>
+   
+| Problem/Error                                                                                          | Solution                                                                                           | Fixed |
+| ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- | ----- |
+|                                                                                                        |                                                                                                    |       |
+| No function when clicking order now button                                                             | validation in javascript file needed adjusting                                                     | Yes   |
+| Order form submitted without all input fields being completed                                          | Added helper function to views.py and adjusted validation method in js file                        | Yes   |
+| No emails generated when order is submitted. Recepient not receiving email confirmation                | Adjusted order confirmation template                                                               | Yes   |
+| Programming Error when running server, resulting in server 500 console error                           | Changed database configuration in settings.py. Database corrupted and had to create new Postreqsql | Yes   |
+| Failed to submit for pop up error when attempting to create order, uncaught type error                 | Fixed method in js file                                                                            | Yes   |
+| error 400 in terminal , "your accessing dev server over https" Http 400 error on dev tools             | Adjusted date parsing in views.py                                                                  | yes   |
+| Orders generated as collection order when delivery is requested.                                       | Updated delivery address fields in models.py and adjsuted validation logic in js file              | yes   |
+| After creating a registration template, receiving error "django core exceptions improperly configured" | removed import models from views.py                                                                | yes   |
+| After creating order history template, receiving attribute error                                       | updated urls patterns functions in app urls.py                                                     | Yes   |
+</details>
+
+# Deployment
+
+## Create PostgreSQL Database
+
+1. Navigate to PostgreSQL from Code Institute template [CI PosgreSQL](https://dbs.ci-dbs.net/)
+2. Enter your student email address in the input field provided.
+3. Click Submit.
+4. Wait while the database is created.
+5. Your database is successfully created! Please review the email sent to your student email inbox.
+
+
+## Heroku deployment
+
+To deploy Mammas-Cakes to Heroku, take the following steps:
+1. Create a requirements.txt file using the terminal command `pip freeze > requirements.txt`
+2. Create a Procfile with the terminal command `echo web: python app.py > Procfile`. Ensure you use a capital 'P' for this file.
+3. `git add` and `git commit` these changes and `git push` to GitHub repository
+4. Go to the Heroku website and login. Create a new app by clicking the "New" button in your dashboard.
+5. Give the app and name and set the region to Europe(or your closest region)
+6. From the heroku dashboard of the new app, click on "Deploy" > "Deployment method" and select Github
+7. Confirm the link to the correct GitHub repository- JModi16
+8. In the heroku dashboard for the application. click on the "settings" > "Reveal Config Vars"
+9. Set the following Config Vars:
+   <img src="static/images/configvars.png"> database_url and secret key hidden to prevent security violation. Screenshot used from CI tutorial Codestar-blog walkthrough project.
+
+
+10. In the Heroku dashboard, click "Deploy"
+11. In the "Manual Deployment" section, ensure the master branch is selected then click "Deploy Branch"
+11. The site is now deployed
 
