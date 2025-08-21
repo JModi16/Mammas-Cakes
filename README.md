@@ -62,6 +62,66 @@ https://git.heroku.com/mammas-cakes.git/)
 * Be able to reset customer passwords
 * Have easy access to admin controls
 
+
+
+# Features
+
+## Home Page
+
+<details><summary>Home Page</summary>
+<img src="static/images/mammashome.png">
+</details> Site is opened on this page
+<details><summary>Product</summary>
+<img src="static/images/mammasproducts.png">
+</details>Customers can view selection of cakes on offer, ranging from Birthday, Wedding, Treats and Vegan Cakes.
+<details><summary>Login</summary>
+<img src="static/images/cakeslogin.png">
+</details> Customer are required to login before placing an order
+<details><summary>Create Order</summary>
+<img src="static/image/createorder.png">
+</details>Customers need to complete all fields before submitting their order
+<details><summary>Order Confirm</summary>
+<img src="static/images/orderconfirm.png">
+</details>Once order has been submitted, customers receive a confirm alert on screen
+<details><summary>Email Confirmation</summary>
+<img src="static/images/mailconfirmation.png">
+</details>Once order has been submitted, customers receive an email confirmation
+<details><summary>Order History</summary>
+<img src="static/images/cakesorderhistory.png">
+</details> Customer can view their orders whilst logged in to their profile
+<details><summary>Registration</summary>
+<img src="static/images/register.png">
+</details> It's mandatory for customers to register, if they already heavent to place an orde
+<details><summary>Password Reset</summary>
+<img src="static/images/passwordreset.png">
+</details> Customers can request a password reset should they forget their login details. Entering an email address registered on our system will enable them to receive a password reset link to reset their password.
+<details><summary>Contact Us</summary>
+<img src="static/images/contactus.png">
+</details> Customer can contact the firm about any query via the form
+<details><summary>Contact Mail Confirmation</summary>
+<img src="static/images/contactrequestmail.png">
+</details> Confirmation the business has received a contact request query
+## Admin Page
+Site Administrators only have priveleges to modify the site, add products, manage customer orders using super user login credentials. Please see below the 
+<details><summary>Admin Site Login</summary>
+<img src="static/images/adminlogin.png">
+</details> Administrators can login via the site home page using their super user credentials.
+<details><summary>Site Administration</summary>
+<img src="static/images/siteadmin.png">
+</details> Administrators can manage this section to add and remove cake products, add, change and remove customer information an and manage customer orders.
+<details><summary>Cake Admin</summary>
+<img src="static/images/addcake.png">
+</details> Administrators can add and remove cake products via the cakes link
+<details><summary>View Orders</summary>
+<img src="static/images/vieworders.png">
+</details> Administrators canv view orders arrived through the site.
+<details><summary>Change Order</summary>
+<img src="static/images/orderchange.png">
+ Admins can change the order. Very useful and repetitive when changing status of an order from pending to available to collect or delivered.
+ </details>
+
+
+
 # Testing 
 
 ## All testing undertaken for this project can be found in the [Testing documentation](/TESTING.md)
@@ -103,6 +163,7 @@ The site was run through Google Chrome Dev Tools Lighthouse. Results were excell
 <details><summary>Contact Form</summary>
 <img src="static/images/cakescontactlighthouse.png">
 </details>
+
 
 
 
