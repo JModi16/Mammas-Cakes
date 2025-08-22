@@ -30,9 +30,8 @@ Project was created using Python, Django, HTML5, CSS3, and JavaScript. The data 
     * [Lighthouse Testing](#lighthouse-testing)
     * [Responsiveness](#responsiveness)
 * [Manual Testing](#manual-testing)
-* [User Stories Testing](#user-stories-testing)
 * [Bugs, Issues and Solutions](#bugs-issues-and-solutions)
-* [Future Enhancements](#Future Enhancements)
+* [Future Enhancements](#Future-Enhancements)
 * [Deployment](#deployment)
 * [Credits](#credits)
 
@@ -360,7 +359,7 @@ I conducted comprehensive manual testing on my page, ensuring all functions, lin
 | email confirmation not received when order placed via Heroku site                                      | mail variables not declared in config vars settings in Heroku                                                              | Yes   |
 | Few Cake Images not cropped and sized correctly                                     | Tried to adjust object-fit in styling properies used Adobe to resize but had an impact on site visibility. My primary focus was to ensure site has required functionality and output, authentication.                                                            | No   |
 
-# Future Enhancement
+# Future Enhancements
 
 The site has room for improvement and additional functionality. In future, I would  propose to implement the following in future;
 
@@ -423,6 +422,7 @@ To deploy Mammas-Cakes to Heroku, take the following steps:
 
 -  My family for their patience whilst I learnt and completed this challenging project.
 -  My brilliant mentor Gareth McGirr Daisy McGirr, for her excellent advice, reliable mentoring, going the extra mile.
+
 
 
 
