@@ -171,7 +171,22 @@ Site Administrators only have priveleges to modify the site, add products, manag
  Admins can change the order. Very useful and repetitive when changing status of an order from pending to available to collect or delivered.
  </details>
 
+## Technologies Used
 
+-   ### Frameworks, Libraries & Programs Used
+
+    * [Google Fonts](https://fonts.google.com/) were used to import the 'Bebas Neue' and 'Noto Serif' font into the style.css file which is used on all pages throughout the project. 
+    * [Bootstrap v5.3.2]() was used on all pages throughout the website to add icons for aesthetic and UX purposes
+    * [Visual Studio Code](https://code.visualstudio.com)/) was the IDE used to build the project. 
+    * [GitHub](https://github.com/) is used to store the projects code after being pushed from Git.
+    * [Balsamiq](https://balsamiq.com/) was used to create the wireframes to support in the design process.
+    * [Pip](https://pypi.org/project/pip/) - tool for installing python packages
+    * [DPDiagram](https://dpdiagram.io) was used to design the EDR model when planning the database
+    * The site was deployed using [Heroku](https://www.heroku.com) and the database used alongside this was PostgreSQL fro Code Institute
+    * [Favicon.io](https://favicon.io/) was used to design the favicon for the site
+    * [Chrome Developer Tools](https://developer.chrome.com/docs/devtools) was used throughout, to troubleshoot, solve bugs, test site features and responsiveness
+    * [amiresponsive](https://ui.dev/amiresponsive) was used to create the responsive screen imagery for the site
+I decided use the built in Django instead of Django all-auth for its simplicity to m
 
 # Testing 
 
@@ -368,5 +383,6 @@ To deploy Mammas-Cakes to Heroku, take the following steps:
 10. In the Heroku dashboard, click "Deploy"
 11. In the "Manual Deployment" section, ensure the master branch is selected then click "Deploy Branch"
 11. The site is now deployed
+
 
 
