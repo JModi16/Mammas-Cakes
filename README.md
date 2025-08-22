@@ -183,11 +183,11 @@ Site Administrators only have priveleges to modify the site, add products, manag
     * [Balsamiq](https://balsamiq.com/) was used to create the wireframes to support in the design process.
     * [Pip](https://pypi.org/project/pip/) - tool for installing python packages.
     * [DPDiagram](https://dpdiagram.io) was used to design the EDR model when planning the database.
-    * The site was deployed using [Heroku](https://www.heroku.com) and the database used alongside this was PostgreSQL fro Code Institute.
+    * [Heroku](https://www.heroku.com) - Site was deployed using Heroku and the database used alongside this was PostgreSQL fro Code Institute.
     * [Favicon.io](https://favicon.io/) was used to design the favicon for the site.
     * [Cloudinary] (https://cloudinary.com/) used to transform digital images via the Heroku platform.
-    * [Chrome Developer Tools](https://developer.chrome.com/docs/devtools) was used throughout, to troubleshoot, solve bugs, test site features and responsiveness
-    * [amiresponsive](https://ui.dev/amiresponsive) was used to create the responsive screen imagery for the site.
+    * [Chrome Developer Tools](https://developer.chrome.com/docs/devtools) was used throughout, to troubleshoot, solve bugs, test site features and responsiveness.
+      
 I decided use the built in Django instead of Django all-auth for its simplicity to manage authentication of customers.
 
 # Testing 
@@ -358,7 +358,7 @@ I conducted comprehensive manual testing on my page, ensuring all functions, lin
 | Orders generated as collection order when delivery is requested.                                       | Updated delivery address fields in models.py and adjsuted validation logic in js file                                      | yes   |
 | After creating a registration template, receiving error "django core exceptions improperly configured" | removed import models from views.py                                                                                        | yes   |
 | After creating order history template, receiving attribute error                                       | updated urls patterns functions in app urls.py                                                                             | Yes   |
-| unable to open app in Heroku, application error                                                        | My Mentor Gareth Mckirr and wife Daisy McKirr kindly helped me resolve this issue by spending 2 hours to adjust my settings file and install Cloudinary | Yes   |My 
+| unable to open app in Heroku, application error                                                        | My Mentor Gareth McGirr and wife Daisy McGirr kindly helped me resolve this issue by spending 2 hours to adjust my settings file and install Cloudinary | Yes   |My 
 | email confirmation not received when order placed via Heroku site                                      | mail variables not declared in config vars settings in Heroku                                                              | Yes   |
 | Few Cake Images not cropped and sized correctly                                     | Tried to adjust object-fit in styling properies used Adobe to resize but had an impact on site visibility. My primary focus was to ensure site has required functionality and output and authentications                                                            | No   |
 
@@ -407,21 +407,23 @@ To deploy Mammas-Cakes to Heroku, take the following steps:
 
    ### Content
 
-- Code Institute was used throughout the tutorials enabling me to understand Python and Django, participating in the walthrough project enabled me to deliver my project.
-- 
+- Code Institute was used throughout the tutorials enabling me to understand Python and Django, completing the walkthrough project enabled me to deliver my project.
+  
 - Tutor at Bristol City College - Manuel Perez Romero for his great cooperation, advise and compassion due to my circumstances.
 
-- Slack Community at Code Institute.
+- Slack Community at Code Institute for their ideas and solutions.
 
 - Tutor support at Code Institute.
 
-
 - [Crumbs and Dollies Cakes](https://www.crumbsanddoilies.co.uk/) to obtain amazing cake images.
 
-   [Lolas Cakes](https://www.lolas.co.uk/)) to obtain spectacular cake images.
+- [Lolas Cakes](https://www.lolas.co.uk/)) to obtain spectacular cake images.
+
+-  [W3Schools](https://www.w3schools.com/html/html_form_elements.asp) for refresher on form styling within html/css.
 
 ## Acknowledgements
 
 -  My family for their patience whilst I learnt and completed this challenging project.
 -  My brilliant mentor Gareth McGirr Daisy McGirr, for her excellent advice, reliable mentoring, going the extra mile.
+
 
