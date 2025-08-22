@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'cakes',  # Add your cakes app here
 ]
 
-sWARE = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line
     'django.contrib.sessions.middleware.SessionMiddleware',
