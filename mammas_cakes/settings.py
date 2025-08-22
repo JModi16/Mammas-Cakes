@@ -215,3 +215,17 @@ except ImportError:
 #     SECURE_PROXY_SSL_HEADER = None
 #     DEBUG = False  # This was forcing DEBUG off!
 #     print("🔧 DEVELOPMENT MODE: SSL forced OFF")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+}
