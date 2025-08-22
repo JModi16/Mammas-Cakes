@@ -23,9 +23,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY',
                             'fallback-secret-key-for-development')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # Change this line
+DEBUG = False  # Change this line
 
-ALLOWED_HOSTS = ['*']  # Change this line for testing
+ALLOWED_HOSTS = ['mammas-cakes-6684e9538d47.herokuapp.com']  # Change this line for testing
+CSRF_TRUSTED_ORIGINS =["https://mammas-cakes-6684e9538d47.herokuapp.com/"]
 
 # Application definition
 
