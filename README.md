@@ -1,20 +1,19 @@
-﻿# Mammas-Cakes
+<h1 align="center">Mammas Cakes</h1>
 
-![Website mock-up](<img src="static/images/mockup.png">)
+![Website mock-up](static/images/mockup.png)
+
 
 Mammas Cakes is an e-commerce website project created for a imaginary bake shop in UK. The main goal of this project was to create the most user-friendly website possible, where you can shop for cakes in an easy and intuitive way. The user can view collection of products, place an order  as a collection or delivery . Users need to register their login credentials and be authenticated before placing an order. Registered users also have the option to view their order history  
 
 Project was created using Python, Django, HTML5, CSS3, and JavaScript. The data was stored in a PostgreSQL database manipulation and deployed using Heroku. Mammas Cakes is my third milestone project for Code Institute's Level 5 Diploma in Web Application Development. Languages used: HTML, CSS, Javascript, Python and Django
 
-[View the live site](
-https://git.heroku.com/mammas-cakes.git/)
+[View the live site](https://mammas-cakes-6684e9538d47.herokuapp.com)
 
-# Table content
-* [UX & 5 Placen of Webiste Design](#ux-and-five-planes-of-website-design)
-    * [Strategy](#strategy)
-    * [Structure](#structure)
-    * [Skeleton](#skeleton)
-    * [Surface](#surface)
+# Table contents
+* [Strategy](#strategy)
+* [Structure](#structure)
+* [Skeleton](#skeleton)
+* [Surface](#surface)
 * [Features](#features)
     * [Home Page](#home-page)
     * [Product Page](#products-page)
@@ -37,7 +36,6 @@ https://git.heroku.com/mammas-cakes.git/)
 * [Deployment](#deployment)
 * [Credits](#credits)
 
-  # UX and Five Planes of Website Design
 
 ## Strategy
 
@@ -417,7 +415,7 @@ To deploy Mammas-Cakes to Heroku, take the following steps:
 
 - [Crumbs and Dollies Cakes](https://www.crumbsanddoilies.co.uk/) to obtain amazing cake images.
 
-- [Lolas Cakes](https://www.lolas.co.uk/)) to obtain spectacular cake images.
+- [Lolas Cakes](https://www.lolas.co.uk/) to obtain spectacular cake images.
 
 -  [W3Schools](https://www.w3schools.com/html/html_form_elements.asp) for refresher on form styling within html/css.
 
@@ -425,6 +423,7 @@ To deploy Mammas-Cakes to Heroku, take the following steps:
 
 -  My family for their patience whilst I learnt and completed this challenging project.
 -  My brilliant mentor Gareth McGirr Daisy McGirr, for her excellent advice, reliable mentoring, going the extra mile.
+
 
 
 
