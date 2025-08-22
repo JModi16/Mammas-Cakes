@@ -68,10 +68,10 @@ https://git.heroku.com/mammas-cakes.git/)
 * Be able to reset customer passwords
 * Have easy access to admin controls
 
-## Structue
+## Structure
 
  ### Database Schema
-The database was designed using DpDiagram.io
+The database was designed using DpDiagram.io. There are 5 tables within this relational database: User, Cake, Customer, Order and OrderItem.
 <details><summary>ERD</summary>
 <img src="static/images/erdcakes.png">
 </details>
@@ -106,9 +106,8 @@ The Colour palette is a mixture of 3 colours. Dark blue for the header, white co
 
 Fonts were imported from [Google Fonts](https://fonts.google.com/). 
 
-I used the "Arial"  as the primary font for the main body and Mocando Cursive as the Secondary font . I found the Aerial font is a simple, user-friendly, outstanding and clean typeface that contributes the design. I chose Mocando Cursive for my headings, because I love the way letters A, M and W stand out in each heading. I was inspired by using 'Mocando' Cursive when I completed the BoardWalk Games site using on the Code Institute learning management system module. https://jmodi16.github.io/boardwalk-games/ .
-Colour 'black' is used as the font for the text.
-
+I selected  "Arial"  as the primary font for the main body and Sans-Serif as the Secondary font . I found the Aerial font is a simple, user-friendly, outstanding and clean typeface that contributes the design. 
+I selected light blue, white as the main body colors and purple for the footer.
 
 # Features
 
@@ -369,4 +368,5 @@ To deploy Mammas-Cakes to Heroku, take the following steps:
 10. In the Heroku dashboard, click "Deploy"
 11. In the "Manual Deployment" section, ensure the master branch is selected then click "Deploy Branch"
 11. The site is now deployed
+
 
