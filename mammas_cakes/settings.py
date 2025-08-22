@@ -89,18 +89,6 @@ DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': os.environ.get('DB_ENGINE', 'django.db.backends.sqlite3'),
-#         'NAME': os.environ.get('DB_NAME', BASE_DIR / 'db.sqlite3'),
-#         'USER': os.environ.get('DB_USER', ''),
-#         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-#         'HOST': os.environ.get('DB_HOST', ''),
-#         'PORT': os.environ.get('DB_PORT', ''),
-#     }
-# }
-
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
     "https://*.herokuapp.com"
@@ -212,13 +200,6 @@ try:
 except ImportError:
     print("No local_settings.py found - using production settings")
 
-# Comment out the bottom override section:
-# import sys
-# if 'runserver' in sys.argv:
-#     SECURE_SSL_REDIRECT = False
-#     SECURE_PROXY_SSL_HEADER = None
-#     DEBUG = False  # This was forcing DEBUG off!
-#     print("🔧 DEVELOPMENT MODE: SSL forced OFF")
 
 LOGGING = {
     "version": 1,
