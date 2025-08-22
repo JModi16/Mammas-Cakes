@@ -307,21 +307,18 @@ def send_order_confirmation_email(order):
     try:
         subject = f'Order Confirmation - {order.order_number}'
 
-        # Use the email template with delivery details
+        if order.customer:
+            customer_name = order.customer.first_name or order.customer.username
+        else:
+            customer_name = order.customer_email or "Customer"
+
         html_message = render_to_string(
             'emails/order_confirmation.html',
             {
                 'order': order,
-                'customer_name': (
-                    order.customer.first_name or
-                    order.customer.username
-                ),
+                'customer_name': customer_name,
             })
 
-        customer_name = (
-            order.customer.first_name or
-            order.customer.username
-        )
         plain_message = f"""
         Dear {customer_name},
 
