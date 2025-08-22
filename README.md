@@ -1,6 +1,6 @@
 ﻿# Mammas-Cakes
 
-![Website mock-up](media/docs/mockup.png)
+![Website mock-up](<img src="static/images/mockup.png">)
 
 Mammas Cakes is an e-commerce website project created for a imaginary bake shop in UK. The main goal of this project was to create the most user-friendly website possible, where you can shop for cakes in an easy and intuitive way. The user can view collection of products, place an order  as a collection or delivery . Users need to register their login credentials and be authenticated before placing an order. Registered users also have the option to view their order history  
 
@@ -360,14 +360,14 @@ I conducted comprehensive manual testing on my page, ensuring all functions, lin
 | After creating order history template, receiving attribute error                                       | updated urls patterns functions in app urls.py                                                                             | Yes   |
 | unable to open app in Heroku, application error                                                        | My Mentor Gareth McGirr and wife Daisy McGirr kindly helped me resolve this issue by spending 2 hours to adjust my settings file and install Cloudinary | Yes   |My 
 | email confirmation not received when order placed via Heroku site                                      | mail variables not declared in config vars settings in Heroku                                                              | Yes   |
-| Few Cake Images not cropped and sized correctly                                     | Tried to adjust object-fit in styling properies used Adobe to resize but had an impact on site visibility. My primary focus was to ensure site has required functionality and output and authentications                                                            | No   |
+| Few Cake Images not cropped and sized correctly                                     | Tried to adjust object-fit in styling properies used Adobe to resize but had an impact on site visibility. My primary focus was to ensure site has required functionality and output, authentication.                                                            | No   |
 
 # Future Enhancement
 
 The site has room for improvement and additional functionality. In future, I would  propose to implement the following in future;
 
 1. No search bar, cannot search products. I will consider implementing this for my next project.
-2. More products and more categories on the site
+2. More products and more categories on the site.
 3. Payment API, enabling customers to make a payment . I will consider this in my next project.
 
 # Deployment
@@ -425,5 +425,6 @@ To deploy Mammas-Cakes to Heroku, take the following steps:
 
 -  My family for their patience whilst I learnt and completed this challenging project.
 -  My brilliant mentor Gareth McGirr Daisy McGirr, for her excellent advice, reliable mentoring, going the extra mile.
+
 
 
