@@ -5,7 +5,7 @@
 
 Mammas Cakes is an e-commerce website project created for a imaginary bake shop in UK. The main goal of this project was to create the most user-friendly website possible, where you can shop for cakes in an easy and intuitive way. The user can view collection of products, place an order  as a collection or delivery . Users need to register their login credentials and be authenticated before placing an order. Registered users also have the option to view their order history  
 
-Project was created using Python, Django, HTML5, CSS3, and JavaScript. The data was stored in a PostgreSQL database manipulation and deployed using Heroku. Mammas Cakes is my third milestone project for Code Institute's Level 5 Diploma in Web Application Development. Languages used: HTML, CSS, Javascript, Python and Django
+Project was created using Python, Django, HTML5, CSS3, and JavaScript. The data was stored in a PostgreSQL database manipulation and deployed using Heroku. Mammas Cakes is my third milestone project for Code Institute's Level 5 Diploma in Web Application Development.
 
 [View the live site](https://mammas-cakes-6684e9538d47.herokuapp.com)
 
@@ -423,6 +423,7 @@ To deploy Mammas-Cakes to Heroku, take the following steps:
 
 -  My family for their patience whilst I learnt and completed this challenging project.
 -  My brilliant mentor Gareth McGirr Daisy McGirr, for her excellent advice, reliable mentoring, going the extra mile.
+
 
 
 
